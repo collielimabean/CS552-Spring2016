@@ -1,12 +1,10 @@
 
 module cla4_tb;
-
     reg [3:0] a, b;
     reg cin;
     wire [3:0] s;
-    wire cout;
-
-    cla4 cla(.A (a), .B(b), .Cin(cin), .S(s), .Cout(cout));
+    wire cout, P, G;
+    cla4 cla(.A (a), .B(b), .Cin(cin), .S(s), .Cout(cout), .PG(P), .GG(G));
 
     initial begin
         a <= 4'b0000;
