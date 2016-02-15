@@ -1,0 +1,86 @@
+# //  ModelSim SE 5.8b Jan 01 2004 Linux 2.6.32-573.7.1.el6.x86_64
+# //
+# //  Copyright Model Technology, a Mentor Graphics Corporation company, 2004
+# //                         All Rights Reserved.
+# //                   UNPUBLISHED, LICENSED SOFTWARE.
+# //         CONFIDENTIAL AND PROPRIETARY INFORMATION WHICH IS THE
+# //        PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS.
+# //
+# Project file /afs/cs.wisc.edu/u/e/i/eick/private/552/HW1.mpf was not found.
+# Unable to open project.
+# Loading project cpu
+# Compile of not1.v was successful.
+# Compile of clkrst.v was successful.
+# Compile of xor2.v was successful.
+# Compile of demux1to2.v was successful.
+# Compile of xor3.v was successful.
+# Compile of demux1to2_tb.v failed with 1 errors.
+# Compile of nand3.v was successful.
+# Compile of nor2.v was successful.
+# Compile of nor3.v was successful.
+# Compile of nand2.v was successful.
+# Compile of dff.v was successful.
+# 11 compiles, 1 failed with 1 error. 
+# Compile of demux1to2_tb.v failed with 1 errors.
+# Compile of demux1to2_tb.v was successful.
+vsim work.demux1to2_tb
+# vsim work.demux1to2_tb 
+# Loading work.demux1to2_tb
+# Loading work.demux1to2
+# Loading work.not1
+# Loading work.nand2
+run -All
+# Demux fail at time                   20: In: 1 | S: 0 | expected: 0
+# Demux fail at time                   60: In: 1 | S: 1 | expected: 0
+quit -sim
+# Compile of demux1to2_tb.v was successful.
+vsim work.demux1to2_tb
+# vsim work.demux1to2_tb 
+# Loading work.demux1to2_tb
+# Loading work.demux1to2
+# Loading work.not1
+# Loading work.nand2
+run -All
+# Demux fail at time                   20: In: 1 | S: 0 | expected: 1
+# Demux fail at time                   60: In: 1 | S: 1 | expected: 1
+show wave
+# Module demux1to2_tb {
+#    {Register In}
+#    {Register S}
+#    {Net Out}
+#    {Root ..}
+#    {Module d0}
+# }
+show wave
+# Module demux1to2_tb {
+#    {Register In}
+#    {Register S}
+#    {Net Out}
+#    {Root ..}
+#    {Module d0}
+# }
+# Load canceled
+run -all
+run -all
+quit -sim
+vsim work.demux1to2_tb
+# vsim work.demux1to2_tb 
+# Loading work.demux1to2_tb
+# Loading work.demux1to2
+# Loading work.not1
+# Loading work.nand2
+run -all
+# Demux fail at time                   20: In: 1 | S: 0 | expected: 1
+# Demux fail at time                   60: In: 1 | S: 1 | expected: 1
+quit -sim
+# Compile of demux1to2_tb.v failed with 1 errors.
+# Compile of demux1to2_tb.v was successful.
+vsim work.demux1to2_tb
+# vsim work.demux1to2_tb 
+# Loading work.demux1to2_tb
+# Loading work.demux1to2
+# Loading work.not1
+# Loading work.nand2
+run -all
+# Demux fail at time                   20: In: 1 | S: 0 | expected: 1
+# Demux fail at time                   60: In: 1 | S: 1 | expected: 1

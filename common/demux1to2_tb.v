@@ -1,4 +1,4 @@
-module demux1to2_tb(In, S, Out);
+module demux1to2_tb();
     reg In;
     reg S;
     wire [1:0] Out;
@@ -11,12 +11,13 @@ module demux1to2_tb(In, S, Out);
         #20 In <= 1'b1;
         #20 In <= 1'b0; S <= 1'b1;
         #20 In <= 1'b1;
+        #20;
 
     end
 
     always @(*) begin
         if ((In & ~S != Out[0]) | (In & S != Out[1])) begin
-            $display("Demux fail at time %d: In: %d | S: %d | expected: %d", $time, In, S, Out);
+            $display("Demux fail at time %d: In: %d | S: %d | expected: %d", $time, In, S, (In & ~S != Out[0]) | (In & S != Out[1]));
         end
     end
 
