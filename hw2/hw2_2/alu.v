@@ -25,7 +25,7 @@ module alu (A, B, Cin, Op, invA, invB, sign, Out, Ofl, Z);
     assign or_out = actual_a_operand | actual_b_operand;
     assign xor_out = actual_a_operand ^ actual_b_operand;
 
-    assign is_add_op = Op[2] & ~(Op[1] || Op[0]);
+    assign is_add_op = Op[2] & ~(Op[1] | Op[0]);
     assign unsigned_ofl = actual_a_operand[15] & (actual_b_operand[15] & ~ca_out[15]);
     assign signed_ofl = (actual_a_operand[15] & (actual_b_operand[15] & ~ca_out[15])) | (~actual_a_operand[15] & (~actual_b_operand[15] & ca_out[15]));
 
