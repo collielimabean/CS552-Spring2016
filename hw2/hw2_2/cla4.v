@@ -17,7 +17,7 @@ module cla4(A, B, Cin, S, Cout, PG, GG);
     assign Cout = G[3] | ((G[2] & P[3]) | ((G[1] & (P[2] & P[3])) | ((G[0] & (&P[3:1]))) | (C[0] & (&P))));
 
     assign PG = &P;
-    assign GG = G[2] | ((P[2] & G[1]) | (G[0] & (P[1] & P[2])));
+    assign GG = G[3] | ((G[2] & P[3]) | ((G[1] & (P[3] & P[2])) | (G[0] & (&P[3:1]))));
 
     fulladder1 fa[3:0] (.A (A), .B (B), .Cin (C), .S(S), .P (P), .G (G));
 
