@@ -3,6 +3,6 @@ module demux1to2_16(In, S, Out0, Out1);
 	input       S;
 	output [15:0] Out0, Out1;
 
-	demux1to2 d[15:0](.In(In), .S(S), .Out(Out));
+	demux1to2 d[15:0](.In(In), .S(S), .Out0(Out0), .Out1(Out1));
 
 endmodule
