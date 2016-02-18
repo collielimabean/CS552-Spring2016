@@ -1,4 +1,6 @@
-module demux1to2_tb();
+
+// TODO: Fix broken ports
+module demux1to2_tb;
     reg In;
     reg S;
     wire [1:0] Out;

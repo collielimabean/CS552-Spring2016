@@ -6,9 +6,9 @@ module mux4to1_16(InA, InB, InC, InD, S, Out);
 	output [15:0] Out;
 	
 	wire [15:0] mux0_out, mux1_out;
-	
-	mux2to1_16 mux0(.InA(InA),      .InB(InB),      .S(S[0]), .Out(mux0_out));
-	mux2to1_16 mux1(.InA(InC),      .InB(InD),      .S(S[0]), .Out(mux1_out));
-	mux2to1_16 mux2(.InA(mux0_out), .InB(mux1_out), .S(S[1]), .Out(Out));
+
+    assign mux0_out = (S[0]) ? InB : InA;
+    assign mux1_out = (S[0]) ? InD : InC;
+	assign Out = (S[1]) ? mux1_out : mux0_out;
 
 endmodule
