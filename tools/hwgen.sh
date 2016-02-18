@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script automatically pulls the tarball from the HW site and unpacks it in the repo.
 
 if [ $# -ne 1 ]; then
     echo './hwgen.sh <hw number>'
