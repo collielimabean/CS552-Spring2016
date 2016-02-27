@@ -17,8 +17,8 @@ COMMON_MODULE_PATH = '../common/'
 VERILOG_KEYWORDS = (
     "assign", "module", "endmodule", "input", "output",
     "wire", "`define", "parameter", "case", "casex", "reg",
-    "always", "begin", "end", "attribute", "buf", "bufif0",
-    "bufif1", "casez", "cmos", "deassign", "disable", "edge",
+    "always", "begin", "end", "attribute", "buf", "bufif0", "default",
+    "bufif1", "casez", "cmos", "deassign", "disable", "edge", "endcase",
     "else", "endattribute", "endfunction", "endprimitive", "endspecify",
     "endtable", "endtask", "event", "for", "forever", "fork", "function",
     "highz0", "highz1", "if", "ifnone", "initial", "inout", "integer",
@@ -75,7 +75,7 @@ def get_dependent_module_names(module_file_path):
             elif tokens[0] not in VERILOG_KEYWORDS and 'always' not in tokens[0] and \
                      all(op not in tokens[1] for op in OPERATORS) and \
                      not '#' in tokens[0] and \
-                     tokens[0][0] not in ('@$'):
+                     tokens[0][0] not in ('@$0123456789'):
                 dependent.append(tokens[0])
 
         return dependent
