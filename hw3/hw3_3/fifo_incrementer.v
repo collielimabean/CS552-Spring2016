@@ -7,7 +7,7 @@ module fifo_incrementer(en, clk, rst, Out);
     
     dff2 state(.d (next_val), .clk (clk), .rst (rst), .q (Out));
 
-    assign inc[0] = ~In[0];
-    assign inc[1] = In[1] ^ In[0];
+    assign inc[0] = ~Out[0];
+    assign inc[1] = Out[1] ^ Out[0];
     assign next_val = (en) ? inc : Out;
 endmodule

@@ -27,7 +27,7 @@ module fifo(/*AUTOARG*/
                 .data_out(data_out),
                 .fifo_empty(fifo_empty),
                 .fifo_full(fifo_full),
-                .err(err);
+                .err(err));
 
 endmodule
 // DUMMY LINE FOR REV CONTROL :1:
