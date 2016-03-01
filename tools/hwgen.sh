@@ -23,5 +23,5 @@ wget --quiet http://pages.cs.wisc.edu/~karu/courses/cs552/spring2016//handouts/v
 echo "Received! Now unpacking..."
 tar xf hw$1.tar
 rm -f hw$1.tar
-cp -rf ../partners.txt .
+cp -rf ../partner.txt .
 echo "Done!"
