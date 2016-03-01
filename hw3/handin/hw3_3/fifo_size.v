@@ -15,4 +15,5 @@ module fifo_size(rst, clk, data_in_valid, pop_fifo, full, empty, err);
 
     assign full = ~rst & cur[4];
     assign empty = rst | cur[0];
+    assign err = ~rst & cur[4] & cur[0];
 endmodule
