@@ -1,0 +1,641 @@
+
+                        DC Professional (TM)
+                           DC Expert (TM)
+                            DC Ultra (TM)
+                       FloorPlan Manager (TM)
+                          HDL Compiler (TM)
+                         VHDL Compiler (TM)
+                        Library Compiler (TM)
+                      DesignWare Developer (TM)
+                          DFT Compiler (TM)
+                            BSD Compiler
+                         Power Compiler (TM)
+
+           Version B-2008.09-SP3 for amd64 -- Jan 19, 2009
+              Copyright (c) 1988-2008 by Synopsys, Inc.
+                         ALL RIGHTS RESERVED
+
+This software and the associated documentation are confidential and 
+proprietary to Synopsys, Inc. Your use or disclosure of this software 
+is subject to the terms and conditions of a written license agreement 
+between you, or your company, and Synopsys, Inc.
+
+The above trademark notice does not imply that you are licensed to use 
+all of the listed products. You are licensed to use only those products 
+for which you have lawfully obtained a valid license key.
+
+Initializing...
+echo "********** CS552 Reading files begin ********************"
+********** CS552 Reading files begin ********************
+set my_verilog_files [list demux1to4.v dff64.v dff.v fifo_size.v fifo.v inc.v mux4to1.v  ]
+demux1to4.v dff64.v dff.v fifo_size.v fifo.v inc.v mux4to1.v
+set my_toplevel fifo
+fifo
+define_design_lib WORK -path ./WORK
+1
+analyze -f verilog $my_verilog_files
+Running PRESTO HDLC
+Searching for ./demux1to4.v
+Searching for ./dff64.v
+Searching for ./dff.v
+Searching for ./fifo_size.v
+Searching for ./fifo.v
+Searching for ./inc.v
+Searching for ./mux4to1.v
+Compiling source file ./demux1to4.v
+Compiling source file ./dff64.v
+Compiling source file ./dff.v
+Warning:  ./dff.v:15: delays for continuous assignment are ignored. (VER-173)
+Compiling source file ./fifo_size.v
+Compiling source file ./fifo.v
+Compiling source file ./inc.v
+Compiling source file ./mux4to1.v
+Presto compilation completed successfully.
+Loading db file '/u/k/a/karu/courses/cs552/cad/Synopsys_Libraries/libs/gscl45nm.db'
+1
+elaborate $my_toplevel -architecture verilog
+Loading db file '/s/synopsys-2009_03_09/@sys/B-2008.09-SP3/libraries/syn/gtech.db'
+Loading db file '/s/synopsys-2009_03_09/@sys/B-2008.09-SP3/libraries/syn/standard.sldb'
+  Loading link library 'gscl45nm'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'fifo'.
+Information: Building the design 'dff'. (HDL-193)
+
+Inferred memory devices in process
+	in routine dff line 17 in file
+		'./dff.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'dff64'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'mux4to1'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'demux1to4'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'inc'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'fifo_size'. (HDL-193)
+Presto compilation completed successfully.
+1
+echo "********** CS552 Reading files end ********************"
+********** CS552 Reading files end ********************
+current_design $my_toplevel
+Current design is 'fifo'.
+{fifo}
+#/* The name of the clock pin. If no clock-pin     */
+#/* exists, pick anything                          */
+set my_clock_pin clk
+clk
+#/* Target frequency in MHz for optimization       */
+set my_clk_freq_MHz 1000
+1000
+#/* Delay of input signals (Clock-to-Q, Package etc.)  */
+set my_input_delay_ns 0.1
+0.1
+#/* Reserved time for output signals (Holdtime etc.)   */
+set my_output_delay_ns 0.1
+0.1
+#/**************************************************/
+#/* No modifications needed below                  */
+#/**************************************************/
+set verilogout_show_unconnected_pins "true"
+true
+# analyze -f verilog $my_verilog_files
+# elaborate $my_toplevel -architecture verilog
+# current_design $my_toplevel
+report_hierarchy 
+ 
+****************************************
+Report : hierarchy
+Design : fifo
+Version: B-2008.09-SP3
+Date   : Wed Mar  2 12:59:57 2016
+****************************************
+
+Information: This design contains unmapped logic. (RPT-7)
+
+fifo
+    GTECH_AND2                           gtech
+    GTECH_BUF                            gtech
+    GTECH_NOT                            gtech
+    GTECH_OR2                            gtech
+    demux1to4
+        GTECH_AND2                       gtech
+        GTECH_NOT                        gtech
+    dff
+        GTECH_BUF                        gtech
+        GTECH_NOT                        gtech
+    dff64
+        dff
+            ...
+    fifo_size
+        GTECH_AND2                       gtech
+        GTECH_NOT                        gtech
+        GTECH_OR2                        gtech
+        GTECH_XOR2                       gtech
+        dff
+            ...
+    inc
+        GTECH_NOT                        gtech
+        GTECH_XOR2                       gtech
+    mux4to1
+        GTECH_BUF                        gtech
+        GTECH_NOT                        gtech
+1
+link
+
+  Linking design 'fifo'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  gscl45nm (library)          /u/k/a/karu/courses/cs552/cad/Synopsys_Libraries/libs/gscl45nm.db
+
+1
+uniquify
+Removing uniquified design 'dff'.
+Removing uniquified design 'dff64'.
+Removing uniquified design 'mux4to1'.
+Removing uniquified design 'demux1to4'.
+Removing uniquified design 'inc'.
+  Uniquified 265 instances of design 'dff'.
+  Uniquified 4 instances of design 'dff64'.
+  Uniquified 64 instances of design 'mux4to1'.
+  Uniquified 64 instances of design 'demux1to4'.
+  Uniquified 2 instances of design 'inc'.
+1
+set my_period [expr 1000 / $my_clk_freq_MHz]
+1
+set find_clock [ find port [list $my_clock_pin] ]
+{clk}
+if {  $find_clock != [list] } {
+   set clk_name $my_clock_pin
+   create_clock -period $my_period $clk_name
+} else {
+   set clk_name vclk
+   create_clock -period $my_period -name $clk_name
+} 
+1
+set_driving_cell  -lib_cell INVX1  [all_inputs]
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+Warning: Design rule attributes from the driving cell will be
+	set on the port. (UID-401)
+1
+set_input_delay $my_input_delay_ns -clock $clk_name [remove_from_collection [all_inputs] $my_clock_pin]
+1
+set_output_delay $my_output_delay_ns -clock $clk_name [all_outputs]
+1
+compile -map_effort low  -area_effort low
+Warning: The compile -map_effort low is obsolete. Setting this variable now defaults to compile -map_effort medium. Please update your script accordingly. (OPT-1303)
+Warning: Setting attribute 'fix_multiple_port_nets' on design 'fifo'. (UIO-59)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library       |      Version       | Available |
+============================================================================
+| Basic DW Building Blocks                | B-2008.09-DWBB_0901
+                                                               |     *     |
+| Licensed DW Building Blocks             |                    |           |
+============================================================================
+
+
+Information: There are 1 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'dff_260'
+  Processing 'fifo_size'
+  Processing 'inc_0'
+  Processing 'demux1to4_63'
+  Processing 'mux4to1_63'
+  Processing 'dff64_3'
+  Processing 'fifo'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02    8798.0      0.00       0.0       1.9                          
+
+
+  Beginning Design Rule Fixing  (max_capacitance)
+  ----------------------------
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:02    8798.0      0.00       0.0       1.9                          
+    0:00:02   10243.4      0.00       0.0       1.3 entries[2]/dff_arr[16]/N3
+    0:00:03   10630.1      0.00       0.0       1.0 n695                     
+    0:00:03   12221.0      0.00       0.0       0.3 n269                     
+
+
+  Beginning Area-Recovery Phase  (cleanup)
+  -----------------------------
+
+   ELAPSED            WORST NEG TOTAL NEG  DESIGN                            
+    TIME      AREA      SLACK     SLACK   RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:04   12221.0      0.00       0.0       0.3                          
+    0:00:05   12221.0      0.00       0.0       0.3                          
+    0:00:05   10278.1      0.00       0.0       0.3                          
+    0:00:05    9865.2      0.00       0.0       0.3                          
+    0:00:05    9694.8      0.00       0.0       0.3                          
+    0:00:05    9606.1      0.00       0.0       0.3                          
+    0:00:05    9527.7      0.00       0.0       0.3                          
+    0:00:05    9455.9      0.00       0.0       0.3                          
+    0:00:05    9369.1      0.00       0.0       0.3                          
+    0:00:05    9304.8      0.00       0.0       0.3                          
+    0:00:05    9242.9      0.00       0.0       0.3                          
+    0:00:05    9148.5      0.00       0.0       0.3                          
+    0:00:05    9083.8      0.00       0.0       0.3                          
+    0:00:05    9022.3      0.00       0.2       0.3                          
+    0:00:05    9006.8      0.00       0.0       0.3                          
+    0:00:05    9006.8      0.00       0.0       0.3                          
+    0:00:05    9006.8      0.00       0.0       0.3                          
+    0:00:05    8847.7      0.00       0.0       0.3                          
+    0:00:05    8721.9      0.00       0.0       0.3                          
+    0:00:05    8721.5      0.00       0.0       0.3                          
+    0:00:05    8721.5      0.00       0.0       0.3                          
+    0:00:05    8721.5      0.00       0.0       0.3                          
+    0:00:05    8721.5      0.00       0.0       0.3                          
+    0:00:05    8721.5      0.00       0.0       0.3                          
+    0:00:05    8721.5      0.00       0.0       0.3                          
+    0:00:06    8721.5      0.00       0.0       0.3                          
+Loading db file '/u/k/a/karu/courses/cs552/cad/Synopsys_Libraries/libs/gscl45nm.db'
+
+  Optimization Complete
+  ---------------------
+1
+check_design -summary
+Warning: In design 'fifo_size', there is 1 submodule connected to power or ground. (LINT-30)
+
+Information: Use the 'check_design' command for 
+	 more information about warnings. (LINT-98)
+
+1
+report_constraint -all_violators
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : fifo
+Version: B-2008.09-SP3
+Date   : Wed Mar  2 13:00:03 2016
+****************************************
+
+
+   max_capacitance
+
+                             Required        Actual
+   Net                      Capacitance    Capacitance       Slack
+   -----------------------------------------------------------------
+   dout_mux[0]/n4               0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[0]/n6               0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[1]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[1]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[2]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[2]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[3]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[3]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[4]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[4]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[5]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[5]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[6]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[6]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[7]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[7]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[8]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[8]/n11              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[9]/n9               0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[9]/n10              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[10]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[10]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[11]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[11]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[12]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[12]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[13]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[13]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[14]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[14]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[15]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[15]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[16]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[16]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[17]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[17]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[18]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[18]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[19]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[19]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[20]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[20]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[21]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[21]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[22]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[22]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[23]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[23]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[24]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[24]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[25]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[25]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[26]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[26]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[27]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[27]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[28]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[28]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[29]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[29]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[30]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[30]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[31]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[31]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[32]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[32]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[33]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[33]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[34]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[34]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[35]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[35]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[36]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[36]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[37]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[37]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[38]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[38]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[39]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[39]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[40]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[40]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[41]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[41]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[42]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[42]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[43]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[43]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[44]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[44]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[45]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[45]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[46]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[46]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[47]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[47]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[48]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[48]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[49]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[49]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[50]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[50]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[51]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[51]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[52]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[52]/n11             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[53]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[53]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[54]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[54]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[55]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[55]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[56]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[56]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[57]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[57]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[58]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[58]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[59]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[59]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[60]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[60]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[61]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[61]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[62]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[62]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[63]/n9              0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   dout_mux[63]/n10             0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   fs/n12                       0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   fs/n14                       0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   fs/n15                       0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   fs/n17                       0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n266                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n268                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n269                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n271                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n431                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n432                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n436                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n445                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n451                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n452                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n456                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n465                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n545                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n546                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n550                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n559                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n565                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n566                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n570                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n579                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n617                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n618                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n622                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n631                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n637                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n638                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n642                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n651                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n660                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n661                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n665                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n674                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n680                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n681                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n685                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+   n694                         0.00           0.00           0.00  (VIOLATED: increase signficant digits)
+
+
+1
+set filename [format "%s%s"  $my_toplevel ".syn.v"]
+fifo.syn.v
+write -hierarchy -f verilog $my_toplevel -output synth/$filename
+Writing verilog file '/afs/cs.wisc.edu/u/j/e/jen/private/cs552/cs552-spring16/hw4/hw4_2/synth/fifo.syn.v'.
+Warning: Bus naming style currently specified as %s<%d>, verilog syntax requires bus naming style to be "[]".  (VO-13)
+1
+set filename [format "%s%s"  $my_toplevel ".ddc"]
+fifo.ddc
+write -hierarchy -format ddc -output synth/$filename
+Writing ddc file 'synth/fifo.ddc'.
+1
+report_reference > synth/reference_report.txt
+report_area > synth/area_report.txt
+report_cell > synth/cell_report.txt
+report_timing -max_paths 20 > synth/timing_report.txt
+report_power > synth/power_report.txt
+quit
+Information: Defining new variable 'filename'. (CMD-041)
+Information: Defining new variable 'my_clk_freq_MHz'. (CMD-041)
+Information: Defining new variable 'my_toplevel'. (CMD-041)
+Information: Defining new variable 'clk_name'. (CMD-041)
+Information: Defining new variable 'find_clock'. (CMD-041)
+Information: Defining new variable 'my_output_delay_ns'. (CMD-041)
+Information: Defining new variable 'my_period'. (CMD-041)
+Information: Defining new variable 'my_verilog_files'. (CMD-041)
+Information: Defining new variable 'my_clock_pin'. (CMD-041)
+Information: Defining new variable 'my_input_delay_ns'. (CMD-041)
+
+Thank you...
