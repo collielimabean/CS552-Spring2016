@@ -1,0 +1,1035 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 20
+Design : rf_bypass
+Version: B-2008.09-SP3
+Date   : Wed Mar  2 13:06:07 2016
+****************************************
+
+Operating Conditions: typical   Library: gscl45nm
+Wire Load Model Mode: top
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[5]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[5]/S<0> (demux1to8_5)            0.00       0.51 r
+  regfile/wr_demux/demux[5]/U8/Y (INVX1)                  0.15       0.66 f
+  regfile/wr_demux/demux[5]/U2/Y (INVX1)                  0.07       0.72 r
+  regfile/wr_demux/demux[5]/U5/Y (NOR3X1)                 0.04       0.76 f
+  regfile/wr_demux/demux[5]/Out6 (demux1to8_5)            0.00       0.76 f
+  regfile/wr_demux/Out6<5> (demux1to8_16)                 0.00       0.76 f
+  regfile/registers[6]/d<5> (register16_6)                0.00       0.76 f
+  regfile/registers[6]/U22/Y (AOI22X1)                    0.05       0.81 r
+  regfile/registers[6]/U42/Y (BUFX2)                      0.03       0.84 r
+  regfile/registers[6]/U43/Y (INVX1)                      0.01       0.86 f
+  regfile/registers[6]/dff_arr[5]/d (dff_106)             0.00       0.86 f
+  regfile/registers[6]/dff_arr[5]/U3/Y (INVX1)            0.00       0.86 r
+  regfile/registers[6]/dff_arr[5]/U4/Y (OR2X1)            0.05       0.91 r
+  regfile/registers[6]/dff_arr[5]/U5/Y (INVX1)            0.02       0.93 f
+  regfile/registers[6]/dff_arr[5]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.93 f
+  data arrival time                                                  0.93
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[5]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.93
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[5]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[5]/S<0> (demux1to8_5)            0.00       0.51 r
+  regfile/wr_demux/demux[5]/U8/Y (INVX1)                  0.15       0.66 f
+  regfile/wr_demux/demux[5]/U2/Y (INVX1)                  0.07       0.72 r
+  regfile/wr_demux/demux[5]/U10/Y (NOR3X1)                0.04       0.76 f
+  regfile/wr_demux/demux[5]/Out2 (demux1to8_5)            0.00       0.76 f
+  regfile/wr_demux/Out2<5> (demux1to8_16)                 0.00       0.76 f
+  regfile/registers[2]/d<5> (register16_2)                0.00       0.76 f
+  regfile/registers[2]/U22/Y (AOI22X1)                    0.05       0.81 r
+  regfile/registers[2]/U42/Y (BUFX2)                      0.03       0.84 r
+  regfile/registers[2]/U43/Y (INVX1)                      0.01       0.86 f
+  regfile/registers[2]/dff_arr[5]/d (dff_42)              0.00       0.86 f
+  regfile/registers[2]/dff_arr[5]/U3/Y (INVX1)            0.00       0.86 r
+  regfile/registers[2]/dff_arr[5]/U4/Y (OR2X1)            0.05       0.91 r
+  regfile/registers[2]/dff_arr[5]/U5/Y (INVX1)            0.02       0.93 f
+  regfile/registers[2]/dff_arr[5]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.93 f
+  data arrival time                                                  0.93
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[5]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.93
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.02
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[0]/dff_arr[5]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[5]/S<0> (demux1to8_5)            0.00       0.51 r
+  regfile/wr_demux/demux[5]/U8/Y (INVX1)                  0.15       0.66 f
+  regfile/wr_demux/demux[5]/U2/Y (INVX1)                  0.07       0.72 r
+  regfile/wr_demux/demux[5]/U12/Y (NOR3X1)                0.03       0.75 f
+  regfile/wr_demux/demux[5]/Out0 (demux1to8_5)            0.00       0.75 f
+  regfile/wr_demux/Out0<5> (demux1to8_16)                 0.00       0.75 f
+  regfile/registers[0]/d<5> (register16_0)                0.00       0.75 f
+  regfile/registers[0]/U22/Y (AOI22X1)                    0.05       0.81 r
+  regfile/registers[0]/U42/Y (BUFX2)                      0.03       0.84 r
+  regfile/registers[0]/U43/Y (INVX1)                      0.01       0.86 f
+  regfile/registers[0]/dff_arr[5]/d (dff_10)              0.00       0.86 f
+  regfile/registers[0]/dff_arr[5]/U3/Y (INVX1)            0.00       0.86 r
+  regfile/registers[0]/dff_arr[5]/U4/Y (OR2X1)            0.05       0.90 r
+  regfile/registers[0]/dff_arr[5]/U5/Y (INVX1)            0.02       0.93 f
+  regfile/registers[0]/dff_arr[5]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.93 f
+  data arrival time                                                  0.93
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[0]/dff_arr[5]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.93
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.02
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[4]/dff_arr[5]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[5]/S<0> (demux1to8_5)            0.00       0.51 r
+  regfile/wr_demux/demux[5]/U8/Y (INVX1)                  0.15       0.66 f
+  regfile/wr_demux/demux[5]/U2/Y (INVX1)                  0.07       0.72 r
+  regfile/wr_demux/demux[5]/U7/Y (NOR3X1)                 0.03       0.75 f
+  regfile/wr_demux/demux[5]/Out4 (demux1to8_5)            0.00       0.75 f
+  regfile/wr_demux/Out4<5> (demux1to8_16)                 0.00       0.75 f
+  regfile/registers[4]/d<5> (register16_4)                0.00       0.75 f
+  regfile/registers[4]/U22/Y (AOI22X1)                    0.05       0.81 r
+  regfile/registers[4]/U42/Y (BUFX2)                      0.03       0.84 r
+  regfile/registers[4]/U43/Y (INVX1)                      0.01       0.86 f
+  regfile/registers[4]/dff_arr[5]/d (dff_74)              0.00       0.86 f
+  regfile/registers[4]/dff_arr[5]/U3/Y (INVX1)            0.00       0.86 r
+  regfile/registers[4]/dff_arr[5]/U4/Y (OR2X1)            0.05       0.90 r
+  regfile/registers[4]/dff_arr[5]/U5/Y (INVX1)            0.02       0.93 f
+  regfile/registers[4]/dff_arr[5]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.93 f
+  data arrival time                                                  0.93
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[4]/dff_arr[5]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.93
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.02
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[0]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[0]/S<0> (demux1to8_0)            0.00       0.51 r
+  regfile/wr_demux/demux[0]/U10/Y (NOR3X1)                0.14       0.65 f
+  regfile/wr_demux/demux[0]/Out2 (demux1to8_0)            0.00       0.65 f
+  regfile/wr_demux/Out2<0> (demux1to8_16)                 0.00       0.65 f
+  regfile/registers[2]/d<0> (register16_2)                0.00       0.65 f
+  regfile/registers[2]/U33/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[2]/U4/Y (BUFX2)                       0.03       0.75 r
+  regfile/registers[2]/U5/Y (INVX1)                       0.01       0.76 f
+  regfile/registers[2]/dff_arr[0]/d (dff_47)              0.00       0.76 f
+  regfile/registers[2]/dff_arr[0]/U3/Y (INVX1)            0.00       0.76 r
+  regfile/registers[2]/dff_arr[0]/U4/Y (OR2X1)            0.05       0.81 r
+  regfile/registers[2]/dff_arr[0]/U5/Y (INVX1)            0.02       0.83 f
+  regfile/registers[2]/dff_arr[0]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[0]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[12]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[12]/S<0> (demux1to8_12)          0.00       0.51 r
+  regfile/wr_demux/demux[12]/U10/Y (NOR3X1)               0.14       0.65 f
+  regfile/wr_demux/demux[12]/Out2 (demux1to8_12)          0.00       0.65 f
+  regfile/wr_demux/Out2<12> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[2]/d<12> (register16_2)               0.00       0.65 f
+  regfile/registers[2]/U30/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[2]/U10/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[2]/U11/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[2]/dff_arr[12]/d (dff_35)             0.00       0.76 f
+  regfile/registers[2]/dff_arr[12]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[2]/dff_arr[12]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[2]/dff_arr[12]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[2]/dff_arr[12]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[12]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[13]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[13]/S<0> (demux1to8_13)          0.00       0.51 r
+  regfile/wr_demux/demux[13]/U10/Y (NOR3X1)               0.14       0.65 f
+  regfile/wr_demux/demux[13]/Out2 (demux1to8_13)          0.00       0.65 f
+  regfile/wr_demux/Out2<13> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[2]/d<13> (register16_2)               0.00       0.65 f
+  regfile/registers[2]/U29/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[2]/U12/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[2]/U13/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[2]/dff_arr[13]/d (dff_34)             0.00       0.76 f
+  regfile/registers[2]/dff_arr[13]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[2]/dff_arr[13]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[2]/dff_arr[13]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[2]/dff_arr[13]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[13]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[14]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[14]/S<0> (demux1to8_14)          0.00       0.51 r
+  regfile/wr_demux/demux[14]/U10/Y (NOR3X1)               0.14       0.65 f
+  regfile/wr_demux/demux[14]/Out2 (demux1to8_14)          0.00       0.65 f
+  regfile/wr_demux/Out2<14> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[2]/d<14> (register16_2)               0.00       0.65 f
+  regfile/registers[2]/U28/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[2]/U14/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[2]/U15/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[2]/dff_arr[14]/d (dff_33)             0.00       0.76 f
+  regfile/registers[2]/dff_arr[14]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[2]/dff_arr[14]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[2]/dff_arr[14]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[2]/dff_arr[14]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[14]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[15]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[15]/S<0> (demux1to8_15)          0.00       0.51 r
+  regfile/wr_demux/demux[15]/U10/Y (NOR3X1)               0.14       0.65 f
+  regfile/wr_demux/demux[15]/Out2 (demux1to8_15)          0.00       0.65 f
+  regfile/wr_demux/Out2<15> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[2]/d<15> (register16_2)               0.00       0.65 f
+  regfile/registers[2]/U27/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[2]/U16/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[2]/U17/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[2]/dff_arr[15]/d (dff_32)             0.00       0.76 f
+  regfile/registers[2]/dff_arr[15]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[2]/dff_arr[15]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[2]/dff_arr[15]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[2]/dff_arr[15]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[15]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[0]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[0]/S<0> (demux1to8_0)            0.00       0.51 r
+  regfile/wr_demux/demux[0]/U5/Y (NOR3X1)                 0.14       0.65 f
+  regfile/wr_demux/demux[0]/Out6 (demux1to8_0)            0.00       0.65 f
+  regfile/wr_demux/Out6<0> (demux1to8_16)                 0.00       0.65 f
+  regfile/registers[6]/d<0> (register16_6)                0.00       0.65 f
+  regfile/registers[6]/U33/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[6]/U4/Y (BUFX2)                       0.03       0.75 r
+  regfile/registers[6]/U5/Y (INVX1)                       0.01       0.76 f
+  regfile/registers[6]/dff_arr[0]/d (dff_111)             0.00       0.76 f
+  regfile/registers[6]/dff_arr[0]/U3/Y (INVX1)            0.00       0.76 r
+  regfile/registers[6]/dff_arr[0]/U4/Y (OR2X1)            0.05       0.81 r
+  regfile/registers[6]/dff_arr[0]/U5/Y (INVX1)            0.02       0.83 f
+  regfile/registers[6]/dff_arr[0]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[0]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[12]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[12]/S<0> (demux1to8_12)          0.00       0.51 r
+  regfile/wr_demux/demux[12]/U5/Y (NOR3X1)                0.14       0.65 f
+  regfile/wr_demux/demux[12]/Out6 (demux1to8_12)          0.00       0.65 f
+  regfile/wr_demux/Out6<12> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[6]/d<12> (register16_6)               0.00       0.65 f
+  regfile/registers[6]/U30/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[6]/U10/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[6]/U11/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[6]/dff_arr[12]/d (dff_99)             0.00       0.76 f
+  regfile/registers[6]/dff_arr[12]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[6]/dff_arr[12]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[6]/dff_arr[12]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[6]/dff_arr[12]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[12]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[13]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[13]/S<0> (demux1to8_13)          0.00       0.51 r
+  regfile/wr_demux/demux[13]/U5/Y (NOR3X1)                0.14       0.65 f
+  regfile/wr_demux/demux[13]/Out6 (demux1to8_13)          0.00       0.65 f
+  regfile/wr_demux/Out6<13> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[6]/d<13> (register16_6)               0.00       0.65 f
+  regfile/registers[6]/U29/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[6]/U12/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[6]/U13/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[6]/dff_arr[13]/d (dff_98)             0.00       0.76 f
+  regfile/registers[6]/dff_arr[13]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[6]/dff_arr[13]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[6]/dff_arr[13]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[6]/dff_arr[13]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[13]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[14]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[14]/S<0> (demux1to8_14)          0.00       0.51 r
+  regfile/wr_demux/demux[14]/U5/Y (NOR3X1)                0.14       0.65 f
+  regfile/wr_demux/demux[14]/Out6 (demux1to8_14)          0.00       0.65 f
+  regfile/wr_demux/Out6<14> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[6]/d<14> (register16_6)               0.00       0.65 f
+  regfile/registers[6]/U28/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[6]/U14/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[6]/U15/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[6]/dff_arr[14]/d (dff_97)             0.00       0.76 f
+  regfile/registers[6]/dff_arr[14]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[6]/dff_arr[14]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[6]/dff_arr[14]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[6]/dff_arr[14]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[14]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[15]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[15]/S<0> (demux1to8_15)          0.00       0.51 r
+  regfile/wr_demux/demux[15]/U5/Y (NOR3X1)                0.14       0.65 f
+  regfile/wr_demux/demux[15]/Out6 (demux1to8_15)          0.00       0.65 f
+  regfile/wr_demux/Out6<15> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[6]/d<15> (register16_6)               0.00       0.65 f
+  regfile/registers[6]/U27/Y (AOI22X1)                    0.07       0.71 r
+  regfile/registers[6]/U16/Y (BUFX2)                      0.03       0.75 r
+  regfile/registers[6]/U17/Y (INVX1)                      0.01       0.76 f
+  regfile/registers[6]/dff_arr[15]/d (dff_96)             0.00       0.76 f
+  regfile/registers[6]/dff_arr[15]/U3/Y (INVX1)           0.00       0.76 r
+  regfile/registers[6]/dff_arr[15]/U4/Y (OR2X1)           0.05       0.81 r
+  regfile/registers[6]/dff_arr[15]/U5/Y (INVX1)           0.02       0.83 f
+  regfile/registers[6]/dff_arr[15]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.83 f
+  data arrival time                                                  0.83
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[15]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.11
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[6]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[6]/S<0> (demux1to8_6)            0.00       0.51 r
+  regfile/wr_demux/demux[6]/U3/Y (INVX2)                  0.05       0.55 f
+  regfile/wr_demux/demux[6]/U17/Y (INVX8)                 0.06       0.61 r
+  regfile/wr_demux/demux[6]/U5/Y (NOR3X1)                 0.04       0.65 f
+  regfile/wr_demux/demux[6]/Out6 (demux1to8_6)            0.00       0.65 f
+  regfile/wr_demux/Out6<6> (demux1to8_16)                 0.00       0.65 f
+  regfile/registers[6]/d<6> (register16_6)                0.00       0.65 f
+  regfile/registers[6]/U21/Y (AOI22X1)                    0.05       0.70 r
+  regfile/registers[6]/U44/Y (BUFX2)                      0.03       0.74 r
+  regfile/registers[6]/U45/Y (INVX1)                      0.01       0.75 f
+  regfile/registers[6]/dff_arr[6]/d (dff_105)             0.00       0.75 f
+  regfile/registers[6]/dff_arr[6]/U3/Y (INVX1)            0.00       0.75 r
+  regfile/registers[6]/dff_arr[6]/U4/Y (OR2X1)            0.05       0.80 r
+  regfile/registers[6]/dff_arr[6]/U5/Y (INVX1)            0.02       0.82 f
+  regfile/registers[6]/dff_arr[6]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.82 f
+  data arrival time                                                  0.82
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[6]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.82
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.12
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[7]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[7]/S<0> (demux1to8_7)            0.00       0.51 r
+  regfile/wr_demux/demux[7]/U3/Y (INVX2)                  0.05       0.55 f
+  regfile/wr_demux/demux[7]/U17/Y (INVX8)                 0.06       0.61 r
+  regfile/wr_demux/demux[7]/U5/Y (NOR3X1)                 0.04       0.65 f
+  regfile/wr_demux/demux[7]/Out6 (demux1to8_7)            0.00       0.65 f
+  regfile/wr_demux/Out6<7> (demux1to8_16)                 0.00       0.65 f
+  regfile/registers[6]/d<7> (register16_6)                0.00       0.65 f
+  regfile/registers[6]/U20/Y (AOI22X1)                    0.05       0.70 r
+  regfile/registers[6]/U46/Y (BUFX2)                      0.03       0.74 r
+  regfile/registers[6]/U47/Y (INVX1)                      0.01       0.75 f
+  regfile/registers[6]/dff_arr[7]/d (dff_104)             0.00       0.75 f
+  regfile/registers[6]/dff_arr[7]/U3/Y (INVX1)            0.00       0.75 r
+  regfile/registers[6]/dff_arr[7]/U4/Y (OR2X1)            0.05       0.80 r
+  regfile/registers[6]/dff_arr[7]/U5/Y (INVX1)            0.02       0.82 f
+  regfile/registers[6]/dff_arr[7]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.82 f
+  data arrival time                                                  0.82
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[7]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.82
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.12
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[8]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[8]/S<0> (demux1to8_8)            0.00       0.51 r
+  regfile/wr_demux/demux[8]/U3/Y (INVX2)                  0.05       0.55 f
+  regfile/wr_demux/demux[8]/U17/Y (INVX8)                 0.06       0.61 r
+  regfile/wr_demux/demux[8]/U5/Y (NOR3X1)                 0.04       0.65 f
+  regfile/wr_demux/demux[8]/Out6 (demux1to8_8)            0.00       0.65 f
+  regfile/wr_demux/Out6<8> (demux1to8_16)                 0.00       0.65 f
+  regfile/registers[6]/d<8> (register16_6)                0.00       0.65 f
+  regfile/registers[6]/U19/Y (AOI22X1)                    0.05       0.70 r
+  regfile/registers[6]/U48/Y (BUFX2)                      0.03       0.74 r
+  regfile/registers[6]/U49/Y (INVX1)                      0.01       0.75 f
+  regfile/registers[6]/dff_arr[8]/d (dff_103)             0.00       0.75 f
+  regfile/registers[6]/dff_arr[8]/U3/Y (INVX1)            0.00       0.75 r
+  regfile/registers[6]/dff_arr[8]/U4/Y (OR2X1)            0.05       0.80 r
+  regfile/registers[6]/dff_arr[8]/U5/Y (INVX1)            0.02       0.82 f
+  regfile/registers[6]/dff_arr[8]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.82 f
+  data arrival time                                                  0.82
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[8]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.82
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.12
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[10]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[10]/S<0> (demux1to8_10)          0.00       0.51 r
+  regfile/wr_demux/demux[10]/U3/Y (INVX2)                 0.05       0.55 f
+  regfile/wr_demux/demux[10]/U17/Y (INVX8)                0.06       0.61 r
+  regfile/wr_demux/demux[10]/U5/Y (NOR3X1)                0.04       0.65 f
+  regfile/wr_demux/demux[10]/Out6 (demux1to8_10)          0.00       0.65 f
+  regfile/wr_demux/Out6<10> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[6]/d<10> (register16_6)               0.00       0.65 f
+  regfile/registers[6]/U32/Y (AOI22X1)                    0.05       0.70 r
+  regfile/registers[6]/U6/Y (BUFX2)                       0.03       0.74 r
+  regfile/registers[6]/U7/Y (INVX1)                       0.01       0.75 f
+  regfile/registers[6]/dff_arr[10]/d (dff_101)            0.00       0.75 f
+  regfile/registers[6]/dff_arr[10]/U3/Y (INVX1)           0.00       0.75 r
+  regfile/registers[6]/dff_arr[10]/U4/Y (OR2X1)           0.05       0.80 r
+  regfile/registers[6]/dff_arr[10]/U5/Y (INVX1)           0.02       0.82 f
+  regfile/registers[6]/dff_arr[10]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.82 f
+  data arrival time                                                  0.82
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[10]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.82
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.12
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[6]/dff_arr[11]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[11]/S<0> (demux1to8_11)          0.00       0.51 r
+  regfile/wr_demux/demux[11]/U3/Y (INVX2)                 0.05       0.55 f
+  regfile/wr_demux/demux[11]/U17/Y (INVX8)                0.06       0.61 r
+  regfile/wr_demux/demux[11]/U5/Y (NOR3X1)                0.04       0.65 f
+  regfile/wr_demux/demux[11]/Out6 (demux1to8_11)          0.00       0.65 f
+  regfile/wr_demux/Out6<11> (demux1to8_16)                0.00       0.65 f
+  regfile/registers[6]/d<11> (register16_6)               0.00       0.65 f
+  regfile/registers[6]/U31/Y (AOI22X1)                    0.05       0.70 r
+  regfile/registers[6]/U8/Y (BUFX2)                       0.03       0.74 r
+  regfile/registers[6]/U9/Y (INVX1)                       0.01       0.75 f
+  regfile/registers[6]/dff_arr[11]/d (dff_100)            0.00       0.75 f
+  regfile/registers[6]/dff_arr[11]/U3/Y (INVX1)           0.00       0.75 r
+  regfile/registers[6]/dff_arr[11]/U4/Y (OR2X1)           0.05       0.80 r
+  regfile/registers[6]/dff_arr[11]/U5/Y (INVX1)           0.02       0.82 f
+  regfile/registers[6]/dff_arr[11]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.82 f
+  data arrival time                                                  0.82
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[6]/dff_arr[11]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.82
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.12
+
+
+  Startpoint: writeregsel<0>
+              (input port clocked by clk)
+  Endpoint: regfile/registers[2]/dff_arr[6]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.10       0.10 r
+  writeregsel<0> (in)                                     0.01       0.11 r
+  U98/Y (INVX1)                                           0.01       0.12 f
+  U97/Y (INVX1)                                           0.03       0.15 r
+  regfile/writeregsel<0> (rf)                             0.00       0.15 r
+  regfile/U2/Y (INVX1)                                    0.04       0.18 f
+  regfile/U11/Y (INVX8)                                   0.02       0.21 r
+  regfile/wr_demux/S<0> (demux1to8_16)                    0.00       0.21 r
+  regfile/wr_demux/U4/Y (INVX1)                           0.02       0.22 f
+  regfile/wr_demux/U10/Y (INVX1)                          0.28       0.51 r
+  regfile/wr_demux/demux[6]/S<0> (demux1to8_6)            0.00       0.51 r
+  regfile/wr_demux/demux[6]/U3/Y (INVX2)                  0.05       0.55 f
+  regfile/wr_demux/demux[6]/U17/Y (INVX8)                 0.06       0.61 r
+  regfile/wr_demux/demux[6]/U10/Y (NOR3X1)                0.04       0.65 f
+  regfile/wr_demux/demux[6]/Out2 (demux1to8_6)            0.00       0.65 f
+  regfile/wr_demux/Out2<6> (demux1to8_16)                 0.00       0.65 f
+  regfile/registers[2]/d<6> (register16_2)                0.00       0.65 f
+  regfile/registers[2]/U21/Y (AOI22X1)                    0.05       0.70 r
+  regfile/registers[2]/U44/Y (BUFX2)                      0.03       0.74 r
+  regfile/registers[2]/U45/Y (INVX1)                      0.01       0.75 f
+  regfile/registers[2]/dff_arr[6]/d (dff_41)              0.00       0.75 f
+  regfile/registers[2]/dff_arr[6]/U3/Y (INVX1)            0.00       0.75 r
+  regfile/registers[2]/dff_arr[6]/U4/Y (OR2X1)            0.05       0.80 r
+  regfile/registers[2]/dff_arr[6]/U5/Y (INVX1)            0.02       0.82 f
+  regfile/registers[2]/dff_arr[6]/state_reg/D (DFFPOSX1)
+                                                          0.00       0.82 f
+  data arrival time                                                  0.82
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  regfile/registers[2]/dff_arr[6]/state_reg/CLK (DFFPOSX1)
+                                                          0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -0.82
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.12
+
+
+1
