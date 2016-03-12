@@ -1,3 +1,16 @@
+/*
+ * ALU Module for 552 project.
+ * Opcodes:
+ * 000 - Rotate left
+ * 001 - Shift left
+ * 010 - Rotate right
+ * 011 - Logical right shift
+ * 100 - A + B
+ * 101 - A | B
+ * 110 - A ^ B
+ * 111 - A & B
+ */
+
 module alu (A, B, Cin, Op, invA, invB, sign, Out, Ofl, Z);
     input [15:0] A;
     input [15:0] B;
