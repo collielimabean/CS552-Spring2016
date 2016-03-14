@@ -1,7 +1,8 @@
-module control_unit(opcode, func, regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, btr, aluop);
+module control_unit(opcode, func, regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, btr, set, opoption, aluop);
     input [4:0] opcode;
     input [1:0] func;
-    output regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, btr;
+    output regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, btr, set;
+    output [1:0] opoption;
     output [2:0] aluop;    
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
@@ -41,6 +42,10 @@ module control_unit(opcode, func, regdst, jump, branch, memread, memtoreg, memwr
                       (nB & C & D);
 
     assign btr = A & B & nC & nD & E;
+
+    assign set = A & B & C;
+
+    assign opoption = {A, B};
 
     case({opcode, func})
 
