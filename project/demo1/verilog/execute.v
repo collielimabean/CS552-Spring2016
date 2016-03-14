@@ -10,7 +10,7 @@
  */
 module execute(ALUOp1, ALUOp2, Opcode, IncPC, 
                Jump, Branch, JumpReg, Set,
-               Func, Imm, ALUSrc);
+               Func, Imm, ALUSrc, Result, NextPC);
     input [15:0] ALUOp1, ALUOp2, IncPC, Imm;
     input [2:0] Opcode;
     input [1:0] Func;
