@@ -1,3 +1,8 @@
+/*
+ * The memory stage.
+ * Remarks:
+ * None
+ */
 module memory(MemRead, MemWrite, halt, Address, WriteData, ReadData);
     input MemRead, MemWrite, halt;
     input [15:0] Address, WriteData;
@@ -11,5 +16,4 @@ module memory(MemRead, MemWrite, halt, Address, WriteData, ReadData);
                        .createdump   (halt),
                        .clk          (clk),
                        .rst          (rst));
-
 endmodule
