@@ -13,13 +13,13 @@ module fetch(NextPC, clk, rst, Halt, Instr, IncPC);
                        .addr         (pc),
                        .enable       (~halt),
                        .wr           (1'b0),
-                       .createdump   (0'b0),
+                       .createdump   (1'b0),
                        .clk          (clk),
                        .rst          (rst));
 
     // pc = pc + 2 adder
     cla16 pc_inc(.A     (pc),
-                 .B     (2'b10),
+                 .B     (16'd2),
                  .Cin   (1'b0),
                  .S     (pc_inc_out));
 
