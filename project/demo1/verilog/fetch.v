@@ -1,12 +1,14 @@
 
-module fetch(NextPC, clk, rst, Halt, Instr, IncPC);
+module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
     input [15:0] NextPC;
-    input clk, rst, halt;
-    output [15:0] Instr, IncPC;
+    input clk, rst, halt, Exception;
+    output [15:0] Instr, IncPC, epc;
 
     wire [15:0] pc, actualNextPC, pc_inc_out;
 
-    dff [15:0] pc_reg(.d (actualNextPC), .q (pc), .rst (rst), .clk(clk));
+    dff [15:0] pc_reg (.d (actualNextPC), .q (pc), .rst (rst), .clk(clk));
+    // dff [15:0] epc_reg(.d (), .q (epc), .rst (rst), .clk (clk));
+    // TODO: next EPC value is a state machine! figure it out first!
 
     memory2c instr_mem(.data_in      (15'd0),
                        .data_out     (instr),
@@ -23,6 +25,8 @@ module fetch(NextPC, clk, rst, Halt, Instr, IncPC);
                  .Cin   (1'b0),
                  .S     (pc_inc_out));
 
-    // this will keep increasing after halt...
-    assign actualNextPC = (halt) ? pc_inc_out : NextPC;
+    // TODO: FIX PC logic
+    assign actualNextPC = (halt) ? pc_inc_out : 
+                          (Exception) ? 16'd2 :
+                          actualNextPC;
 endmodule

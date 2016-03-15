@@ -21,44 +21,69 @@ module proc (/*AUTOARG*/
     // As desribed in the homeworks, use the err signal to trap corner
     // cases that you think are illegal in your statemachines
 
-    wire [15:0] incPC, nextPC, instr, exec_out,
-                mem_read_data ;
-
-    wire halt;
+    wire [15:0] incPC, nextPC, instr, exec_out, decode_wr_data,
+                mem_read_data, epc, aluop1, aluop2, imm;
+    wire [2:0] aluopcode;
+    wire [1:0] func;
+    wire alusrc, branch, jump, jumpreg, set, btr, memwrite,
+         memread, memtoreg, halt, exception;
 
     fetch f(.NextPC     (nextPC),
             .clk        (clk),
             .rst        (rst),
             .halt       (halt),
+            .Exception  (exception),
             .Instr      (instr),
-            .IncPC      (incPC));
+            .IncPC      (incPC),
+            .epc        (epc));
 
-    decode d();
+    decode d(.clk       (clk),
+             .rst       (rst),
+             .Instr     (instr),
+             .WriteData (decode_wr_data),
+             .ALUOp1    (aluop1),
+             .ALUOp2    (aluop2),
+             .ALUSrc    (alusrc),
+             .Branch    (branch),
+             .Jump      (jump),
+             .JumpReg   (jumpreg),
+             .Set       (set),
+             .Btr       (btr),
+             .ALUOpcode (aluopcode),
+             .Func      (func),
+             .MemWrite  (memwrite),
+             .MemRead   (memread),
+             .MemToReg  (memtoreg),
+             .Halt      (halt),
+             .Exception (exception),
+             .err       (err));
     
-    execute e(.ALUOp1   (),
-              .ALUOp2   (),
-              .Opcode   (),
+    execute e(.ALUOp1   (aluop1),
+              .ALUOp2   (aluop2),
+              .Opcode   (aluopcode),
               .IncPC    (incPC),
-              .Jump     (),
-              .Branch   (),
-              .JumpReg  (),
-              .Set      (),
-              .Func     (),
-              .Imm      (),
-              .ALUSrc   (),
+              .Jump     (jump),
+              .Branch   (branch),
+              .JumpReg  (jumpreg),
+              .Set      (set),
+              .Func     (func),
+              .Imm      (imm),
+              .ALUSrc   (alusrc),
               .Result   (exec_out),
               .NextPC   (nextPC));    
 
-    memory m(.MemRead   (),
-             .MemWrite  (),
+    memory m(.MemRead   (memread),
+             .MemWrite  (memwrite),
              .halt      (halt),
              .Address   (exec_out),
-             .WriteData (),     // this is sometimes going to be the ALU out....
+             .WriteData (aluop2),
              .ReadData  (mem_read_data));
 
-    writeback w(.ExecuteOut (exec_out),
+    writeback w(.clk        (clk),
+                .rst        (rst),
+                .ExecuteOut (exec_out),
                 .MemOut     (mem_read_data),
-                .MemToReg   (),
-                .WriteData  ());
+                .MemToReg   (memtoreg),
+                .WriteData  (decode_wr_data));
 endmodule // proc
 // DUMMY LINE FOR REV CONTROL :0:
