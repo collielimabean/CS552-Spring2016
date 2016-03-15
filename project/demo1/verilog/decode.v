@@ -55,7 +55,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
             4'b1001: ImmReg <= {{11{1'b0}}, Instr[4:0]};
             4'b1000: ImmReg <= {{11{Instr[4]}}, Instr[4:0]};
             4'b0101: ImmReg <= {{8{1'b0}}, Instr[7:0]};
-            4'b0100: ImmReg <= {{8{Instr[7]}}, Instr[7:0]};
+            4'b01x0: ImmReg <= {{8{Instr[7]}}, Instr[7:0]};
             4'b0010: ImmReg <= {{5{Instr[10]}}, Instr[10:0]};
             4'b11xx, 4'b1x1x, 4'bx11x: ; // OpError <= 1'b1;
             default: ; 
