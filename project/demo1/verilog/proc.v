@@ -72,16 +72,16 @@ module proc (/*AUTOARG*/
               .Result   (exec_out),
               .NextPC   (nextPC));    
 
-    memory m(.MemRead   (memread),
+    memory m(.clk       (clk),
+             .rst       (rst),
+             .MemRead   (memread),
              .MemWrite  (memwrite),
              .halt      (halt),
              .Address   (exec_out),
              .WriteData (aluop2),
              .ReadData  (mem_read_data));
 
-    writeback w(.clk        (clk),
-                .rst        (rst),
-                .ExecuteOut (exec_out),
+    writeback w(.ExecuteOut (exec_out),
                 .MemOut     (mem_read_data),
                 .MemToReg   (memtoreg),
                 .WriteData  (decode_wr_data));
