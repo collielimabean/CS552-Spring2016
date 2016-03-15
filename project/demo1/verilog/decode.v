@@ -29,6 +29,8 @@ module decode(clk, rst, Instr, WriteData,
                .err         (Err)); 
 
     assign write_reg = (regdst) ? Instr[7:5] : Instr[4:2];
+        
+    assign Func = Instr[12:11];
 
     ///// Control unit //////
     control_unit cu(.opcode     (Instr[15:11]),

@@ -1,9 +1,8 @@
-module control_unit(opcode, func, regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, btr, set, opoption, aluop);
+module control_unit(opcode, func, aluop, alusrc, branch, jump, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin);
     input [4:0] opcode;
     input [1:0] func;
-    output regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, btr, set;
-    output [1:0] opoption;
-    output [2:0] aluop;    
+    output alusrc, branch, jump, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp;
+    output [2:0] aluop;
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
     assign A = opcode[4];
@@ -11,44 +10,66 @@ module control_unit(opcode, func, regdst, jump, branch, memread, memtoreg, memwr
     assign C = opcode[2];
     assign D = opcode[1];
     assign E = opcode[0]; 
+    assign F = func[1];
+    assign G = func[0];
     assign nA = ~A;
     assign nB = ~B;
     assign nC = ~C;
     assign nD = ~D;
     assign nE = ~E;
+    assign nF = ~F;
+    assign nG = ~G;
 
-    assign regdst = (nA & B & nC) |
-                    (A & nB & nD & nE) |
-                    (A & nB & C & D & nE) |
-                    (A & nB & E);
+    assign alusrc = (nA & C) |
+                    (A ^ B) |
+                    (B & nC & nD & nE);
+
+    assign branch = nA & B & C;
     
     assign jump = nA & nB & C;
-   
-    assign branch = nA & B & C;
+
+    assign jumpreg = nA & nB C & E;
+
+    assign set = A & B & C;
+
+    assign btr = A & B & nC & nD & E;
+
+    assign regwrite =  A |
+                      (B & nC) |
+                      (nB & C & D);
+
+    assign memwrite = (A & nB & nC) &
+                      (D ~^ E)
 
     assign memread = A & nB & nC & nD & E;
 
     assign memtoreg = A & nB & nC & nD & E;
     
-    assign memwrite = (A & nB & nC) &
-                      (D ~^ E)
-
-    assign alusrc = (nA & C) |
-                    (A ^ B) |
-                    (B & nC & nD & nE);
+    assign regdst = (nA & B & nC) |
+                    (A & nB & nD & nE) |
+                    (A & nB & C & D & nE) |
+                    (A & nB & E);
     
-    assign regwrite =  A |
-                      (B & nC) |
-                      (nB & C & D);
+    // subi, sub
+    assign invA = (B & nC & E) &
+                   ((nA & nD) |
+                    (A & D & nF & G));
 
-    assign btr = A & B & nC & nD & E;
+    // andni, andn, seq, slt sle
+    assign invB = B & 
+                  ((A & C & (D ~& E)) |
+                   (nC & D & E & 
+                    (nA | (A & F & G))));
+    
+    // slt, sle, subi, sub
+    assign cin = B & 
+                ((A & C & (D ^ E)) |
+                 (nC & E & (
+                  ((nA & nD) | (A & D & nF & G)))));
 
-    assign set = A & B & C;
-
-    assign opoption = {A, B};
-
+    assign excp = nA & nB & nC & D & nE;
+    
     case({opcode, func})
-
     // 000: rotate left
         7'b10100xx, 7'b1101000: assign aluop = 3'b000;
     // 001: shift left
