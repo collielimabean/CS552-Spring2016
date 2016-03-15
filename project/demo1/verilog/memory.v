@@ -10,7 +10,7 @@ module memory(MemRead, MemWrite, halt, Address, WriteData, ReadData);
 
     memory2c data_mem(.data_in      (Address),
                       .data_out     (ReadData),
-                      .addr         (pc),
+                      .addr         (Address),
                       .enable       (~halt & (MemRead | MemWrite)),
                       .wr           (MemWrite),
                       .createdump   (halt),

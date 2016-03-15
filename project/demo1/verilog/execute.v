@@ -10,11 +10,12 @@
  */
 module execute(ALUOp1, ALUOp2, Opcode, IncPC, 
                Jump, Branch, JumpReg, Set,
+               InvA, InvB, Cin,
                Func, Imm, ALUSrc, Result, NextPC);
     input [15:0] ALUOp1, ALUOp2, IncPC, Imm;
     input [2:0] Opcode;
     input [1:0] Func;
-    input Jump, Branch, JumpReg, Set, ALUSrc;
+    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin;
     output [15:0] Result, NextPC;
 
     wire [15:0] aluResult, setResult, offsetAddr;
@@ -22,10 +23,10 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
 
     alu primary_alu(.A      (ALUOp1),
                     .B      ((ALUSrc) ? ALUOp2 : Imm),
-                    .Cin    (cin),
+                    .Cin    (Cin),
                     .Op     (Opcode),
-                    .invA   (invA),
-                    .invB   (invB),
+                    .invA   (InvA),
+                    .invB   (InvB),
                     .sign   (1'b1),
                     .Out    (aluResult),
                     .Ofl    (Ofl),
@@ -65,10 +66,4 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                       .InD (ALUOp[15]),
                       .Sel (Func),
                       .Out (branch_en));
-
-    // ALU Control Signals
-    assign isAddOp = Opcode[2] & ~Opcode[1] & ~Opcode[0];
-    assign invB = isAddOp & ((Set) ? (~(&Func)) : (&Func));
-    assign invA = isAddOp & ~Set & ~Func[1] & Func[0];
-    assign cin = isAddOp & ((Set) ? (Func[1] ^ Func[0]) : (~Func[1] & Func[0]));
 endmodule
