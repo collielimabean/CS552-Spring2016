@@ -1,7 +1,7 @@
-module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link);
+module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi);
     input [4:0] opcode;
     input [1:0] func;
-    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link;
+    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi;
     output [2:0] aluop;
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
@@ -97,6 +97,8 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
     assign slbi = A & nB & nC & D & nE;
 
     assign link = nA & nB & C & D;
+
+    assign lbi = A & B & nC & nD & nE;
 
     always @(*) begin
         casex({opcode, func})
