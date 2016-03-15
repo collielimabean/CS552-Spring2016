@@ -63,7 +63,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     mux4to1 branchMux(.InA (~(|ALUOp1)),
                       .InB ((|ALUOp1)),
                       .InC (ALUOp1[15]),
-                      .InD (ALUOp1[15]),
+                      .InD (~ALUOp1[15]),
                       .S (Func),
                       .Out (branch_en));
 endmodule

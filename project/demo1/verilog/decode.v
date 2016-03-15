@@ -1,11 +1,11 @@
 
-module decode(clk, rst, Instr, WriteData,
+module decode(clk, rst, Instr, WriteData, IncPC,
               ALUOp1, ALUOp2, ALUSrc, Immediate, Branch, Jump,
               JumpReg, Set, Btr, InvA, InvB, Cin, 
               ALUOpcode, Func, MemWrite, MemRead,
               MemToReg, Halt, Exception, Err);
 
-    input [15:0] Instr, WriteData;
+    input [15:0] Instr, WriteData, IncPC;
     input clk, rst;
     output [15:0] ALUOp1, ALUOp2, Immediate;
     output [2:0] ALUOpcode;
@@ -57,7 +57,7 @@ module decode(clk, rst, Instr, WriteData,
             4'b0101: ImmReg <= {{8{1'b0}}, Instr[7:0]};
             4'b0100: ImmReg <= {{8{Instr[7]}}, Instr[7:0]};
             4'b0010: ImmReg <= {{5{Instr[10]}}, Instr[10:0]};
-            4'b11xx, 4'b1x1x, 4'bx11x: OpError <= 1'b1;
+            4'b11xx, 4'b1x1x, 4'bx11x: ; // OpError <= 1'b1;
             default: ; 
         endcase
     end

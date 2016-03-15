@@ -40,6 +40,7 @@ module proc (/*AUTOARG*/
     decode d(.clk       (clk),
              .rst       (rst),
              .Instr     (instr),
+             .IncPC     (incPC),
              .WriteData (decode_wr_data),
              .ALUOp1    (aluop1),
              .ALUOp2    (aluop2),
