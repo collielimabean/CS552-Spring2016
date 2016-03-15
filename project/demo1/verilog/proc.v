@@ -26,12 +26,12 @@ module proc (/*AUTOARG*/
     wire [2:0] aluopcode;
     wire [1:0] func;
     wire alusrc, branch, jump, jumpreg, set, btr, memwrite,
-         memread, memtoreg, halt, exception;
+         memread, memtoreg, halt, exception, invA, invB, cin;
 
     fetch f(.NextPC     (nextPC),
             .clk        (clk),
             .rst        (rst),
-            .halt       (halt),
+            .Halt       (halt),
             .Exception  (exception),
             .Instr      (instr),
             .IncPC      (incPC),
@@ -56,12 +56,20 @@ module proc (/*AUTOARG*/
              .MemToReg  (memtoreg),
              .Halt      (halt),
              .Exception (exception),
-             .err       (err));
+             .Err       (err),
+             .Immediate (imm),
+             .InvA      (invA),
+             .InvB      (invB),
+             .Cin       (cin));
     
     execute e(.ALUOp1   (aluop1),
               .ALUOp2   (aluop2),
+              .Btr      (btr),
               .Opcode   (aluopcode),
               .IncPC    (incPC),
+              .InvA     (invA),
+              .InvB     (invB),
+              .Cin      (cin),
               .Jump     (jump),
               .Branch   (branch),
               .JumpReg  (jumpreg),

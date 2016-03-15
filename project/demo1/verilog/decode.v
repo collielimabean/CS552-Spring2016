@@ -1,23 +1,22 @@
 
 module decode(clk, rst, Instr, WriteData,
               ALUOp1, ALUOp2, ALUSrc, Immediate, Branch, Jump,
-              InvA, InvB, Cin, JumpReg, Set, Btr, 
+              JumpReg, Set, Btr, InvA, InvB, Cin, 
               ALUOpcode, Func, MemWrite, MemRead,
               MemToReg, Halt, Exception, Err);
 
     input [15:0] Instr, WriteData;
     input clk, rst;
-    output [15:0] ALUOp1, ALUOp2;
+    output [15:0] ALUOp1, ALUOp2, Immediate;
     output [2:0] ALUOpcode;
     output [1:0] Func;
-    output ALUSrc, Immediate, Branch, Jump,
-           InvA, InvB, Cin,
+    output ALUSrc, Branch, Jump,
            JumpReg, Set, Btr, MemWrite, MemRead, 
-           MemToReg, Halt, Exception, Err;
-    output [2:0] write_reg;
+           MemToReg, Halt, Exception, Err, InvA, InvB, Cin;
+    wire [2:0] write_reg;
 
     wire rf_wr_en, regdst, If1, If2, Rf, ZeroExt, optype, RfError;
-    reg OpError;
+    reg OpError, ImmReg;
 
     ///// register file /////
     rf regfile(.clk         (clk),
@@ -26,7 +25,7 @@ module decode(clk, rst, Instr, WriteData,
                .read2regsel (Instr[7:5]),
                .writeregsel (write_reg),
                .write       (rf_wr_en),
-               ,writedata   (WriteData),
+               .writedata   (WriteData),
                .read1data   (ALUOp1),
                .read2data   (ALUOp2),
                .err         (RfError)); 
@@ -37,16 +36,16 @@ module decode(clk, rst, Instr, WriteData,
 
     assign Err = OpError | RfError;
 
+    assign Immediate = ImmReg;
+
     always @(*) begin
-        casex({If1, If2, Jump, ZeroExt})
-            4'b1001: assign Immediate = {11{0}, Instr[4:0]};
-            4'b1000: assign Immediate = {11{Instr[4]}, Instr[4:0]};
-            4'b0101: assign Immediate = {8{0}, Instr[7:0]};
-            4'b0100: assign Immediate = {8{Inst[7]}, Instr[7:0]};
-            4'b0010: assign Immediate = {5{Instr[10]}, Instr[10:0]};
-            default: assign OpError = 1'b1;
-
-
+        casex({If1, If2, Jump, ZeroExt}) 
+            4'b1001: ImmReg <= {{11{1'b0}}, Instr[4:0]};
+            4'b1000: ImmReg <= {{11{Instr[4]}}, Instr[4:0]};
+            4'b0101: ImmReg <= {{8{1'b0}}, Instr[7:0]};
+            4'b0100: ImmReg <= {{8{Instr[7]}}, Instr[7:0]};
+            4'b0010: ImmReg <= {{5{Instr[10]}}, Instr[10:0]};
+            default: OpError <= 1'b1;
         endcase
     end
 

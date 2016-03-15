@@ -19,7 +19,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     output [15:0] Result, NextPC;
 
     wire [15:0] aluResult, setResult, offsetAddr;
-    wire Ofl, Zero, branch_en, isAddOp, invA, invB, cin;
+    wire Ofl, Zero, branch_en, isAddOp, invA, invB, cin, addr_cout;
 
     alu primary_alu(.A      (ALUOp1),
                     .B      ((ALUSrc) ? ALUOp2 : Imm),
@@ -38,7 +38,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                        .InB ({{15{1'b0}}, aluResult[15]}),          // slt
                        .InC ({{15{1'b0}}, aluResult[15] | Zero}),   // sle
                        .InD ({{15{1'b0}}, Ofl}),                    // sco
-                       .Sel (Func),
+                       .S (Func),
                        .Out (setResult));
 
     // Result output logic
@@ -54,7 +54,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
 
 
     //////////// Branch Logic //////////////////
-    cla16 addr_adder(.A (IncPC), .B (Imm), .Cin(1'b0), .S (offsetAddr));
+    cla16 addr_adder(.A (IncPC), .B (Imm), .Cin(1'b0), .S (offsetAddr), .Cout (addr_cout));
     assign NextPC = (JumpReg)                     ? aluResult  :
                     ((branch_en & Branch) | Jump) ? offsetAddr :
                                                     IncPC;
@@ -64,6 +64,6 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                       .InB ((|ALUOp1)),
                       .InC (ALUOp1[15]),
                       .InD (ALUOp1[15]),
-                      .Sel (Func),
+                      .S (Func),
                       .Out (branch_en));
 endmodule
