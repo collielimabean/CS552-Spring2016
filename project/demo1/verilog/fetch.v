@@ -6,7 +6,7 @@ module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
 
     wire [15:0] pc, actualNextPC, pc_inc_out;
 
-    dff [15:0] pc_reg (.d (actualNextPC), .q (pc), .rst (rst), .clk(clk));
+    dff pc_reg[15:0](.d (actualNextPC), .q (pc), .rst (rst), .clk(clk));
     // dff [15:0] epc_reg(.d (), .q (epc), .rst (rst), .clk (clk));
     // TODO: next EPC value is a state machine! figure it out first!
 
