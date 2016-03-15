@@ -31,5 +31,5 @@ module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
     assign IncPC = pc_inc_out;
     assign actualNextPC = (Halt) ? pc_inc_out : 
                           (Exception) ? 16'd2 :
-                                        IncPC;
+                                        NextPC;
 endmodule
