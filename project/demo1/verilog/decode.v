@@ -1,7 +1,7 @@
 
 module decode(clk, rst, Instr, WriteData,
               ALUOp1, ALUOp2, ALUSrc, Branch, Jump,
-              If1, If2, Rf, ZeroExt, JumpReg, Set, Btr, 
+              If1, If2, Rf, ZeroExt, InvA, InvB, Cin, JumpReg, Set, Btr, 
               ALUOpcode, Func, MemWrite, MemRead, 
               MemToReg, Halt, Exception, Err);
 
@@ -11,10 +11,11 @@ module decode(clk, rst, Instr, WriteData,
     output [2:0] ALUOpcode;
     output [1:0] Func;
     output ALUSrc, Branch, Jump, If1, If2, Rf, ZeroExt,
+           InvA, InvB, Cin,
            JumpReg, Set, Btr, MemWrite, MemRead, 
            MemToReg, Halt, Exception, Err;
+    output [2:0] write_reg;
 
-    wire [2:0] write_reg;
     wire rf_wr_en, regdst;
  
     ///// register file /////
@@ -43,6 +44,7 @@ module decode(clk, rst, Instr, WriteData,
                     .i2         (If2),
                     .r          (Rf),
                     .zeroext    (ZeroExt),
+                    .excp       (Exception),
                     .jumpreg    (JumpReg),
                     .set        (Set),
                     .btr        (Btr),
@@ -50,5 +52,8 @@ module decode(clk, rst, Instr, WriteData,
                     .memwrite   (MemWrite),
                     .memread    (MemRead),
                     .memtoreg   (MemToReg),
-                    .regdst     (regdst));
+                    .regdst     (regdst),
+                    .invA       (InvA),
+                    .invB       (InvB),
+                    .cin        (Cin));
 endmodule
