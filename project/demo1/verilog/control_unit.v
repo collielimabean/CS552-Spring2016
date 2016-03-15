@@ -102,7 +102,7 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
             // 011: shift right logical
                 7'b10111xx, 7'b1101011: alu_op_reg <= 3'b011;
             // 100: ADD
-                7'b01x0xxx, 7'bx11x1xx, 7'bx111xxx, 7'b1000xxx, 7'b100x1xx, 7'b110110x: alu_op_reg <= 3'b100;     
+                7'b11000xx, 7'b01x0xxx, 7'bx11x1xx, 7'bx111xxx, 7'b1000xxx, 7'b100x1xx, 7'b110110x: alu_op_reg <= 3'b100;     
             // 101: OR
             // 110: XOR
                 7'b01010xx, 7'b1101110, 7'b11100xx: alu_op_reg <= 3'b110;
