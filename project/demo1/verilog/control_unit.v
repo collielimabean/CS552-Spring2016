@@ -1,7 +1,7 @@
-module control_unit(opcode, func, aluop, alusrc, branch, jump, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin);
+module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp, zeroext);
     input [4:0] opcode;
     input [1:0] func;
-    output alusrc, branch, jump, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp;
+    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp, zeroext;
     output [2:0] aluop;
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
@@ -27,6 +27,18 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, jumpreg, set, btr
     assign branch = nA & B & C;
     
     assign jump = nA & nB & C;
+
+    assign i1 = (nA & B & nC) | 
+                (A & nB & nD & nE) |
+                (A & nB & C & D & nE) |
+                (A & nB & E);
+
+    assign i2 = (nA & C & E) |
+                (nA & B & C) |
+                (A & nB & nC & D & nE) |
+                (A & B & nC & nD & nE);
+
+    assign r = A & B & (C | D | E); 
 
     assign jumpreg = nA & nB C & E;
 
@@ -68,6 +80,10 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, jumpreg, set, btr
                   ((nA & nD) | (A & D & nF & G)))));
 
     assign excp = nA & nB & nC & D & nE;
+
+    assign zeroext = (nC & D & 
+                      ((nA & B) |
+                       (A & nB & C & nD)));   
     
     case({opcode, func})
     // 000: rotate left
