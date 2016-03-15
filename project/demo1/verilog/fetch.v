@@ -1,7 +1,7 @@
 
 module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
     input [15:0] NextPC;
-    input clk, rst, halt, Exception;
+    input clk, rst, Halt, Exception;
     output [15:0] Instr, IncPC, epc;
 
     wire [15:0] pc, actualNextPC, pc_inc_out;
