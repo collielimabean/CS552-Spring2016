@@ -14,7 +14,8 @@ module decode(clk, rst, Instr, WriteData,
            JumpReg, Set, Btr, MemWrite, MemRead, 
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin;
 
-    wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError;
+    wire [15:0] rs_out;
+    wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError, slbi;
     reg [15:0] ImmReg;
     reg [2:0] write_reg;
     reg OpError, RegError;
@@ -27,7 +28,7 @@ module decode(clk, rst, Instr, WriteData,
                .writeregsel (write_reg),
                .write       (rf_wr_en),
                .writedata   (WriteData),
-               .read1data   (ALUOp1),
+               .read1data   (rs_out),
                .read2data   (ALUOp2),
                .err         (RfError)); 
 
@@ -40,6 +41,7 @@ module decode(clk, rst, Instr, WriteData,
         endcase
     end
 
+    assign ALUOp1 = (slbi) ? rs_out << 8 : rs_out;
         
     assign Func = Instr[12:11];
 
@@ -81,5 +83,6 @@ module decode(clk, rst, Instr, WriteData,
                     .invA       (InvA),
                     .invB       (InvB),
                     .cin        (Cin),
-                    .halt       (Halt));
+                    .halt       (Halt),
+                    .slbi       (slbi));
 endmodule
