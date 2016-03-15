@@ -31,7 +31,7 @@ module decode(clk, rst, Instr, WriteData,
                .read2data   (ALUOp2),
                .err         (RfError)); 
 
-    always @(If2, If1, Rf) begin
+    always @(If2, If1, Rf, Instr) begin
         casex({If2, If1, Rf})
             3'b100: write_reg <= Instr[10:8];
             3'b010: write_reg <= Instr[7:5];
