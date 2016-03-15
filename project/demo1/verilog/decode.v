@@ -13,10 +13,10 @@ module decode(clk, rst, Instr, WriteData,
     output ALUSrc, Branch, Jump,
            JumpReg, Set, Btr, MemWrite, MemRead, 
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin;
-    wire [2:0] write_reg;
 
-    wire rf_wr_en, regdst, If1, If2, Rf, ZeroExt, RfError;
+    wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError;
     reg [15:0] ImmReg;
+    reg [2:0] write_reg;
     reg OpError, RegError;
 
     ///// register file /////
@@ -31,12 +31,12 @@ module decode(clk, rst, Instr, WriteData,
                .read2data   (ALUOp2),
                .err         (RfError)); 
 
-    always @(*) begin
+    always @(If2, If1, Rf) begin
         casex({If2, If1, Rf})
             3'b100: write_reg <= Instr[10:8];
             3'b010: write_reg <= Instr[7:5];
             3'b001: write_reg <= Instr[4:2];
-            default: RegError <= 1'b1;
+            default: ; //TODO : Check me for errors! //RegError <= 1'b1;
         endcase
     end
 

@@ -22,7 +22,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     wire Ofl, Zero, branch_en, addr_cout;
 
     alu primary_alu(.A      (ALUOp1),
-                    .B      ((ALUSrc) ? ALUOp2 : Imm),
+                    .B      ((ALUSrc) ? Imm : ALUOp2),
                     .Cin    (Cin),
                     .Op     (Opcode),
                     .invA   (InvA),
