@@ -10,12 +10,12 @@
  */
 module execute(ALUOp1, ALUOp2, Opcode, IncPC, 
                Jump, Branch, JumpReg, Set,
-               InvA, InvB, Cin,
+               InvA, InvB, Cin, Btr,
                Func, Imm, ALUSrc, Result, NextPC);
     input [15:0] ALUOp1, ALUOp2, IncPC, Imm;
     input [2:0] Opcode;
     input [1:0] Func;
-    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin;
+    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr;
     output [15:0] Result, NextPC;
 
     wire [15:0] aluResult, setResult, offsetAddr;
@@ -37,7 +37,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     mux4to1_16 set_mux(.InA ({{15{1'b0}}, Zero}),                   // seq
                        .InB ({{15{1'b0}}, aluResult[15]}),          // slt
                        .InC ({{15{1'b0}}, aluResult[15] | Zero}),   // sle
-                       .InD ({{15{1'b0}, Ofl}),                     // sco
+                       .InD ({{15{1'b0}}, Ofl}),                    // sco
                        .Sel (Func),
                        .Out (setResult));
 
@@ -62,8 +62,8 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     // branch_en logic
     mux4to1 branchMux(.InA (~(|ALUOp1)),
                       .InB ((|ALUOp1)),
-                      .InC (ALUOp[15]),
-                      .InD (ALUOp[15]),
+                      .InC (ALUOp1[15]),
+                      .InD (ALUOp1[15]),
                       .Sel (Func),
                       .Out (branch_en));
 endmodule

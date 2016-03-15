@@ -5,6 +5,10 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
     output [2:0] aluop;
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
+
+    reg alu_op_reg;
+    assign aluop = alu_op_reg;
+
     assign A = opcode[4];
     assign B = opcode[3];
     assign C = opcode[2];
@@ -40,7 +44,7 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
 
     assign r = A & B & (C | D | E); 
 
-    assign jumpreg = nA & nB C & E;
+    assign jumpreg = nA & nB & C & E;
 
     assign set = A & B & C;
 
@@ -51,7 +55,7 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
                       (nB & C & D);
 
     assign memwrite = (A & nB & nC) &
-                      (D ~^ E)
+                      (D ~^ E);
 
     assign memread = A & nB & nC & nD & E;
 
@@ -69,7 +73,7 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
 
     // andni, andn, seq, slt sle
     assign invB = B & 
-                  ((A & C & (D ~& E)) |
+                  ((A & C & ~(D & E)) |
                    (nC & D & E & 
                     (nA | (A & F & G))));
     
@@ -84,24 +88,26 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
     assign zeroext = (nC & D & 
                       ((nA & B) |
                        (A & nB & C & nD)));   
-    
-    case({opcode, func})
-    // 000: rotate left
-        7'b10100xx, 7'b1101000: assign aluop = 3'b000;
-    // 001: shift left
-        7'b10101xx, 7'b1101001: assign aluop = 3'b001;
-    // 010: rotate right
-        7'b10110xx, 7'b1101010: assign aluop = 3'b010;
-    // 011: shift right logical
-        7'b10111xx, 7'b1101011: assign aluop = 3'b011;
-    // 100: ADD
-        7'b01x0xxx, 7'bx11x1xx, 7'bx111xxx, 7'b1000xxx, 7'b100x1xx, 7'b110110x: assign aluop = 3'b100;     
-    // 101: OR
-    // 110: XOR
-        7'b01010xx, 7'b1101110, 7'b11100xx: assign aluop = 3'b110;
-    // 111: AND
-        7'b01011xx, 7'b1101111: assign aluop = 3'b111;
-        default: assign aluop = 3'b000;
-    endcase
-    
+   
+    always @(*) begin
+        casex({opcode, func})
+            // 000: rotate left
+                7'b10100xx, 7'b1101000: alu_op_reg <= 3'b000;
+            // 001: shift left
+                7'b10101xx, 7'b1101001: alu_op_reg <= 3'b001;
+            // 010: rotate right
+                7'b10110xx, 7'b1101010: alu_op_reg <= 3'b010;
+            // 011: shift right logical
+                7'b10111xx, 7'b1101011: alu_op_reg <= 3'b011;
+            // 100: ADD
+                7'b01x0xxx, 7'bx11x1xx, 7'bx111xxx, 7'b1000xxx, 7'b100x1xx, 7'b110110x: alu_op_reg <= 3'b100;     
+            // 101: OR
+            // 110: XOR
+                7'b01010xx, 7'b1101110, 7'b11100xx: alu_op_reg <= 3'b110;
+            // 111: AND
+                7'b01011xx, 7'b1101111: alu_op_reg <= 3'b111;
+                default: alu_op_reg <= 3'b000;
+        endcase
+    end 
+  
 endmodule

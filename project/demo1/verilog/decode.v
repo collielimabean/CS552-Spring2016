@@ -10,7 +10,7 @@ module decode(clk, rst, Instr, WriteData,
     output [15:0] ALUOp1, ALUOp2;
     output [2:0] ALUOpcode;
     output [1:0] Func;
-    output ALUSrc, Branch, Jump, If1, If2, Rf, ZeroExt
+    output ALUSrc, Branch, Jump, If1, If2, Rf, ZeroExt,
            JumpReg, Set, Btr, MemWrite, MemRead, 
            MemToReg, Halt, Exception, Err;
 
