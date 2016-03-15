@@ -15,8 +15,9 @@ module decode(clk, rst, Instr, WriteData,
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin;
     wire [2:0] write_reg;
 
-    wire rf_wr_en, regdst, If1, If2, Rf, ZeroExt, optype, RfError;
-    reg OpError, ImmReg;
+    wire rf_wr_en, regdst, If1, If2, Rf, ZeroExt, RfError;
+    reg [15:0] ImmReg;
+    reg OpError;
 
     ///// register file /////
     rf regfile(.clk         (clk),
@@ -45,7 +46,8 @@ module decode(clk, rst, Instr, WriteData,
             4'b0101: ImmReg <= {{8{1'b0}}, Instr[7:0]};
             4'b0100: ImmReg <= {{8{Instr[7]}}, Instr[7:0]};
             4'b0010: ImmReg <= {{5{Instr[10]}}, Instr[10:0]};
-            default: OpError <= 1'b1;
+            4'b11xx, 4'b1x1x, 4'bx11x: OpError <= 1'b1;
+            default: ; 
         endcase
     end
 
@@ -71,5 +73,6 @@ module decode(clk, rst, Instr, WriteData,
                     .regdst     (regdst),
                     .invA       (InvA),
                     .invB       (InvB),
-                    .cin        (Cin));
+                    .cin        (Cin),
+                    .halt       (Halt));
 endmodule

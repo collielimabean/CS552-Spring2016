@@ -19,7 +19,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     output [15:0] Result, NextPC;
 
     wire [15:0] aluResult, setResult, offsetAddr;
-    wire Ofl, Zero, branch_en, isAddOp, invA, invB, cin, addr_cout;
+    wire Ofl, Zero, branch_en, addr_cout;
 
     alu primary_alu(.A      (ALUOp1),
                     .B      ((ALUSrc) ? ALUOp2 : Imm),

@@ -1,12 +1,12 @@
-module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp, zeroext);
+module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp, zeroext, halt);
     input [4:0] opcode;
     input [1:0] func;
-    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp, zeroext;
+    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, regdst, invA, invB, cin, excp, zeroext, halt;
     output [2:0] aluop;
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
 
-    reg alu_op_reg;
+    reg [2:0] alu_op_reg;
     assign aluop = alu_op_reg;
 
     assign A = opcode[4];
@@ -89,6 +89,8 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
                       ((nA & B) |
                        (A & nB & C & nD)));   
    
+    assign halt = ~(|opcode);
+
     always @(*) begin
         casex({opcode, func})
             // 000: rotate left

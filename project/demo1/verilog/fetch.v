@@ -14,7 +14,7 @@ module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
     memory2c instr_mem(.data_in      (16'd0),
                        .data_out     (Instr),
                        .addr         (pc),
-                       .enable       (~halt),
+                       .enable       (1'b1), // tie high, but it's supposed to be ~halt
                        .wr           (1'b0),
                        .createdump   (1'b0),
                        .clk          (clk),
@@ -28,7 +28,8 @@ module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
                  .Cout  (cout));
 
     // TODO: FIX PC logic
-    assign actualNextPC = (halt) ? pc_inc_out : 
+    assign IncPC = pc_inc_out;
+    assign actualNextPC = (Halt) ? pc_inc_out : 
                           (Exception) ? 16'd2 :
-                          actualNextPC;
+                                        IncPC;
 endmodule
