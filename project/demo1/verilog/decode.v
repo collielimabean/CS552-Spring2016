@@ -17,7 +17,7 @@ module decode(clk, rst, Instr, WriteData,
 
     wire rf_wr_en, regdst, If1, If2, Rf, ZeroExt, RfError;
     reg [15:0] ImmReg;
-    reg OpError;
+    reg OpError, RegError;
 
     ///// register file /////
     rf regfile(.clk         (clk),
@@ -31,11 +31,19 @@ module decode(clk, rst, Instr, WriteData,
                .read2data   (ALUOp2),
                .err         (RfError)); 
 
-    assign write_reg = (regdst) ? Instr[7:5] : Instr[4:2];
+    always @(*) begin
+        casex({If2, If1, Rf})
+            3'b100: write_reg <= Instr[10:8];
+            3'b010: write_reg <= Instr[7:5];
+            3'b001: write_reg <= Instr[4:2];
+            default: RegError <= 1'b1;
+        endcase
+    end
+
         
     assign Func = Instr[12:11];
 
-    assign Err = OpError | RfError;
+    assign Err = OpError | RfError | RegError;
 
     assign Immediate = ImmReg;
 
@@ -70,7 +78,6 @@ module decode(clk, rst, Instr, WriteData,
                     .memwrite   (MemWrite),
                     .memread    (MemRead),
                     .memtoreg   (MemToReg),
-                    .regdst     (regdst),
                     .invA       (InvA),
                     .invB       (InvB),
                     .cin        (Cin),
