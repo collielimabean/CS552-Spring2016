@@ -8,10 +8,10 @@ module memory(MemRead, MemWrite, halt, clk, rst, Address, WriteData, ReadData);
     input [15:0] Address, WriteData;
     output [15:0] ReadData;
 
-    memory2c data_mem(.data_in      (Address),
+    memory2c data_mem(.data_in      (WriteData),
                       .data_out     (ReadData),
                       .addr         (Address),
-                      .enable       (~halt & (MemRead | MemWrite)),
+                      .enable       (~halt),
                       .wr           (MemWrite),
                       .createdump   (halt),
                       .clk          (clk),

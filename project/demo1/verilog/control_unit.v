@@ -50,9 +50,17 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
 
     assign btr = A & B & nC & nD & E;
 
+    /*
     assign regwrite =  A |
                       (B & nC) |
                       (nB & C & D);
+    */
+    assign regwrite = (nA & B & nC) | 
+                      (nA & nB & C & D) |  
+                      (A & nB & C) | 
+                      (A & nB & nC & (D | E)) |
+                      (A & B & nC) | 
+                      (A & B & C);
 
     assign memwrite = (A & nB & nC) &
                       (D ~^ E);
