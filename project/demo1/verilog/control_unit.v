@@ -50,11 +50,6 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
 
     assign btr = A & B & nC & nD & E;
 
-    /*
-    assign regwrite =  A |
-                      (B & nC) |
-                      (nB & C & D);
-    */
     assign regwrite = (nA & B & nC) | 
                       (nA & nB & C & D) |  
                       (A & nB & C) | 
@@ -79,25 +74,18 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
                    ((nA & nD) |
                     (A & D & nF & G));
 
-    // andni, andn, seq, slt sle
-    assign invB = B & 
-                  ((A & C & ~(D & E)) |
-                   (nC & D & E & 
-                    (nA | (A & F & G))));
-    
+    // andni, andn, slt sle
+    assign invB = (A & B & C & (D ^ E)) | (nA & B & nC & D & E) | (A & B & nC & D & E & F & G); 
+ 
     // slt, sle, subi, sub
-    assign cin = B & 
+    assign cin = (A & B & C & (D ^ E)) | (nA & B & nC & nD & E) | (A & B & nC & D & E & nF & G);
+/*    assign cin = B & 
                 ((A & C & (D ^ E)) |
                  (nC & E & (
                   ((nA & nD) | (A & D & nF & G)))));
-
+*/
     assign excp = nA & nB & nC & D & nE;
 
-    /*
-    assign zeroext = (nC & D & 
-                      ((nA & B) |
-                       (A & nB & C & nD)));   
-    */
     assign zeroext = (nA & B & nC & D) | slbi;
 
     assign halt = ~(|opcode);
