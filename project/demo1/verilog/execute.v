@@ -19,7 +19,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     output [15:0] Result, NextPC;
 
     wire [15:0] aluResult, setResult, offsetAddr;
-    wire Ofl, Zero, branch_en, addr_cout;
+    wire Ofl, Zero, branch_en, addr_cout, cout;
 
     alu primary_alu(.A      (ALUOp1),
                     .B      ((ALUSrc) ? Imm : ALUOp2),
@@ -30,14 +30,15 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                     .sign   (1'b1),
                     .Out    (aluResult),
                     .Ofl    (Ofl),
-                    .Z      (Zero));
+                    .Z      (Zero),
+                    .Cout   (cout));
 
     ////////////// ALU Output Logic //////////////
     // select the correct set comparison
     mux4to1_16 set_mux(.InA ({{15{1'b0}}, Zero}),                   // seq
                        .InB ({{15{1'b0}}, aluResult[15]}),          // slt
                        .InC ({{15{1'b0}}, aluResult[15] | Zero}),   // sle
-                       .InD ({{15{1'b0}}, Ofl}),                    // sco
+                       .InD ({{15{1'b0}}, cout}),                   // sco
                        .S (Func),
                        .Out (setResult));
 

@@ -11,7 +11,7 @@
  * 111 - A & B
  */
 
-module alu (A, B, Cin, Op, invA, invB, sign, Out, Ofl, Z);
+module alu (A, B, Cin, Op, invA, invB, sign, Out, Ofl, Z, Cout);
     input [15:0] A;
     input [15:0] B;
     input Cin;
@@ -22,6 +22,7 @@ module alu (A, B, Cin, Op, invA, invB, sign, Out, Ofl, Z);
     output [15:0] Out;
     output Ofl;
     output Z;
+    output Cout;
 
     wire cout, is_add_op, signed_ofl;
     wire [15:0] A_real, B_real;
@@ -37,6 +38,7 @@ module alu (A, B, Cin, Op, invA, invB, sign, Out, Ofl, Z);
     assign Ofl = is_add_op & ((sign) ? signed_ofl : cout);
 
     assign Z = ~(|Out);
+    assign Cout = cout;
 
     demux1to2_16 demux0(.In(A_real), .S(Op[2]), .Out0(op0_A), .Out1(op0_B));
     demux1to2_16 demux1(.In(B_real), .S(Op[2]), .Out0(op1_A), .Out1(op1_B));
