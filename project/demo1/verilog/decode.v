@@ -15,7 +15,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin;
 
     wire [15:0] rs_out;
-    wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi;
+    wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi, stu;
     reg [15:0] ImmReg;
     reg [2:0] write_reg;
     reg OpError, RegError;
@@ -35,7 +35,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
     always @(If2, If1, Rf, link, Instr) begin
         casex({If2, If1, Rf, link})
             4'b1000: write_reg <= Instr[10:8];
-            4'b0100: write_reg <= Instr[7:5];
+            4'b0100: write_reg <= (stu) ? Instr[10:8] : Instr[7:5];
             4'b0010: write_reg <= Instr[4:2];
             4'bxxx1: write_reg <= 3'd7; // write r7 for link instructions
             default: ; //TODO : Check me for errors! //RegError <= 1'b1;
@@ -87,5 +87,6 @@ module decode(clk, rst, Instr, WriteData, IncPC,
                     .halt       (Halt),
                     .slbi       (slbi),
                     .lbi        (lbi),
-                    .link       (link));
+                    .link       (link),
+                    .stu        (stu));
 endmodule

@@ -1,7 +1,7 @@
-module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi);
+module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi, stu);
     input [4:0] opcode;
     input [1:0] func;
-    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi;
+    output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi, stu;
     output [2:0] aluop;
 
     wire A, B, C, D, E, nA, nB, nC, nD, nE;
@@ -79,11 +79,7 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
  
     // slt, sle, subi, sub
     assign cin = (A & B & C & (D ^ E)) | (nA & B & nC & nD & E) | (A & B & nC & D & E & nF & G);
-/*    assign cin = B & 
-                ((A & C & (D ^ E)) |
-                 (nC & E & (
-                  ((nA & nD) | (A & D & nF & G)))));
-*/
+    
     assign excp = nA & nB & nC & D & nE;
 
     assign zeroext = (nA & B & nC & D) | slbi;
@@ -95,6 +91,8 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
     assign link = nA & nB & C & D;
 
     assign lbi = A & B & nC & nD & nE;
+
+    assign stu = A & nB & nC & D & E;
 
     always @(*) begin
         casex({opcode, func})
