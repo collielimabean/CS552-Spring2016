@@ -1,15 +1,15 @@
 
-module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
+module fetch(NextPC, clk, rst, Halt, Rti, Exception, Instr, IncPC);
     input [15:0] NextPC;
-    input clk, rst, Halt, Exception;
-    output [15:0] Instr, IncPC, epc;
+    input clk, rst, Halt, Rti, Exception;
+    output [15:0] Instr, IncPC;
 
-    wire [15:0] pc, actualNextPC, pc_inc_out;
-    wire cout;
+    wire [15:0] pc, actualNextPC, nextEPC, pc_inc_out, epc;
+    wire cout, nextExcptState, curExcptState;
 
     dff pc_reg[15:0](.d (actualNextPC), .q (pc), .rst (rst), .clk(clk));
-    // dff [15:0] epc_reg(.d (), .q (epc), .rst (rst), .clk (clk));
-    // TODO: next EPC value is a state machine! figure it out first!
+    dff epc_reg[15:0](.d (nextEPC), .q (epc), .rst (rst), .clk (clk));
+    dff excpt_reg (.d (nextExcptState), .q(curExcptState), .rst (rst), .clk (clk));
 
     memory2c instr_mem(.data_in      (16'd0),
                        .data_out     (Instr),
@@ -27,9 +27,12 @@ module fetch(NextPC, clk, rst, Halt, Exception, Instr, IncPC, epc);
                  .S     (pc_inc_out),
                  .Cout  (cout));
 
-    // TODO: FIX PC logic
+    assign nextExcptState = ~Rti & (Exception ^ curExcptState);
+    assign nextEPC = (~Rti & curExcptState) ? epc : IncPC;
+
     assign IncPC = pc_inc_out;
     assign actualNextPC = (Halt) ? pc_inc_out : 
                           (Exception) ? 16'd2 :
-                                        NextPC;
+                          (Rti & curExcptState) ? epc :
+                                                  NextPC;
 endmodule

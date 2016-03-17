@@ -36,8 +36,8 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     ////////////// ALU Output Logic //////////////
     // select the correct set comparison
     mux4to1_16 set_mux(.InA ({{15{1'b0}}, Zero}),                   // seq
-                       .InB ({{15{1'b0}}, aluResult[15]}),          // slt
-                       .InC ({{15{1'b0}}, aluResult[15] | Zero}),   // sle
+                       .InB ({{15{1'b0}}, ((ALUOp1[15] ^ ALUOp2[15]) ? ALUOp1[15] & ~ALUOp2[15] : aluResult[15])}),          // slt
+                       .InC ({{15{1'b0}}, ((ALUOp1[15] ^ ALUOp2[15]) ? ALUOp1[15] & ~ALUOp2[15] : aluResult[15]) | Zero}),   // sle
                        .InD ({{15{1'b0}}, cout}),                   // sco
                        .S (Func),
                        .Out (setResult));

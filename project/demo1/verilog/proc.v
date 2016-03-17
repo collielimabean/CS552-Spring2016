@@ -26,16 +26,16 @@ module proc (/*AUTOARG*/
     wire [2:0] aluopcode;
     wire [1:0] func;
     wire alusrc, branch, jump, jumpreg, set, btr, memwrite,
-         memread, memtoreg, halt, exception, invA, invB, cin;
+         memread, memtoreg, halt, exception, invA, invB, cin, rti;
 
     fetch f(.NextPC     (nextPC),
             .clk        (clk),
             .rst        (rst),
             .Halt       (halt),
             .Exception  (exception),
+            .Rti        (rti),
             .Instr      (instr),
-            .IncPC      (incPC),
-            .epc        (epc));
+            .IncPC      (incPC));
 
     decode d(.clk       (clk),
              .rst       (rst),
@@ -61,7 +61,8 @@ module proc (/*AUTOARG*/
              .Immediate (imm),
              .InvA      (invA),
              .InvB      (invB),
-             .Cin       (cin));
+             .Cin       (cin),
+             .Rti       (rti));
     
     execute e(.ALUOp1   (aluop1),
               .ALUOp2   (aluop2),

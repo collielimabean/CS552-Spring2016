@@ -3,7 +3,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
               ALUOp1, ALUOp2, ALUSrc, Immediate, Branch, Jump,
               JumpReg, Set, Btr, InvA, InvB, Cin, 
               ALUOpcode, Func, MemWrite, MemRead,
-              MemToReg, Halt, Exception, Err);
+              MemToReg, Halt, Exception, Err, Rti);
 
     input [15:0] Instr, WriteData, IncPC;
     input clk, rst;
@@ -12,7 +12,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
     output [1:0] Func;
     output ALUSrc, Branch, Jump,
            JumpReg, Set, Btr, MemWrite, MemRead, 
-           MemToReg, Halt, Exception, Err, InvA, InvB, Cin;
+           MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti;
 
     wire [15:0] rs_out;
     wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi, stu;
@@ -88,5 +88,6 @@ module decode(clk, rst, Instr, WriteData, IncPC,
                     .slbi       (slbi),
                     .lbi        (lbi),
                     .link       (link),
-                    .stu        (stu));
+                    .stu        (stu),
+                    .rti        (Rti));
 endmodule
