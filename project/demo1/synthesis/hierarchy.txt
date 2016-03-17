@@ -1,0 +1,128 @@
+ 
+****************************************
+Report : hierarchy
+Design : proc
+Version: B-2008.09-SP3
+Date   : Thu Mar 17 01:49:12 2016
+****************************************
+
+Information: This design contains unmapped logic. (RPT-7)
+
+proc
+    decode
+        GTECH_AND2                                 gtech
+        GTECH_BUF                                  gtech
+        GTECH_NOT                                  gtech
+        GTECH_OR2                                  gtech
+        GTECH_OR3                                  gtech
+        GTECH_OR4                                  gtech
+        GTECH_OR5                                  gtech
+        control_unit
+            GTECH_AND2                             gtech
+            GTECH_BUF                              gtech
+            GTECH_NOT                              gtech
+            GTECH_OR2                              gtech
+            GTECH_XOR2                             gtech
+        rf
+            GTECH_BUF                              gtech
+            GTECH_NOT                              gtech
+            decoder3to8
+                GTECH_AND2                         gtech
+                GTECH_NOT                          gtech
+            demux1to8_16
+                demux1to8
+                    GTECH_AND2                     gtech
+                    GTECH_NOT                      gtech
+            mux8to1_16
+                GTECH_BUF                          gtech
+                GTECH_NOT                          gtech
+                mux4to1_16
+                    GTECH_BUF                      gtech
+                    GTECH_NOT                      gtech
+            register16
+                GTECH_BUF                          gtech
+                GTECH_NOT                          gtech
+                dff
+                    GTECH_BUF                      gtech
+                    GTECH_NOT                      gtech
+    execute
+        GTECH_AND2                                 gtech
+        GTECH_BUF                                  gtech
+        GTECH_NOT                                  gtech
+        GTECH_OR2                                  gtech
+        GTECH_XOR2                                 gtech
+        alu
+            GTECH_AND2                             gtech
+            GTECH_BUF                              gtech
+            GTECH_NOT                              gtech
+            GTECH_OR2                              gtech
+            GTECH_XOR2                             gtech
+            cla_or_xor_and
+                GTECH_AND2                         gtech
+                GTECH_BUF                          gtech
+                GTECH_NOT                          gtech
+                GTECH_OR2                          gtech
+                GTECH_XOR2                         gtech
+                cla16
+                    GTECH_AND2                     gtech
+                    GTECH_OR2                      gtech
+                    cla4
+                        GTECH_AND2                 gtech
+                        GTECH_OR2                  gtech
+                        GTECH_XOR2                 gtech
+                        fulladder1
+                            GTECH_AND2             gtech
+                            GTECH_XOR2             gtech
+                demux1to4_16
+                    demux1to4
+                        GTECH_AND2                 gtech
+                        GTECH_NOT                  gtech
+                mux4to1_16
+                    ...
+            demux1to2_16
+                demux1to2
+                    GTECH_AND2                     gtech
+                    GTECH_NOT                      gtech
+            shifter
+                GTECH_BUF                          gtech
+                GTECH_NOT                          gtech
+                lshifter
+                    GTECH_AND2                     gtech
+                    GTECH_BUF                      gtech
+                    GTECH_NOT                      gtech
+                    GTECH_OR2                      gtech
+                rshifter
+                    GTECH_AND2                     gtech
+                    GTECH_BUF                      gtech
+                    GTECH_NOT                      gtech
+                    GTECH_OR2                      gtech
+        cla16
+            ...
+        mux4to1
+            GTECH_BUF                              gtech
+            GTECH_NOT                              gtech
+        mux4to1_16
+            ...
+    fetch
+        GTECH_AND2                                 gtech
+        GTECH_BUF                                  gtech
+        GTECH_NOT                                  gtech
+        GTECH_OR2                                  gtech
+        GTECH_XOR2                                 gtech
+        cla16
+            ...
+        dff
+            ...
+        memory2c
+            GTECH_AND2                             gtech
+            GTECH_BUF                              gtech
+            GTECH_NOT                              gtech
+            GTECH_OR2                              gtech
+    memory
+        GTECH_NOT                                  gtech
+        memory2c
+            ...
+    writeback
+        GTECH_BUF                                  gtech
+        GTECH_NOT                                  gtech
+1
