@@ -25,7 +25,6 @@ module rf (
     assign rf_wr_en = (write) ? write_en : 8'd0;
     assign err = 1'b0;
 
-    clkrst cr(.clk (clk), .rst(rst), .err(err));
     register16 registers [7:0] (.d(reg_in), .q(reg_out), .clk (clk), .wr_en(rf_wr_en), .rst(rst));
     decoder3to8 wr_dec(.In (writeregsel), .Out (write_en));
 
