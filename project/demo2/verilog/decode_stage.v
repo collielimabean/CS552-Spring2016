@@ -1,0 +1,90 @@
+module decode_stage(clk, rst, Stall, Flush, Instr, IncPC, WriteDate, ALUOp1,
+                    ALUOp2, ALUSrc, Branch, Jump, JumpReg, Set, Btr, ALUOpcode,
+                    Func, MemWrite, MemRead, MemToReg, Halt, Exception, Err,
+                    Immediate, InvA, InvB, Cin, Rti)
+                    );
+    
+    wire [15:0] instr, writedata, incpc;
+    wire [2:0] aluop1, aluop2, immediate;
+    wire [1:0] func;
+    wire alusrc, branch, jump, jumpreg, set, btr, aluopcode, memwrite, memread,
+         memtoreg, halt, exception, err, inva, invb, cin, rti;
+    wire pipe_flush;
+        
+    assign pipe_flush = rst | Flush;
+    
+    decode d(.clk       (clk),
+             .rst       (rst),
+             .Instr     (instr),
+             .IncPC     (incpc),
+             .WriteData (decode_wr_data),
+             .ALUOp1    (aluop1),
+             .ALUOp2    (aluop2),
+             .ALUSrc    (alusrc),
+             .Branch    (branch),
+             .Jump      (jump),
+             .JumpReg   (jumpreg),
+             .Set       (set),
+             .Btr       (btr),
+             .ALUOpcode (aluopcode),
+             .Func      (func),
+             .MemWrite  (memwrite),
+             .MemRead   (memread),
+             .MemToReg  (memtoreg),
+             .Halt      (halt),
+             .Exception (exception),
+             .Err       (err),
+             .Immediate (imm),
+             .InvA      (invA),
+             .InvB      (invB),
+             .Cin       (cin),
+             .Rti       (rti));
+
+
+    pipe_de( clk(clk),
+            .rst(rst),
+            .en(pipe_flush),
+            .ALUOp1(aluop1),
+            .ALUOp2(aluop2),
+            .Immediate(immediate),
+            .ALUOpcode(aluopcode),
+            .Func(func),
+            .ALUSrc(alusrc),
+            .Branch(branch),
+            .Jump(jump),
+            .JumpReg(jumpreg),
+            .Set(set),
+            .Btr(btr),
+            .MemWrite(memwrite),
+            .MemRead(memread),
+            .MemToReg(memtoreg),
+            .Halt(halt),
+            .Exception(exception),
+            .Err(err),
+            .InvA(inva),
+            .InvB(invb),
+            .Cin(cin),
+            .Rti(rti),
+            .ALUOp1_Out(ALUOp1),
+            .ALUOp2_Out(ALUOp2),
+            .Immediate_Out(Immediate),
+            .ALUOpcode_Out(ALUOpcode),
+            .Func_Out(Func),
+            .ALUSrc_Out(ALUSrc),
+            .Branch_Out(Branch),
+            .Jump_Out(Jump),
+            .JumpReg_Out(JumpReg),
+            .Set_Out(Set),
+            .Btr_Out(Btr),
+            .MemWrite_Out(MemWrite),
+            .MemRead_Out(MemRead),
+            .MemToReg_Out(MemToReg),
+            .Halt_Out(Halt),
+            .Exception_Out(Exception),
+            .Err_Out(Err),
+            .InvA_Out(InvA),
+            .InvB_Out(InvB),
+            .Cin_Out(Cin),
+            .Rti_Out(Rti);
+
+endmodule
