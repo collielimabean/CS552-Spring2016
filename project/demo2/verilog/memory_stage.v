@@ -39,7 +39,10 @@ module memory_stage(
 		.MemToReg		(MemToReg),
 		.ExecuteOut_Out	(ExecuteOut_Out),
 		.MemOut_Out		(MemOut_Out),
-		.MemToReg_Out	(MemToReg_Out));
+		.MemToReg_Out	(MemToReg_Out),
+		.RegFileWrEn	(RegFileWrEn),
+		.RegFileWrEn_Out(RegFileWrEn_Out)
+	);
 );
 
 endmodule

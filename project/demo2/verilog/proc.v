@@ -24,12 +24,16 @@ module proc (/*AUTOARG*/
 	wire [15:0] Instr, IncPC, NextPC, D_IncPC, RegWriteData, ALUOP1,
 				ALUOp2, Immediate, Address, MemoryWriteData, M_ExecuteOut,
 				PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2;
-	wire [2:0] ALUOpcode;
-	wire [1:0] Func;
+	wire [2:0] ALUOpcode, 
+			   D_Rs, D_Rt, D_Rd, 
+			   E_Rs, E_Rt, E_Rd,
+			   M_Rs, M_Rt, M_Rd;
+	wire [1:0] Func, ForwardALUOp1, ForwardALUOp2;
 	wire Stall, Flush, Halt, Exception, Rti, ALUSrc, Branch, Jump,
 		 JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, InvA, InvB,
 		 Cin, E_MemRead, E_MemWrite, E_MemToReg, E_Halt, M_MemToReg,
-		 d_err, e_err, ForwardALUOp1, ForwardALUOp2;
+		 D_RegFileWrEn, E_RegFileWrEn, M_RegFileWrEn,
+		 d_err, e_err;
 
 	assign err = d_err | e_err;
 
@@ -48,7 +52,8 @@ module proc (/*AUTOARG*/
 	);
 	
 	// hazard detection unit
-	
+	// generate Flush & Stall signal(s)
+	// handle NextPC correctly
 	
 	// decode
 	decode_stage ds(
@@ -81,7 +86,13 @@ module proc (/*AUTOARG*/
 		.InvB				(InvB),
 		.Cin				(Cin),
 		.Rti				(Rti)
-		// forwarding signals
+		// forwarding passthrough
+		.Rs					(D_Rs),
+		.Rt					(D_Rt),
+		.Rd					(D_Rd),
+		// from writeback
+		.RegFileWrEn		(M_RegFileWrEn),
+		.RegFileWrEn_Out	(D_RegFileWrEn)
 	);
 	
 	// execute
@@ -113,26 +124,81 @@ module proc (/*AUTOARG*/
 		.MemToReg_Out		(E_MemToReg),
 		.Halt_Out			(E_Halt),
 		// forwarding signals //
+		.Rs					(D_Rs),
+		.Rd					(D_Rd),
+		.Rt					(D_Rt)
+		.Rs_Out				(E_Rs),
+		.Rd_Out				(E_Rd),
+		.Rt_Out				(E_Rt),
 		.ForwardALUOp1      (ForwardALUOp1),
 		.ForwardALUOp2		(ForwardALUOp2),
-		.PipeEM_ALUOp1		(), 
-		.PipeEM_ALUOp2		(),
-		.PipeMW_ALUOp1		(), 
-		.PipeMW_ALUOp2		(),
+		.PipeEM_Result		(MemoryWriteData), 
+		.PipeMW_Result		(RegWriteData), 
+		.RegFileWrEn		(D_RegFileWrEn),
+		.RegFileWrEn_Out	(E_RegFileWrEn)
 	);
 	
-	// forwarding unit //
-	// execute hazard
-	// if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) ForwardALUOp1 <= 2'b10
-	// if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) ForwardALUOp2 <= 2'b10
-	// memory hazard
-	// if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) ForwardALUOp1 <= 2'b01
-	// if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) ForwardALUOp2 <= 2'b01
-	// new required signals that we need to expose: Rs, Rt, Rd - passthrough all
-	// supposedly Rt is used for stalling
-	// DE: Rs, Rt, Rd
-	// EM: Rt|Rd muxed
-	// MW: passthrough from EM stage
+	// forwarding //
+	/*
+		// execute hazard
+		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) 
+			ForwardALUOp1 <= 2'b10
+		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) 
+			ForwardALUOp2 <= 2'b10
+			
+		// memory hazard
+		if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) 
+			ForwardALUOp1 <= 2'b01
+		if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) 
+			ForwardALUOp2 <= 2'b01
+			
+		------------------------
+		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) 
+			ForwardALUOp1 <= 2'b10
+		else if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) 
+			ForwardALUOp1 <= 2'b01
+		else
+			ForwardALUOp1 <= 2'b00
+			
+		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) 
+			ForwardALUOp2 <= 2'b10
+		else if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) 
+			ForwardALUOp2 <= 2'b01
+		else 
+			ForwardALUOp2 <= 2'b00
+		------------------------
+			
+		ForwardALUOp1 = (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) ? 2'b10 :
+					    (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) ? 2'b01 :
+					    2'b00;
+					    
+		ForwardALUOp2 = (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) ? 2'b10 : 
+						(P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) ? 2'b01 :
+						2'b00;
+		
+		-------------------------
+		ForwardALUOp1 = (M_RegWrite && (M_Rd == E_Rs)) ? 2'b10 :
+				(M_RegWrite && ~(E_RegWrite) && (M_Rd == E_Rs)) ? 2'b01 :
+				2'b00;			
+		ForwardALUOp2 = (M_RegWrite && (M_Rd == E_Rt)) ? 2'b10 : 
+				(M_RegWrite && ~(E_RegWrite) && (M_Rd == E_Rt)) ? 2'b01 :
+				2'b00;
+		-------------------------
+		ForwardALUOp1 = (M_RegWrite && ~(|(M_Rd ^ E_Rs))) ? 2'b10 :
+				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rs)) ? 2'b01 :
+				2'b00;			
+		ForwardALUOp2 = (M_RegWrite && ~(|(M_Rd ^ E_Rt))) ? 2'b10 : 
+				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rt)) ? 2'b01 :
+				2'b00;
+	 */
+	 
+	assign ForwardALUOp1 = (M_RegWrite && ~(|(M_Rd ^ E_Rs))) ? 2'b10 :
+				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rs)) ? 2'b01 :
+				2'b00;
+				
+	assign ForwardALUOp2 = (M_RegWrite && ~(|(M_Rd ^ E_Rt))) ? 2'b10 : 
+				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rt)) ? 2'b01 :
+				2'b00;
 	
 	// memory 
 	memory_stage ms(
@@ -150,6 +216,15 @@ module proc (/*AUTOARG*/
 		.ExecuteOut_Out		(M_ExecuteOut),
 		.MemToReg_Out		(M_MemToReg),
 		.ReadData			(MemoryReadData)
+		// forwarding signals
+		.Rs					(E_Rs),
+		.Rd					(E_Rd),
+		.Rt					(E_Rt)
+		.Rs_Out				(M_Rs),
+		.Rd_Out				(M_Rd),
+		.Rt_Out				(M_Rt),
+		.RegFileWrEn		(E_RegFileWrEn),
+		.RegFileWrEn_Out	(M_RegFileWrEn)
 	);
 
 	// writeback

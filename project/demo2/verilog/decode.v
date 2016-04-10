@@ -3,15 +3,16 @@ module decode(clk, rst, Instr, WriteData, IncPC,
               ALUOp1, ALUOp2, ALUSrc, Immediate, Branch, Jump,
               JumpReg, Set, Btr, InvA, InvB, Cin, 
               ALUOpcode, Func, MemWrite, MemRead,
-              MemToReg, Halt, Exception, Err, Rti);
+              MemToReg, Halt, Exception, Err, Rti,
+              Rs, Rt, Rd, RegFileWrEn, RegFileWrEn_Out);
 
     input [15:0] Instr, WriteData, IncPC;
-    input clk, rst;
+    input clk, rst, RegFileWrEn;
     output [15:0] ALUOp1, ALUOp2, Immediate;
-    output [2:0] ALUOpcode;
+    output [2:0] ALUOpcode, Rs, Rt, Rd;
     output [1:0] Func;
     output ALUSrc, Branch, Jump,
-           JumpReg, Set, Btr, MemWrite, MemRead, 
+           JumpReg, Set, Btr, MemWrite, MemRead, RegFileWrEn_Out,
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti;
 
     wire [15:0] rs_out;
@@ -20,13 +21,17 @@ module decode(clk, rst, Instr, WriteData, IncPC,
     reg [2:0] write_reg;
     reg OpError, RegError;
 
+	assign Rs = Instr[10:8];
+	assign Rd = (Rf) ? Instr[4:2] : Instr[7:5];
+	assign Rt = Instr[7:5];
+	
     ///// register file /////
     rf regfile(.clk         (clk),
                .rst         (rst),
                .read1regsel (Instr[10:8]),
                .read2regsel (Instr[7:5]),
                .writeregsel (write_reg),
-               .write       (rf_wr_en),
+               .write       (RegFileWrEn),
                .writedata   ((link) ? IncPC : WriteData),
                .read1data   (rs_out),
                .read2data   (ALUOp2),
@@ -77,7 +82,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
                     .jumpreg    (JumpReg),
                     .set        (Set),
                     .btr        (Btr),
-                    .regwrite   (rf_wr_en),
+                    .regwrite   (RegFileWrEn_Out),
                     .memwrite   (MemWrite),
                     .memread    (MemRead),
                     .memtoreg   (MemToReg),

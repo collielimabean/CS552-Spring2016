@@ -10,14 +10,13 @@ module execute_stage(
 	Set, ALUSrc, InvA, InvB, Cin, Btr,
 	/* forwarding inputs and signals */
     ForwardALUOp1, ForwardALUOp2,
-    PipeEM_ALUOp1, PipeEM_ALUOp2,
-    PipeMW_ALUOp1, PipeMW_ALUOp2,
+    PipeEM_Result, PipeMW_Result,
 	/* passthrough inputs */
-	MemRead, MemWrite, MemToReg, Halt,
+	MemRead, MemWrite, MemToReg, Halt, RegFileWrEn,
 	/* outputs */
-	Address, WriteData, NextPC,
+	Address, WriteData, NextPC, Err,
 	/* passthrough outputs */
-	MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, Err	
+	MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out
 );
 	input Stall, Flush, rst, clk;
 	input [15:0] ALUOp1, ALUOp2, Immediate, IncPC,
@@ -50,7 +49,10 @@ module execute_stage(
               .Imm      (Immediate),
               .ALUSrc   (ALUSrc),
               .Result   (execute_result),
-              .NextPC   (NextPC));      
+              .NextPC   (NextPC),
+              .PipeEM_Result (PipeEM_Result), 
+              .PipeMW_Result (PipeMW_Result)
+	);      
               
 	pipe_em pem(
 		.Stall			(Stall),
@@ -67,6 +69,9 @@ module execute_stage(
 		.MemWrite_Out	(MemWrite_Out),
 		.MemToReg_Out	(MemToReg_Out),
 		.Halt_Out		(Halt_Out),
-		.WriteData		(WriteData));
+		.WriteData		(WriteData),
+		.RegFileWrEn	(RegFileWrEn),
+		.RegFileWrEn_Out(RegFileWrEn_Out)
+	);
 		
 endmodule

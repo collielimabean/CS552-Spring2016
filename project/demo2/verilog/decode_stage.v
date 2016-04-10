@@ -4,12 +4,15 @@ module decode_stage(
 	/* inputs */
 	Instr, WriteData,
 	/* passthrough inputs */
-	IncPC, 
+	IncPC,
+	/* Pipelining inputs */
+	RegFileWrEn,
 	/* outputs */
 	ALUOp1, ALUOp2, Immediate, ALUOpcode,
 	Func, ALUSrc, Branch, Jump, JumpReg,
 	Set, Btr, MemWrite, MemRead, MemToReg,
-	Halt, Exception, Err, InvA, InvB, Cin, Rti 
+	Halt, Exception, Err, InvA, InvB, Cin, Rti,
+	RegFileWrEn_Out
 	/* passthrough outputs */
 	IncPC_Out
 );
@@ -18,13 +21,13 @@ module decode_stage(
 	output [2:0] ALUOpcode;
 	output [1:0] Func;
 	output ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead,
-		   MemToReg, Halt, Exception, InvA, InvB, Cin, Rti;
+		   MemToReg, Halt, Exception, InvA, InvB, Cin, Rti, RegFileWrEn_Out;
 
 	wire [15:0] aluop1, aluop2, immediate;
-	wire [2:0] aluopcode;
+	wire [2:0] aluopcode, rs, rt, rd;
 	wire [1:0] func;
 	wire alusrc, branch, jump, jumpreg, set, btr, memwrite, memtoreg,
-		 memread, halt, inva, invb, cin;
+		 memread, halt, inva, invb, cin, rf_wr_en;
 
     decode d(.clk       (clk),
              .rst       (rst),
@@ -51,7 +54,13 @@ module decode_stage(
              .InvA      (inva),
              .InvB      (invb),
              .Cin       (cin),
-             .Rti       (Rti));
+             .Rti       (Rti),
+             .Rs		(rs),
+             .Rt 		(rt),
+			 .Rd		(rd),
+			 .RegFileWrEn (RegFileWrEn)
+			 .RegFileWrEn_Out	(rf_wr_en),
+		 );
 
     pipe_de(.clk(clk),
             .rst(rst | Flush),
@@ -91,6 +100,15 @@ module decode_stage(
             .Halt_Out(Halt),
             .InvA_Out(InvA),
             .InvB_Out(InvB),
-            .Cin_Out(Cin));
+            .Cin_Out(Cin),
+            .Rs(rs),
+            .Rt(rt),
+            .Rd(rd),
+            .Rs_Out(Rs),
+            .Rt_Out(Rt),
+            .Rd_Out(Rd),
+            .RegFileWrEn (rf_wr_en),
+            .RegFileWrEn_Out (RegFileWrEn_Out)
+		);
 
 endmodule
