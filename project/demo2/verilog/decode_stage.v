@@ -1,23 +1,36 @@
-module decode_stage(clk, rst, Stall, Flush, Instr, IncPC, WriteDate, ALUOp1,
-                    ALUOp2, ALUSrc, Branch, Jump, JumpReg, Set, Btr, ALUOpcode,
-                    Func, MemWrite, MemRead, MemToReg, Halt, Exception, Err,
-                    Immediate, InvA, InvB, Cin, Rti)
-                    );
-    
-    wire [15:0] instr, writedata, incpc;
-    wire [2:0] aluop1, aluop2, immediate;
-    wire [1:0] func;
-    wire alusrc, branch, jump, jumpreg, set, btr, aluopcode, memwrite, memread,
-         memtoreg, halt, exception, err, inva, invb, cin, rti;
-    wire pipe_flush;
-        
-    assign pipe_flush = rst | Flush;
-    
+module decode_stage(
+	/* common inputs */
+	Stall, Flush, rst, clk, 
+	/* inputs */
+	Instr, WriteData,
+	/* passthrough inputs */
+	IncPC, 
+	/* outputs */
+	ALUOp1, ALUOp2, Immediate, ALUOpcode,
+	Func, ALUSrc, Branch, Jump, JumpReg,
+	Set, Btr, MemWrite, MemRead, MemToReg,
+	Halt, Exception, Err, InvA, InvB, Cin, Rti 
+	/* passthrough outputs */
+	IncPC_Out
+);
+	input [15:0] Instr, WriteData, IncPC;
+	output[15:0] ALUOp1, ALUOp2, Immediate;
+	output [2:0] ALUOpcode;
+	output [1:0] Func;
+	output ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead,
+		   MemToReg, Halt, Exception, InvA, InvB, Cin, Rti;
+
+	wire [15:0] aluop1, aluop2, immediate;
+	wire [2:0] aluopcode;
+	wire [1:0] func;
+	wire alusrc, branch, jump, jumpreg, set, btr, memwrite, memtoreg,
+		 memread, halt, inva, invb, cin;
+
     decode d(.clk       (clk),
              .rst       (rst),
-             .Instr     (instr),
-             .IncPC     (incpc),
-             .WriteData (decode_wr_data),
+             .Instr     (Instr),
+             .IncPC     (IncPC),
+             .WriteData (WriteData),
              .ALUOp1    (aluop1),
              .ALUOp2    (aluop2),
              .ALUSrc    (alusrc),
@@ -32,18 +45,17 @@ module decode_stage(clk, rst, Stall, Flush, Instr, IncPC, WriteDate, ALUOp1,
              .MemRead   (memread),
              .MemToReg  (memtoreg),
              .Halt      (halt),
-             .Exception (exception),
-             .Err       (err),
-             .Immediate (imm),
-             .InvA      (invA),
-             .InvB      (invB),
+             .Exception (Exception),
+             .Err       (Err),
+             .Immediate (immediate),
+             .InvA      (inva),
+             .InvB      (invb),
              .Cin       (cin),
-             .Rti       (rti));
+             .Rti       (Rti));
 
-
-    pipe_de( clk(clk),
-            .rst(rst),
-            .en(pipe_flush),
+    pipe_de(.clk(clk),
+            .rst(rst | Flush),
+            .Stall(Stall),
             .ALUOp1(aluop1),
             .ALUOp2(aluop2),
             .Immediate(immediate),
@@ -59,12 +71,9 @@ module decode_stage(clk, rst, Stall, Flush, Instr, IncPC, WriteDate, ALUOp1,
             .MemRead(memread),
             .MemToReg(memtoreg),
             .Halt(halt),
-            .Exception(exception),
-            .Err(err),
             .InvA(inva),
             .InvB(invb),
             .Cin(cin),
-            .Rti(rti),
             .ALUOp1_Out(ALUOp1),
             .ALUOp2_Out(ALUOp2),
             .Immediate_Out(Immediate),
@@ -80,11 +89,8 @@ module decode_stage(clk, rst, Stall, Flush, Instr, IncPC, WriteDate, ALUOp1,
             .MemRead_Out(MemRead),
             .MemToReg_Out(MemToReg),
             .Halt_Out(Halt),
-            .Exception_Out(Exception),
-            .Err_Out(Err),
             .InvA_Out(InvA),
             .InvB_Out(InvB),
-            .Cin_Out(Cin),
-            .Rti_Out(Rti);
+            .Cin_Out(Cin));
 
 endmodule

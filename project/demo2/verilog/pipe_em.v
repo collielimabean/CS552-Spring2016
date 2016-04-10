@@ -1,26 +1,56 @@
+/*
+Execute:
+	Outputs:
+		Result
+		NextPC
+		
+	Passthrough:
+		MemRead
+		MemWrite
+		MemToReg
+		Halt
+		
+Memory:
+	Inputs:
+		MemRead
+		MemWrite
+		Halt
+		Address
+		WriteData
+	Outputs:
+		ReadData
+		
+	Passthrough:
+		MemToReg
+		
+ */
+module pipe_em(
+	/* common inputs */
+	Stall, rst, clk,
+	/* inputs */
+	Result, MemRead, MemWrite, MemToReg, Halt, ALUOp2,
+	/* outputs */
+	Address, MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, WriteData
+);
 
-module pipe_em(ExecuteOut, MemWrite, MemRead, Halt, WriteData,
-               en, clk, rst, ExecuteOut_Out, MemWrite_Out,
-               MemRead_Out, Halt_Out, WriteData_Out);
-    input MemWrite, MemRead, Halt;
-    input [15:0] ExecuteOut, WriteData;
-    output MemWrite_Out, MemRead_Out, Halt_Out;
-    output [15:0] ExecuteOut_Out, WriteData_Out;
+	input Stall, rst, clk, MemRead, MemWrite, MemToReg, Halt;
+	input [15:0] Result, ALUOp2;
 
-    wire MemWrite_In, MemRead_In, Halt_In;
-    wire [15:0] ExecuteOut_In, WriteData_In;
+	output MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out;
+	output [15:0] Address, WriteData;
 
-    dff memwrite_reg(.d (MemWrite_In), .q (MemWrite_Out), .rst (rst), .clk (clk));
-    dff memread_reg(.d (MemRead_In), .q (MemRead_Out), .rst (rst), .clk (clk));
-    dff halt_reg(.d (Halt_In), .q (Halt_Out), .rst (rst), .clk (clk));
-    dff execute_out_reg[15:0](.d (ExecuteOut_In), .q(ExecuteOut_Out), .rst (rst), .clk (clk));
-    dff write_data_reg[15:0](.d (WriteData_In), .q(WriteData_Out), .rst (rst), .clk (clk));
+	wire [15:0] AddressMuxed;
+	wire MemReadMuxed, MemWriteMuxed, MemToRegMuxed, ALUOp2Muxed;
 
-
-    assign MemWrite_In = (en) ? MemWrite : MemWrite_Out;
-    assign MemRead_In = (en) ? MemRead : MemRead_Out;
-    assign Halt_In = (en) ? Halt : Halt_Out;
-    assign ExecuteOut_In = (en) ? ExecuteOut : ExecuteOut_Out;
-    assign WriteData_In = (en) ? WriteData : WriteData_Out;
-
+	dff address_reg[15:0](.d (AddressMuxed), .q (Address), .clk(clk), .rst(rst));
+	dff memread_reg(.d (MemReadMuxed), .q (MemRead_Out), .clk(clk), .rst(rst));
+	dff memwrite_reg(.d (MemWriteMuxed), .q (MemWrite_Out), .clk(clk), .rst(rst));
+	dff memtoreg_reg(.d (MemToRegMuxed), .q (MemToReg_Out), .clk(clk), .rst(rst));
+	dff writedata_reg[15:0](.d (ALUOp2Muxed), .q (WriteData), .clk(clk), .rst(rst));
+	
+	assign AddressMuxed = (Stall) ? Address : Result;
+	assign MemReadMuxed = (Stall) ? MemRead_Out : MemRead;
+	assign MemWriteMuxed = (Stall) ? MemWrite_Out : MemWrite;
+	assign MemToRegMuxed = (Stall) ? MemToReg_Out : MemToReg;
+	assign ALUOp2Muxed = (Stall) ? WriteData : ALUOp2;
 endmodule 

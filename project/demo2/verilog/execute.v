@@ -1,28 +1,27 @@
 
-/*
- * Execute module
- * Remarks:
- * Address calcuation:
- * 1) Deviated from figure. Branches/jump addr calculations are all offset
- * based (PC + 2 + sext(Imm) or Rs + sext(Imm)).
- * 2) WISC13 is not word aligned; it's byte aligned. No shift left necessary
- * for the immediate operand.
- */
 module execute(ALUOp1, ALUOp2, Opcode, IncPC, 
                Jump, Branch, JumpReg, Set,
                InvA, InvB, Cin, Btr,
-               Func, Imm, ALUSrc, Result, NextPC);
-    input [15:0] ALUOp1, ALUOp2, IncPC, Imm;
+               Func, Imm, ALUSrc, Result, NextPC, Err
+			   /* forwarding signals */
+			   ForwardALUOp1, ForwardALUOp2,
+			   PipeEM_ALUOp1, PipeEM_ALUOp2,
+			   PipeMW_ALUOp1, PipeMW_ALUOp2
+);
+    input [15:0] ALUOp1, ALUOp2, IncPC, Imm, PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2;
     input [2:0] Opcode;
-    input [1:0] Func;
+    input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
     input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr;
     output [15:0] Result, NextPC;
+    output Err;
 
     wire [15:0] aluResult, setResult, offsetAddr;
-    wire Ofl, Zero, branch_en, addr_cout, cout;
+    wire Ofl, Zero, branch_en, addr_cout, cout, alu_operand_a, alu_operand_b;
 
-    alu primary_alu(.A      (ALUOp1),
-                    .B      ((ALUSrc) ? Imm : ALUOp2),
+	reg [15:0] OpAReg, OpBReg;
+
+    alu primary_alu(.A      (alu_operand_a), //ALUOp1),
+                    .B      (alu_operand_b), //    (ALUSrc) ? Imm : ALUOp2),
                     .Cin    (Cin),
                     .Op     (Opcode),
                     .invA   (InvA),
@@ -32,6 +31,28 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                     .Ofl    (Ofl),
                     .Z      (Zero),
                     .Cout   (cout));
+
+	////////////// ALU Operand Forwarding Logic //////////////
+	assign alu_operand_a = OpAReg;
+	assign alu_operand_b = OpBReg;
+	
+	always @(*) begin
+		case (ForwardALUOp1) begin
+			2'b00: OpAReg <= ALUOp1;
+			2'b01: OpAReg <= PipeMW_ALUOp1;
+			2'b10: OpAReg <= PipeEM_ALUOp1;
+			default: Err <= 1'b1;
+		endcase
+	end
+	
+	always @(*) begin
+		case (ForwardALUOp2) begin
+			2'b00: OpBReg <= (ALUSrc) ? Imm : ALUOp2;
+			2'b01: OpBReg <= PipeMW_ALUOp2;
+			2'b10: OpBReg <= PipeEM_ALUOp2;
+			default: Err <= 1'b1;
+		endcase
+	end
 
     ////////////// ALU Output Logic //////////////
     // select the correct set comparison

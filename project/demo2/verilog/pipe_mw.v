@@ -1,18 +1,48 @@
+/*
+Memory:
+	Inputs:
+		MemRead
+		MemWrite
+		Halt
+		Address
+		WriteData
+	Outputs:
+		ReadData
+		
+	Passthrough:
+		MemToReg
+		
+WriteBack
+	Inputs:
+		ExecuteOut
+		MemOut
+		MemToReg
+	Outputs:
+		WriteData
+ */
+module pipe_mw(
+	/* common inputs */
+	Stall, rst, clk,
+	/* inputs */
+	ExecuteOut, MemOut, MemToReg,
+	/* outputs */
+	ExecuteOut_Out, MemOut_Out, MemToReg_Out
+);
 
-module pipe_mw(MemToReg, MemOut, ExecuteOut, en, rst, clk, MemToReg_Out, MemOut_Out, ExecuteOut_Out);
-    input  [15:0] MemOut, ExecuteOut;
-    input         MemToReg, en, rst, clk;
-    output [15:0] MemOut_Out, ExecuteOut_Out;
-    output        MemToReg_Out;
-
-    wire [15:0] MemOut_In, ExecuteOut_In;
-    wire MemToReg_In;
-
-    dff mem_to_reg(.d (MemToReg_In), .q (MemToReg_Out), .rst (rst), .clk (clk));
-    dff mem_out_reg[15:0](.d (MemOut_In), .q (MemOut_Out), .rst (rst), .clk (clk));
-    dff exec_out_reg[15:0](.d (ExecuteOut_In), .q(ExecuteOut_Out), .rst (rst), .clk (clk));
-
-    assign MemToReg_In = (en) ? MemToReg : MemToReg_Out;
-    assign MemOut_In = (en) ? MemOut : MemOut_Out;
-    assign ExecuteOut_In = (en) ? ExecuteOut ? ExecuteOut_Out;
+	input Stall, rst, clk, MemToReg;
+	input [15:0] ExecuteOut, MemOut;
+	output MemToReg_Out;
+	output [15:0] ExecuteOut_Out, MemOut_Out;
+	
+	wire [15:0] ExecuteOut_Out, MemOut_Out;
+	wire MemToReg_Out;
+	
+	dff executeout_reg[15:0] (.d(ExecuteOutMuxed), .q(ExecuteOut_Out), .rst(rst), .clk(clk));
+	dff memout_reg[15:0] (.d(MemOutMuxed), .q(MemOut_Out), .rst(rst), .clk(clk));
+	dff memtoreg_reg (.d(MemToRegMuxed), .q(MemToReg_Out), .rst(rst), .clk(clk));
+	
+	assign ExecuteOutMuxed = (Stall) ? ExecuteOut_Out : ExecuteOut;
+	assign MemOutMuxed = (Stall) ? MemOut_Out : MemOut;
+	assign MemToRegMuxed = (Stall) ? MemToReg_Out : MemToReg;
+	
 endmodule

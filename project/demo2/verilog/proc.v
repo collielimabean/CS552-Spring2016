@@ -21,79 +21,143 @@ module proc (/*AUTOARG*/
     // As desribed in the homeworks, use the err signal to trap corner
     // cases that you think are illegal in your statemachines
 
-    wire [15:0] incPC, nextPC, instr, exec_out, decode_wr_data,
-                mem_read_data, epc, aluop1, aluop2, imm;
-    wire [2:0] aluopcode;
-    wire [1:0] func;
-    wire alusrc, branch, jump, jumpreg, set, btr, memwrite,
-         memread, memtoreg, halt, exception, invA, invB, cin, rti;
+	wire [15:0] Instr, IncPC, NextPC, D_IncPC, RegWriteData, ALUOP1,
+				ALUOp2, Immediate, Address, MemoryWriteData, M_ExecuteOut,
+				PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2;
+	wire [2:0] ALUOpcode;
+	wire [1:0] Func;
+	wire Stall, Flush, Halt, Exception, Rti, ALUSrc, Branch, Jump,
+		 JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, InvA, InvB,
+		 Cin, E_MemRead, E_MemWrite, E_MemToReg, E_Halt, M_MemToReg,
+		 d_err, e_err, ForwardALUOp1, ForwardALUOp2;
 
-    fetch f(.NextPC     (nextPC),
-            .clk        (clk),
-            .rst        (rst),
-            .Halt       (halt),
-            .Exception  (exception),
-            .Rti        (rti),
-            .Instr      (instr),
-            .IncPC      (incPC));
+	assign err = d_err | e_err;
 
-    decode d(.clk       (clk),
-             .rst       (rst),
-             .Instr     (instr),
-             .IncPC     (incPC),
-             .WriteData (decode_wr_data),
-             .ALUOp1    (aluop1),
-             .ALUOp2    (aluop2),
-             .ALUSrc    (alusrc),
-             .Branch    (branch),
-             .Jump      (jump),
-             .JumpReg   (jumpreg),
-             .Set       (set),
-             .Btr       (btr),
-             .ALUOpcode (aluopcode),
-             .Func      (func),
-             .MemWrite  (memwrite),
-             .MemRead   (memread),
-             .MemToReg  (memtoreg),
-             .Halt      (halt),
-             .Exception (exception),
-             .Err       (err),
-             .Immediate (imm),
-             .InvA      (invA),
-             .InvB      (invB),
-             .Cin       (cin),
-             .Rti       (rti));
-    
-    execute e(.ALUOp1   (aluop1),
-              .ALUOp2   (aluop2),
-              .Btr      (btr),
-              .Opcode   (aluopcode),
-              .IncPC    (incPC),
-              .InvA     (invA),
-              .InvB     (invB),
-              .Cin      (cin),
-              .Jump     (jump),
-              .Branch   (branch),
-              .JumpReg  (jumpreg),
-              .Set      (set),
-              .Func     (func),
-              .Imm      (imm),
-              .ALUSrc   (alusrc),
-              .Result   (exec_out),
-              .NextPC   (nextPC));    
+	// fetch
+	fetch_stage fs(
+		.NextPC		(NextPC), /////// HAZARD //////
+		.clk 		(clk),
+		.rst 		(rst),
+		.Stall		(Stall),
+		.Flush		(Flush),
+		.Halt 		(Halt), /////// HAZARD //////
+		.Exception 	(Exception), /////// HAZARD //////
+		.Rti		(Rti), /////// HAZARD //////
+		.Instr		(Instr),
+		.IncPC		(IncPC)
+	);
+	
+	// hazard detection unit
+	
+	
+	// decode
+	decode_stage ds(
+		.Stall				(Stall),
+		.Flush				(Flush),
+		.rst				(rst),
+		.clk				(clk),
+		.Instr				(Instr),
+		.WriteData			(RegWriteData), /////// HAZARD //////
+		.IncPC				(IncPC),
+		.IncPC_Out			(D_IncPC),
+		.ALUOp1				(ALUOp1),
+		.ALUOp2				(ALUOp2),
+		.Immediate			(Immediate),
+		.ALUOpcode			(ALUOpcode),
+		.Func				(Func),
+		.ALUSrc				(ALUSrc),
+		.Branch				(Branch),
+		.Jump				(Jump),
+		.JumpReg			(JumpReg),
+		.Set				(Set),
+		.Btr				(Btr),
+		.MemWrite			(MemWrite),
+		.MemRead			(MemRead),
+		.MemToReg			(MemToReg),
+		.Halt				(Halt), /////// HAZARD //////
+		.Exception			(Exception),
+		.Err				(d_err),
+		.InvA				(InvA),
+		.InvB				(InvB),
+		.Cin				(Cin),
+		.Rti				(Rti)
+		// forwarding signals
+	);
+	
+	// execute
+	execute_stage es(
+		.Stall				(Stall),
+		.Flush				(Flush),
+		.rst				(rst),
+		.clk				(clk),
+		.ALUOp1				(ALUOp1),
+		.ALUOp2				(ALUOp2),
+		.Immediate			(Immediate),
+		.ALUOpcode			(ALUOpcode),
+		.Func				(Func),
+		.ALUSrc				(ALUSrc),
+		.Branch				(Branch),
+		.Jump				(Jump),
+		.JumpReg			(JumpReg),
+		.Set				(Set),
+		.Btr				(Btr),
+		.MemWrite			(MemWrite),
+		.MemRead			(MemRead),
+		.MemToReg			(MemToReg),
+		.Halt				(Halt),
+		.Address			(Address),
+		.WriteData			(MemoryWriteData),
+		.NextPC				(NextPC), /////// HAZARD //////
+		.MemRead_Out		(E_MemRead),
+		.MemWrite_Out		(E_MemWrite),
+		.MemToReg_Out		(E_MemToReg),
+		.Halt_Out			(E_Halt),
+		// forwarding signals //
+		.ForwardALUOp1      (ForwardALUOp1),
+		.ForwardALUOp2		(ForwardALUOp2),
+		.PipeEM_ALUOp1		(), 
+		.PipeEM_ALUOp2		(),
+		.PipeMW_ALUOp1		(), 
+		.PipeMW_ALUOp2		(),
+	);
+	
+	// forwarding unit //
+	// execute hazard
+	// if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) ForwardALUOp1 <= 2'b10
+	// if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) ForwardALUOp2 <= 2'b10
+	// memory hazard
+	// if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) ForwardALUOp1 <= 2'b01
+	// if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) ForwardALUOp2 <= 2'b01
+	// new required signals that we need to expose: Rs, Rt, Rd - passthrough all
+	// supposedly Rt is used for stalling
+	// DE: Rs, Rt, Rd
+	// EM: Rt|Rd muxed
+	// MW: passthrough from EM stage
+	
+	// memory 
+	memory_stage ms(
+		.Stall				(Stall),
+		.Flush				(1'b0), // we should never have to flush in the memory_stage
+		.rst				(rst),
+		.clk				(clk),
+		.MemRead			(E_MemRead),
+		.MemWrite			(E_MemWrite),
+		.Halt				(E_Halt),
+		.MemToReg			(E_MemToReg),
+		.Address			(Address),
+		.WriteData			(MemoryWriteData),
+		.ExecuteOut			(MemoryWriteData), // note: execute's result is the same as the write data for the memory stage
+		.ExecuteOut_Out		(M_ExecuteOut),
+		.MemToReg_Out		(M_MemToReg),
+		.ReadData			(MemoryReadData)
+	);
 
-    memory m(.clk       (clk),
-             .rst       (rst),
-             .MemRead   (memread),
-             .MemWrite  (memwrite),
-             .halt      (halt),
-             .Address   (exec_out),
-             .WriteData (aluop2),
-             .ReadData  (mem_read_data));
-
-    writeback w(.ExecuteOut (exec_out),
-                .MemOut     (mem_read_data),
-                .MemToReg   (memtoreg),
-                .WriteData  (decode_wr_data));
+	// writeback
+    writeback w(
+		.ExecuteOut (M_ExecuteOut),
+		.MemOut     (MemoryReadData),
+		.MemToReg   (M_MemToReg),
+		.WriteData  (RegWriteData) /////// HAZARD //////
+	); 
 endmodule // proc
 // DUMMY LINE FOR REV CONTROL :0:
