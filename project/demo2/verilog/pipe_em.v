@@ -28,7 +28,7 @@ module pipe_em(
 	/* common inputs */
 	Stall, rst, clk,
 	/* inputs */
-	Result, MemRead, MemWrite, MemToReg, Halt, ALUOp2, RegFileWrEn
+	Result, MemRead, MemWrite, MemToReg, Halt, ALUOp2, RegFileWrEn,
 	/* outputs */
 	Address, MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, WriteData,
 	RegFileWrEn_Out
@@ -43,7 +43,7 @@ module pipe_em(
 	wire [15:0] AddressMuxed;
 	wire MemReadMuxed, MemWriteMuxed, MemToRegMuxed, ALUOp2Muxed, RegFileWrEnMuxed;
 	
-	dff rf_wr_en_reg(.d (RegFileWrEnMuxed), .q(RegFileWrEn_Out), .rst(rst), .clk(clk))
+	dff rf_wr_en_reg(.d (RegFileWrEnMuxed), .q(RegFileWrEn_Out), .rst(rst), .clk(clk));
 	dff address_reg[15:0](.d (AddressMuxed), .q (Address), .clk(clk), .rst(rst));
 	dff memread_reg(.d (MemReadMuxed), .q (MemRead_Out), .clk(clk), .rst(rst));
 	dff memwrite_reg(.d (MemWriteMuxed), .q (MemWrite_Out), .clk(clk), .rst(rst));

@@ -33,7 +33,7 @@ module proc (/*AUTOARG*/
 		 JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, InvA, InvB,
 		 Cin, E_MemRead, E_MemWrite, E_MemToReg, E_Halt, M_MemToReg,
 		 D_RegFileWrEn, E_RegFileWrEn, M_RegFileWrEn,
-		 d_err, e_err;
+		 d_err, e_err, E_RegWrite, M_RegWrite;
 
 	assign err = d_err | e_err;
 
@@ -85,7 +85,7 @@ module proc (/*AUTOARG*/
 		.InvA				(InvA),
 		.InvB				(InvB),
 		.Cin				(Cin),
-		.Rti				(Rti)
+		.Rti				(Rti),
 		// forwarding passthrough
 		.Rs					(D_Rs),
 		.Rt					(D_Rt),
@@ -126,7 +126,7 @@ module proc (/*AUTOARG*/
 		// forwarding signals //
 		.Rs					(D_Rs),
 		.Rd					(D_Rd),
-		.Rt					(D_Rt)
+		.Rt					(D_Rt),
 		.Rs_Out				(E_Rs),
 		.Rd_Out				(E_Rd),
 		.Rt_Out				(E_Rt),
@@ -192,12 +192,12 @@ module proc (/*AUTOARG*/
 				2'b00;
 	 */
 	 
-	assign ForwardALUOp1 = (M_RegWrite && ~(|(M_Rd ^ E_Rs))) ? 2'b10 :
-				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rs)) ? 2'b01 :
+	assign ForwardALUOp1 = (M_RegWrite & ~(|(M_Rd ^ E_Rs))) ? 2'b10 :
+				(M_RegWrite & ~(E_RegWrite) & ~(|(M_Rd ^ E_Rs))) ? 2'b01 :
 				2'b00;
 				
-	assign ForwardALUOp2 = (M_RegWrite && ~(|(M_Rd ^ E_Rt))) ? 2'b10 : 
-				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rt)) ? 2'b01 :
+	assign ForwardALUOp2 = (M_RegWrite & ~(|(M_Rd ^ E_Rt))) ? 2'b10 : 
+				(M_RegWrite & ~(E_RegWrite) & ~(|(M_Rd ^ E_Rt))) ? 2'b01 :
 				2'b00;
 	
 	// memory 
@@ -215,11 +215,11 @@ module proc (/*AUTOARG*/
 		.ExecuteOut			(MemoryWriteData), // note: execute's result is the same as the write data for the memory stage
 		.ExecuteOut_Out		(M_ExecuteOut),
 		.MemToReg_Out		(M_MemToReg),
-		.ReadData			(MemoryReadData)
+		.ReadData			(MemoryReadData),
 		// forwarding signals
 		.Rs					(E_Rs),
 		.Rd					(E_Rd),
-		.Rt					(E_Rt)
+		.Rt					(E_Rt),
 		.Rs_Out				(M_Rs),
 		.Rd_Out				(M_Rd),
 		.Rt_Out				(M_Rt),

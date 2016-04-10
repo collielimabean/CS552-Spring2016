@@ -2,10 +2,10 @@
 module execute(ALUOp1, ALUOp2, Opcode, IncPC, 
                Jump, Branch, JumpReg, Set,
                InvA, InvB, Cin, Btr,
-               Func, Imm, ALUSrc, Result, NextPC, Err
+               Func, Imm, ALUSrc, Result, NextPC, Err,
 			   /* forwarding signals */
 			   ForwardALUOp1, ForwardALUOp2,
-			   PipeMW_Result, PipeEM_Result,
+			   PipeMW_Result, PipeEM_Result
 );
     input [15:0] ALUOp1, ALUOp2, IncPC, Imm, PipeEM_Result, PipeMW_Result;
     input [2:0] Opcode;
@@ -32,24 +32,26 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                     .Cout   (cout));
 
 	////////////// ALU Operand Forwarding Logic //////////////
+	reg ErrReg;
+	assign Err = ErrReg;
 	assign alu_operand_a = OpAReg;
 	assign alu_operand_b = OpBReg;
 	
 	always @(*) begin
-		case (ForwardALUOp1) begin
+		case (ForwardALUOp1)
 			2'b00: OpAReg <= ALUOp1;
 			2'b01: OpAReg <= PipeMW_Result;
 			2'b10: OpAReg <= PipeEM_Result;
-			default: Err <= 1'b1;
+			default: ErrReg <= 1'b1;
 		endcase
 	end
 	
 	always @(*) begin
-		case (ForwardALUOp2) begin
+		case (ForwardALUOp2)
 			2'b00: OpBReg <= (ALUSrc) ? Imm : ALUOp2;
 			2'b01: OpBReg <= PipeMW_Result;
 			2'b10: OpBReg <= PipeEM_Result;
-			default: Err <= 1'b1;
+			default: ErrReg <= 1'b1;
 		endcase
 	end
 

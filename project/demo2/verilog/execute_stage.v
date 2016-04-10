@@ -20,16 +20,16 @@ module execute_stage(
 );
 	input Stall, Flush, rst, clk;
 	input [15:0] ALUOp1, ALUOp2, Immediate, IncPC,
-				 PipeEM_ALUOp1, PipeEM_ALUOp2,
-				 PipeMW_ALUOp1, PipeMW_ALUOp2;
+				 PipeEM_Result, PipeMW_Result;
 				 
 	input [2:0] ALUOpcode;
 	input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
 	input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr,
-		  MemRead, MemWrite, MemToReg, Halt;
+		  MemRead, MemWrite, MemToReg, Halt, RegFileWrEn;
 		  
 	output [15:0] Address, WriteData, NextPC;
-	output MemRead_Out, MemWrite_Out, Halt_Out, MemToReg_Out;
+	output MemRead_Out, MemWrite_Out, Halt_Out, MemToReg_Out, Err,
+		   RegFileWrEn_Out;
 
 	wire [15:0] execute_result;
 

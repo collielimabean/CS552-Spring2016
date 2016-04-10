@@ -24,7 +24,7 @@ module pipe_mw(
 	/* common inputs */
 	Stall, rst, clk,
 	/* inputs */
-	ExecuteOut, MemOut, MemToReg, RegFileWrEn
+	ExecuteOut, MemOut, MemToReg, RegFileWrEn,
 	/* outputs */
 	ExecuteOut_Out, MemOut_Out, MemToReg_Out, RegFileWrEn_Out
 );
@@ -37,7 +37,7 @@ module pipe_mw(
 	wire [15:0] ExecuteOut_Out, MemOut_Out;
 	wire MemToReg_Out, RegFileWrEnMuxed;
 	
-	dff rf_wr_en_reg(.d (RegFileWrEnMuxed), .q(RegFileWrEn_Out), .rst(rst), .clk(clk))
+	dff rf_wr_en_reg(.d (RegFileWrEnMuxed), .q(RegFileWrEn_Out), .rst(rst), .clk(clk));
 	dff executeout_reg[15:0] (.d(ExecuteOutMuxed), .q(ExecuteOut_Out), .rst(rst), .clk(clk));
 	dff memout_reg[15:0] (.d(MemOutMuxed), .q(MemOut_Out), .rst(rst), .clk(clk));
 	dff memtoreg_reg (.d(MemToRegMuxed), .q(MemToReg_Out), .rst(rst), .clk(clk));

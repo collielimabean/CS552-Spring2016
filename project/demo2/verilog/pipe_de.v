@@ -13,7 +13,7 @@ module pipe_de(clk, rst, Stall, ALUOp1, ALUOp2, Immediate, ALUOpcode, Func,
     input [2:0] ALUOpcode, Rs, Rt, Rd;
     input [1:0] Func;
     input ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, 
-          Halt, InvA, InvB, Cin, Rti, RegFileWrEn;
+          Halt, InvA, InvB, Cin, RegFileWrEn;
           
 	input clk, rst, Stall;
 
@@ -22,9 +22,9 @@ module pipe_de(clk, rst, Stall, ALUOp1, ALUOp2, Immediate, ALUOpcode, Func,
     output [1:0] Func_Out;
     output ALUSrc_Out, Branch_Out, Jump_Out, JumpReg_Out, Set_Out, Btr_Out,
            MemWrite_Out, MemRead_Out, MemToReg_Out, Halt_Out, InvA_Out, 
-           InvB_Out, Cin_Out, Rti_Out, RegFileWrEn_Out;
+           InvB_Out, Cin_Out, RegFileWrEn_Out;
 
-	wire [15:0] ALUOp1_Muxed, ALUOp2_Muxed, Immediate_Muxed,
+	wire [15:0] ALUOp1_Muxed, ALUOp2_Muxed, Immediate_Muxed;
 	wire [2:0] ALUOpcode_Muxed, Rs_Muxed, Rt_Muxed, Rd_Muxed;
 	wire [1:0] Func_Muxed;
 	wire ALUSrc_Muxed, Branch_Muxed, Jump_Muxed, JumpReg_Muxed,
@@ -32,7 +32,7 @@ module pipe_de(clk, rst, Stall, ALUOp1, ALUOp2, Immediate, ALUOpcode, Func,
          Halt_Muxed, InvA_Muxed, InvB_Muxed, 
          Cin_Muxed, RegFileWrEnMuxed;
          
-	dff rf_wr_en_reg(.d (RegFileWrEnMuxed), .q(RegFileWrEn_Out), .rst(rst), .clk(clk))
+	dff rf_wr_en_reg(.d (RegFileWrEnMuxed), .q(RegFileWrEn_Out), .rst(rst), .clk(clk));
 
 	dff rs_reg[2:0](.d(Rs_Muxed), .q(Rs_Out), .rst(rst), .clk(clk));
 	dff rt_reg[2:0](.d(Rt_Muxed), .q(Rt_Out), .rst(rst), .clk(clk));
