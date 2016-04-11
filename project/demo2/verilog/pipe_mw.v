@@ -38,7 +38,7 @@ module pipe_mw(
 	output [15:0] ExecuteOut_Out, MemOut_Out;
 	
 	wire [15:0] MemOut_Out, ExecuteOutMuxed;
-	wire [2:0] WireRegMuxed;
+	wire [2:0] WriteRegMuxed, RsMuxed, RtMuxed, RdMuxed;
 	wire MemToReg_Out, RegFileWrEnMuxed;
 	
 	dff WriteReg_reg[2:0](.d(WriteRegMuxed), .q(WriteReg_Out), .rst(rst), .clk(clk));

@@ -226,7 +226,7 @@ module proc (/*AUTOARG*/
 		.MemToReg			(E_MemToReg),
 		.Address			(Address),
 		.WriteData			(MemoryWriteData),
-		.ExecuteOut			(Address), // note: execute's result is the same as the write data for the memory stage
+		.ExecuteOut			(Address), // note: execute's result is the same as the Address for the memory stage
 		.ExecuteOut_Out		(M_ExecuteOut),
 		.MemToReg_Out		(M_MemToReg),
 		.ReadData			(MemoryReadData),
