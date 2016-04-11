@@ -24,25 +24,23 @@ module pipe_mw(
 	/* common inputs */
 	Stall, rst, clk,
 	/* inputs */
-	ExecuteOut, MemOut, MemToReg, RegFileWrEn,  Rs, Rt, Rd, WriteReg, RtValid,
+	ExecuteOut, MemOut, MemToReg, RegFileWrEn,  Rs, Rt, Rd, WriteReg,
 	/* outputs */
 	ExecuteOut_Out, MemOut_Out, MemToReg_Out, RegFileWrEn_Out, WriteReg_Out,
-	Rs_Out, Rt_Out, Rd_Out, RtValid_Out
+	Rs_Out, Rt_Out, Rd_Out
 );
 
-	input Stall, rst, clk, MemToReg, RegFileWrEn, RtValid;
+	input Stall, rst, clk, MemToReg, RegFileWrEn;
 	input [2:0] Rs, Rt, Rd, WriteReg;
 	input [15:0] ExecuteOut, MemOut;
-	output MemToReg_Out, RegFileWrEn_Out, RtValid_Out;
+	output MemToReg_Out, RegFileWrEn_Out;
 	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
 	output [15:0] ExecuteOut_Out, MemOut_Out;
 	
 	wire [15:0] MemOut_Out, ExecuteOutMuxed;
 	wire [2:0] WriteRegMuxed, RsMuxed, RtMuxed, RdMuxed;
-	wire MemToReg_Out, RegFileWrEnMuxed, RtValidMuxed;
+	wire MemToReg_Out, RegFileWrEnMuxed;
 	
-    dff RtValid_reg(.d(RtValidMuxed), .q(RtValid_Out), .rst(rst), .clk(clk));
-    
 	dff WriteReg_reg[2:0](.d(WriteRegMuxed), .q(WriteReg_Out), .rst(rst), .clk(clk));
 	
 	dff rs_reg[2:0](.d(RsMuxed), .q(Rs_Out), .rst(rst), .clk(clk));
@@ -54,8 +52,6 @@ module pipe_mw(
 	dff memout_reg[15:0] (.d(MemOutMuxed), .q(MemOut_Out), .rst(rst), .clk(clk));
 	dff memtoreg_reg (.d(MemToRegMuxed), .q(MemToReg_Out), .rst(rst), .clk(clk));
 	
-    assign RtValidMuxed = (Stall) ? RtValid_Out : RtValid;
-    
 	assign WriteRegMuxed = (Stall) ? WriteReg_Out : WriteReg;
 	
 	assign RsMuxed = (Stall) ? Rs_Out : Rs;
