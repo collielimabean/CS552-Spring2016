@@ -15,7 +15,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
            JumpReg, Set, Btr, MemWrite, MemRead, RegFileWrEn_Out,
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti;
 
-    wire [15:0] rs_out;
+    wire [15:0] rs_out, write_data;
     wire rf_wr_en, If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi, stu;
     reg [15:0] ImmReg;
     reg [2:0] write_reg;
@@ -24,6 +24,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
 	assign Rs = Instr[10:8];
 	assign Rd = (Rf) ? Instr[4:2] : Instr[7:5];
 	assign Rt = Instr[7:5];
+	assign write_data = (link) ? IncPC : WriteData;
 	
     ///// register file /////
     rf regfile(.clk         (clk),
@@ -32,7 +33,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
                .read2regsel (Instr[7:5]),
                .writeregsel (write_reg),
                .write       (RegFileWrEn),
-               .writedata   ((link) ? IncPC : WriteData),
+               .writedata   (write_data),
                .read1data   (rs_out),
                .read2data   (ALUOp2),
                .err         (RfError)); 

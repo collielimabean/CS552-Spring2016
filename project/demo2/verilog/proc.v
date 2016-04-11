@@ -21,9 +21,10 @@ module proc (/*AUTOARG*/
     // As desribed in the homeworks, use the err signal to trap corner
     // cases that you think are illegal in your statemachines
 
-	wire [15:0] Instr, IncPC, BranchPC, D_IncPC, RegWriteData, ALUOP1,
+	wire [15:0] Instr, IncPC, BranchPC, D_IncPC, RegWriteData, ALUOp1,
 				ALUOp2, Immediate, Address, MemoryWriteData, M_ExecuteOut,
-				PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2;
+				PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2,
+				MemoryReadData;
 	wire [2:0] ALUOpcode, 
 			   D_Rs, D_Rt, D_Rd, 
 			   E_Rs, E_Rt, E_Rd,
@@ -39,7 +40,6 @@ module proc (/*AUTOARG*/
 
 	// fetch
 	fetch_stage fs(
-		.NextPC				(NextPC), /////// HAZARD //////
 		.BranchPC			(BranchPC),
 		.BranchJumpTaken	(BranchJumpTaken), /////// HAZARD //////
 		.clk 				(clk),
@@ -54,7 +54,9 @@ module proc (/*AUTOARG*/
 	);
 	
 	// hazard detection unit
-	// generate Flush & Stall signal(s)
+	// TODO: generate Flush & Stall signal(s)
+	assign Flush = rst | BranchJumpTaken;
+	assign Stall = 1'b0;
 	
 	// decode
 	decode_stage ds(
@@ -119,7 +121,7 @@ module proc (/*AUTOARG*/
 		.Halt				(Halt),
 		.Address			(Address),
 		.WriteData			(MemoryWriteData),
-		.NextPC				(BranchPC), /////// HAZARD //////
+		.BranchPC			(BranchPC), /////// HAZARD //////
 		.MemRead_Out		(E_MemRead),
 		.MemWrite_Out		(E_MemWrite),
 		.MemToReg_Out		(E_MemToReg),
@@ -137,7 +139,12 @@ module proc (/*AUTOARG*/
 		.PipeMW_Result		(RegWriteData), 
 		.RegFileWrEn		(D_RegFileWrEn),
 		.RegFileWrEn_Out	(E_RegFileWrEn),
-		.BranchJumpTaken	(BranchJumpTaken)
+		.BranchJumpTaken	(BranchJumpTaken),
+		.Cin				(Cin),
+		.InvA				(InvA),
+		.InvB				(InvB),
+		.IncPC				(D_IncPC),
+		.Err				(e_err)
 	);
 	
 	// forwarding //

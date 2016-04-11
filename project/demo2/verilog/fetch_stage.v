@@ -1,6 +1,6 @@
-module fetch_stage(NextPC, clk, rst, Stall, Flush, Halt, Exception, Rti, Instr, IncPC);
-    input [15:0] NextPC;
-    input clk, rst, Stall, Flush, Halt, Rti, Exception;
+module fetch_stage(BranchPC, clk, rst, Stall, Flush, Halt, Exception, Rti, Instr, IncPC, BranchJumpTaken);
+    input [15:0] BranchPC;
+    input clk, rst, Stall, Flush, Halt, Rti, Exception, BranchJumpTaken;
     
     output [15:0] Instr, IncPC;
   
@@ -9,14 +9,15 @@ module fetch_stage(NextPC, clk, rst, Stall, Flush, Halt, Exception, Rti, Instr, 
 
     assign pipe_flush = rst | Flush;
 
-    fetch f(.NextPC     (NextPC),
-            .clk        (clk),
-            .rst        (rst),
-            .Halt       (Halt),
-            .Exception  (Exception),
-            .Rti        (Rti),
-            .Instr      (instr),
-            .IncPC      (incPC));
+    fetch f(.BranchPC     (BranchPC),
+			.BranchJumpTaken (BranchJumpTaken),
+            .clk          (clk),
+            .rst      	  (rst),
+            .Halt     	  (Halt),
+            .Exception    (Exception),
+            .Rti          (Rti),
+            .Instr        (instr),
+            .IncPC        (incPC));
 
     pipe_fd fd(.Stall(Stall),
                .rst(pipe_flush),

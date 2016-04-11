@@ -12,14 +12,14 @@ module decode_stage(
 	Func, ALUSrc, Branch, Jump, JumpReg,
 	Set, Btr, MemWrite, MemRead, MemToReg,
 	Halt, Exception, Err, InvA, InvB, Cin, Rti,
-	RegFileWrEn_Out,
+	RegFileWrEn_Out, Rs, Rt, Rd,
 	/* passthrough outputs */
 	IncPC_Out
 );
 	input [15:0] Instr, WriteData, IncPC;
 	input Stall, Flush, rst, clk, RegFileWrEn;
 	output[15:0] ALUOp1, ALUOp2, Immediate, IncPC_Out;
-	output [2:0] ALUOpcode;
+	output [2:0] ALUOpcode, Rs, Rt, Rd;
 	output [1:0] Func;
 	output ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead,
 		   MemToReg, Halt, Exception, InvA, InvB, Cin, Rti, 
@@ -63,7 +63,7 @@ module decode_stage(
 			 .RegFileWrEn_Out	(rf_wr_en)
 		 );
 
-    pipe_de(.clk(clk),
+    pipe_de pde(.clk(clk),
             .rst(rst | Flush),
             .Stall(Stall),
             .ALUOp1(aluop1),

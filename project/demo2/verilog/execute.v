@@ -15,8 +15,8 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     output [15:0] Result, NextPC;
     output Err, BranchJumpTaken;
 
-    wire [15:0] aluResult, setResult, offsetAddr;
-    wire Ofl, Zero, branch_en, addr_cout, cout, alu_operand_a, alu_operand_b;
+    wire [15:0] aluResult, setResult, offsetAddr, alu_operand_a, alu_operand_b;
+    wire Ofl, Zero, branch_en, addr_cout, cout;
 
 	reg [15:0] OpAReg, OpBReg;
 
