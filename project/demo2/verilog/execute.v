@@ -3,7 +3,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                Jump, Branch, JumpReg, Set,
                InvA, InvB, Cin, Btr,
                Func, Imm, ALUSrc, Result, NextPC, Err,
-               BranchJumpTaken,
+               BranchJumpTaken, rst,
 			   /* forwarding signals */
 			   ForwardALUOp1, ForwardALUOp2,
 			   PipeMW_Result, PipeEM_Result
@@ -11,7 +11,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     input [15:0] ALUOp1, ALUOp2, IncPC, Imm, PipeEM_Result, PipeMW_Result;
     input [2:0] Opcode;
     input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
-    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr;
+    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr, rst;
     output [15:0] Result, NextPC;
     output Err, BranchJumpTaken;
 
@@ -34,7 +34,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
 
 	////////////// ALU Operand Forwarding Logic //////////////
 	reg ErrReg;
-	assign Err = ErrReg;
+	assign Err = ~rst & ErrReg;
 	assign alu_operand_a = OpAReg;
 	assign alu_operand_b = OpBReg;
 	
@@ -43,7 +43,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
 			2'b00: OpAReg <= ALUOp1;
 			2'b01: OpAReg <= PipeMW_Result;
 			2'b10: OpAReg <= PipeEM_Result;
-			default: ErrReg <= 1'b1;
+			default: ; //ErrReg <= 1'b1;
 		endcase
 	end
 	
@@ -52,7 +52,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
 			2'b00: OpBReg <= (ALUSrc) ? Imm : ALUOp2;
 			2'b01: OpBReg <= PipeMW_Result;
 			2'b10: OpBReg <= PipeEM_Result;
-			default: ErrReg <= 1'b1;
+			default: ; //ErrReg <= 1'b1;
 		endcase
 	end
 

@@ -20,10 +20,11 @@ module fetch_stage(BranchPC, clk, rst, Stall, Flush, Halt, Exception, Rti, Instr
             .IncPC        (incPC));
 
     pipe_fd fd(.Stall(Stall),
+			   .Flush(Flush),
                .rst(pipe_flush),
                .clk(clk),
                .Instr(instr),
-               .IncPC(instr),
+               .IncPC(incPC),
                .Instr_Out(Instr),
                .IncPC_Out(IncPC));
 

@@ -23,18 +23,17 @@ module proc (/*AUTOARG*/
 
 	wire [15:0] Instr, IncPC, BranchPC, D_IncPC, RegWriteData, ALUOp1,
 				ALUOp2, Immediate, Address, MemoryWriteData, M_ExecuteOut,
-				PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2,
 				MemoryReadData;
 	wire [2:0] ALUOpcode, 
 			   D_Rs, D_Rt, D_Rd, 
 			   E_Rs, E_Rt, E_Rd,
-			   M_Rs, M_Rt, M_Rd;
+			   M_Rs, M_Rt, M_Rd,
+			   D_WriteReg, E_WriteReg, M_WriteReg;
 	wire [1:0] Func, ForwardALUOp1, ForwardALUOp2;
-	wire Stall, Flush, Halt, Exception, Rti, ALUSrc, Branch, Jump,
+	wire Stall, Flush, Exception, Rti, ALUSrc, Branch, Jump,
 		 JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, InvA, InvB,
 		 Cin, E_MemRead, E_MemWrite, E_MemToReg, E_Halt, M_MemToReg,
-		 D_RegFileWrEn, E_RegFileWrEn, M_RegFileWrEn,
-		 d_err, e_err, E_RegWrite, M_RegWrite, BranchJumpTaken;
+		 d_err, e_err, D_RegWrite, E_RegWrite, M_RegWrite, BranchJumpTaken;
 
 	assign err = d_err | e_err;
 
@@ -46,7 +45,7 @@ module proc (/*AUTOARG*/
 		.rst 				(rst),
 		.Stall				(Stall),
 		.Flush				(Flush),
-		.Halt 				(Halt), /////// HAZARD //////
+		.Halt 				(E_Halt), /////// HAZARD //////
 		.Exception 			(Exception), /////// HAZARD //////
 		.Rti				(Rti), /////// HAZARD //////
 		.Instr				(Instr),
@@ -55,6 +54,8 @@ module proc (/*AUTOARG*/
 	
 	// hazard detection unit
 	// TODO: generate Flush & Stall signal(s)
+	// WARNING: WE DO NOT DISTINGUISH BETWEEN PIPELINE REGISTERS - WE FLUSH EVERYTHING WHEN BRANCH DETECTED.
+	// WE MAY HAVE TO RESTRUCTURE OUR PIPELINE REGISTERS SINCE IT'S NOT SPLIT BY F/D/E/M. 
 	assign Flush = rst | BranchJumpTaken;
 	assign Stall = 1'b0;
 	
@@ -82,7 +83,7 @@ module proc (/*AUTOARG*/
 		.MemWrite			(MemWrite),
 		.MemRead			(MemRead),
 		.MemToReg			(MemToReg),
-		.Halt				(Halt), /////// HAZARD //////
+		.Halt				(D_Halt), /////// HAZARD //////
 		.Exception			(Exception),
 		.Err				(d_err),
 		.InvA				(InvA),
@@ -94,8 +95,10 @@ module proc (/*AUTOARG*/
 		.Rt					(D_Rt),
 		.Rd					(D_Rd),
 		// from writeback
-		.RegFileWrEn		(M_RegFileWrEn),
-		.RegFileWrEn_Out	(D_RegFileWrEn)
+		.RegFileWrEn		(M_RegWrite),
+		.RegFileWrEn_Out	(D_RegWrite),
+		.WriteReg			(M_WriteReg),
+		.WriteReg_Out		(D_WriteReg)
 	);
 	
 	// execute
@@ -118,7 +121,7 @@ module proc (/*AUTOARG*/
 		.MemWrite			(MemWrite),
 		.MemRead			(MemRead),
 		.MemToReg			(MemToReg),
-		.Halt				(Halt),
+		.Halt				(D_Halt),
 		.Address			(Address),
 		.WriteData			(MemoryWriteData),
 		.BranchPC			(BranchPC), /////// HAZARD //////
@@ -137,14 +140,16 @@ module proc (/*AUTOARG*/
 		.ForwardALUOp2		(ForwardALUOp2),
 		.PipeEM_Result		(MemoryWriteData), 
 		.PipeMW_Result		(RegWriteData), 
-		.RegFileWrEn		(D_RegFileWrEn),
-		.RegFileWrEn_Out	(E_RegFileWrEn),
+		.RegFileWrEn		(D_RegWrite),
+		.RegFileWrEn_Out	(E_RegWrite),
 		.BranchJumpTaken	(BranchJumpTaken),
 		.Cin				(Cin),
 		.InvA				(InvA),
 		.InvB				(InvB),
 		.IncPC				(D_IncPC),
-		.Err				(e_err)
+		.Err				(e_err),
+		.WriteReg			(D_WriteReg),
+		.WriteReg_Out		(E_WriteReg)
 	);
 	
 	// forwarding //
@@ -221,7 +226,7 @@ module proc (/*AUTOARG*/
 		.MemToReg			(E_MemToReg),
 		.Address			(Address),
 		.WriteData			(MemoryWriteData),
-		.ExecuteOut			(MemoryWriteData), // note: execute's result is the same as the write data for the memory stage
+		.ExecuteOut			(Address), // note: execute's result is the same as the write data for the memory stage
 		.ExecuteOut_Out		(M_ExecuteOut),
 		.MemToReg_Out		(M_MemToReg),
 		.ReadData			(MemoryReadData),
@@ -232,8 +237,10 @@ module proc (/*AUTOARG*/
 		.Rs_Out				(M_Rs),
 		.Rd_Out				(M_Rd),
 		.Rt_Out				(M_Rt),
-		.RegFileWrEn		(E_RegFileWrEn),
-		.RegFileWrEn_Out	(M_RegFileWrEn)
+		.RegFileWrEn		(E_RegWrite),
+		.RegFileWrEn_Out	(M_RegWrite),
+		.WriteReg			(E_WriteReg),
+		.WriteReg_Out		(M_WriteReg)
 	);
 
 	// writeback

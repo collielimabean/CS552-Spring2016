@@ -13,24 +13,25 @@ module execute_stage(
     ForwardALUOp1, ForwardALUOp2,
     PipeEM_Result, PipeMW_Result,
 	/* passthrough inputs */
-	MemRead, MemWrite, MemToReg, Halt, RegFileWrEn,
+	MemRead, MemWrite, MemToReg, Halt, RegFileWrEn, WriteReg,
 	/* outputs */
 	Address, WriteData, BranchPC, Err, BranchJumpTaken,
 	Rs_Out, Rt_Out, Rd_Out,
 	/* passthrough outputs */
-	MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out
+	MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out,
+	WriteReg_Out
 );
 	input Stall, Flush, rst, clk;
 	input [15:0] ALUOp1, ALUOp2, Immediate, IncPC,
 				 PipeEM_Result, PipeMW_Result;
 				 
-	input [2:0] ALUOpcode, Rs, Rt, Rd;
+	input [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg;
 	input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
 	input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr,
 		  MemRead, MemWrite, MemToReg, Halt, RegFileWrEn;
 		  
 	output [15:0] Address, WriteData, BranchPC;
-	output [2:0] Rs_Out, Rt_Out, Rd_Out;
+	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
 	output MemRead_Out, MemWrite_Out, Halt_Out, MemToReg_Out, Err,
 		   RegFileWrEn_Out, BranchJumpTaken;
 
@@ -58,7 +59,8 @@ module execute_stage(
               .BranchJumpTaken (BranchJumpTaken),
               .ForwardALUOp1	(ForwardALUOp1),
               .ForwardALUOp2	(ForwardALUOp2),
-              .Err				(Err)
+              .Err				(Err),
+              .rst				(rst)
 	);      
               
 	pipe_em pem(
@@ -78,7 +80,15 @@ module execute_stage(
 		.Halt_Out		(Halt_Out),
 		.WriteData		(WriteData),
 		.RegFileWrEn	(RegFileWrEn),
-		.RegFileWrEn_Out(RegFileWrEn_Out)
+		.RegFileWrEn_Out(RegFileWrEn_Out),
+		.Rs				(Rs),
+		.Rt				(Rt),
+		.Rd				(Rd),
+		.Rs_Out			(Rs_Out),
+		.Rt_Out			(Rt_Out),
+		.Rd_Out			(Rd_Out),
+		.WriteReg		(WriteReg),
+		.WriteReg_Out	(WriteReg_Out)
 	);
 		
 endmodule

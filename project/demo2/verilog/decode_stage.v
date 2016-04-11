@@ -2,7 +2,7 @@ module decode_stage(
 	/* common inputs */
 	Stall, Flush, rst, clk, 
 	/* inputs */
-	Instr, WriteData,
+	Instr, WriteData, WriteReg,
 	/* passthrough inputs */
 	IncPC,
 	/* Pipelining inputs */
@@ -12,23 +12,24 @@ module decode_stage(
 	Func, ALUSrc, Branch, Jump, JumpReg,
 	Set, Btr, MemWrite, MemRead, MemToReg,
 	Halt, Exception, Err, InvA, InvB, Cin, Rti,
-	RegFileWrEn_Out, Rs, Rt, Rd,
+	RegFileWrEn_Out, Rs, Rt, Rd, WriteReg_Out,
 	/* passthrough outputs */
 	IncPC_Out
 );
 	input [15:0] Instr, WriteData, IncPC;
 	input Stall, Flush, rst, clk, RegFileWrEn;
+	input [2:0] WriteReg;
 	output[15:0] ALUOp1, ALUOp2, Immediate, IncPC_Out;
-	output [2:0] ALUOpcode, Rs, Rt, Rd;
+	output [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg_Out;
 	output [1:0] Func;
 	output ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead,
 		   MemToReg, Halt, Exception, InvA, InvB, Cin, Rti, 
 		   RegFileWrEn_Out, Err;
 	wire [15:0] aluop1, aluop2, immediate;
-	wire [2:0] aluopcode, rs, rt, rd;
+	wire [2:0] aluopcode, rs, rt, rd, write_reg;
 	wire [1:0] func;
 	wire alusrc, branch, jump, jumpreg, set, btr, memwrite, memtoreg,
-		 memread, halt, inva, invb, cin, rf_wr_en;
+		 memread, halt, inva, invb, cin, rf_wr_en, halt_out;
 
     decode d(.clk       (clk),
              .rst       (rst),
@@ -60,11 +61,16 @@ module decode_stage(
              .Rt 		(rt),
 			 .Rd		(rd),
 			 .RegFileWrEn (RegFileWrEn),
-			 .RegFileWrEn_Out	(rf_wr_en)
+			 .RegFileWrEn_Out	(rf_wr_en),
+			 .WriteReg		(WriteReg),
+			 .WriteReg_Out	(write_reg)
 		 );
 
-    pipe_de pde(.clk(clk),
+    pipe_de pde(
+			.IncPC(IncPC),
+			.clk(clk),
             .rst(rst | Flush),
+            .Flush (Flush),
             .Stall(Stall),
             .ALUOp1(aluop1),
             .ALUOp2(aluop2),
@@ -84,6 +90,7 @@ module decode_stage(
             .InvA(inva),
             .InvB(invb),
             .Cin(cin),
+            .IncPC_Out(IncPC_Out),
             .ALUOp1_Out(ALUOp1),
             .ALUOp2_Out(ALUOp2),
             .Immediate_Out(Immediate),
@@ -98,7 +105,7 @@ module decode_stage(
             .MemWrite_Out(MemWrite),
             .MemRead_Out(MemRead),
             .MemToReg_Out(MemToReg),
-            .Halt_Out(Halt),
+            .Halt_Out(halt_out),
             .InvA_Out(InvA),
             .InvB_Out(InvB),
             .Cin_Out(Cin),
@@ -109,7 +116,11 @@ module decode_stage(
             .Rt_Out(Rt),
             .Rd_Out(Rd),
             .RegFileWrEn (rf_wr_en),
-            .RegFileWrEn_Out (RegFileWrEn_Out)
+            .RegFileWrEn_Out (RegFileWrEn_Out),
+			.WriteReg		(write_reg),
+		    .WriteReg_Out	(WriteReg_Out)
 		);
+		
+	assign Halt = ~rst & halt_out;
 
 endmodule
