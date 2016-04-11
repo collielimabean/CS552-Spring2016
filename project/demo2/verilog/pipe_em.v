@@ -29,23 +29,27 @@ module pipe_em(
 	Stall, rst, clk,
 	/* inputs */
 	Result, MemRead, MemWrite, MemToReg, Halt, ALUOp2, RegFileWrEn, Rs, Rt, Rd, WriteReg,
+    RtValid,
 	/* outputs */
 	Address, MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, WriteData,
-	RegFileWrEn_Out, Rs_Out, Rt_Out, Rd_Out, WriteReg_Out
+	RegFileWrEn_Out, Rs_Out, Rt_Out, Rd_Out, WriteReg_Out, RtValid_Out
 );
 
-	input Stall, rst, clk, MemRead, MemWrite, MemToReg, Halt, RegFileWrEn;
+	input Stall, rst, clk, MemRead, MemWrite, MemToReg, Halt, RegFileWrEn, RtValid;
 	input [2:0] Rs, Rt, Rd, WriteReg;
 	input [15:0] Result, ALUOp2;
 
-	output MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out;
+	output MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out, RtValid_Out;
 	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
 	output [15:0] Address, WriteData;
 
 	wire [15:0] AddressMuxed;
 	wire [2:0] RsMuxed, RtMuxed, RdMuxed, WriteRegMuxed;
-	wire MemReadMuxed, MemWriteMuxed, MemToRegMuxed, ALUOp2Muxed, RegFileWrEnMuxed, HaltMuxed;
+	wire MemReadMuxed, MemWriteMuxed, MemToRegMuxed, ALUOp2Muxed, RegFileWrEnMuxed, HaltMuxed,
+         RtValidMuxed;
 	
+    dff RtValid_reg(.d(RtValidMuxed), .q(RtValid_Out), .rst(rst), .clk(clk));
+    
 	dff WriteReg_reg[2:0](.d(WriteRegMuxed), .q(WriteReg_Out), .rst(rst), .clk(clk));
 	
 	dff rs_reg[2:0](.d(RsMuxed), .q(Rs_Out), .rst(rst), .clk(clk));
@@ -60,6 +64,8 @@ module pipe_em(
 	dff writedata_reg[15:0](.d (ALUOp2Muxed), .q (WriteData), .clk(clk), .rst(rst));
 	dff halt_reg (.d(HaltMuxed), .q(Halt_Out), .clk(clk), .rst(rst));
 	
+    assign RtValidMuxed = (Stall) ? RtValid_Out : RtValid;
+    
 	assign WriteRegMuxed = (Stall) ? WriteReg_Out : WriteReg;
 	
 	assign RsMuxed = (Stall) ? Rs_Out : Rs;

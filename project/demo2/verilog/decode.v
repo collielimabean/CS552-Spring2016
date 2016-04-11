@@ -4,7 +4,8 @@ module decode(clk, rst, Instr, WriteData, IncPC,
               JumpReg, Set, Btr, InvA, InvB, Cin, 
               ALUOpcode, Func, MemWrite, MemRead,
               MemToReg, Halt, Exception, Err, Rti,
-              Rs, Rt, Rd, RegFileWrEn, RegFileWrEn_Out, WriteReg, WriteReg_Out);
+              Rs, Rt, Rd, RegFileWrEn, RegFileWrEn_Out, WriteReg, WriteReg_Out,
+              RtValid);
 
     input [15:0] Instr, WriteData, IncPC;
     input [2:0] WriteReg;
@@ -14,7 +15,8 @@ module decode(clk, rst, Instr, WriteData, IncPC,
     output [1:0] Func;
     output ALUSrc, Branch, Jump,
            JumpReg, Set, Btr, MemWrite, MemRead, RegFileWrEn_Out,
-           MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti;
+           MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti,
+           RtValid;
 
     wire [15:0] rs_out, write_data;
     wire If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi, stu;
@@ -22,22 +24,23 @@ module decode(clk, rst, Instr, WriteData, IncPC,
     reg [2:0] write_reg;
     reg OpError, RegError;
 
+    assign RtValid = Rf;
 	assign Rs = Instr[10:8];
 	assign Rd = (Rf) ? Instr[4:2] : Instr[7:5];
 	assign Rt = Instr[7:5];
 	assign write_data = (link) ? IncPC : WriteData;
 	
     ///// register file /////
-    rf regfile(.clk         (clk),
-               .rst         (rst),
-               .read1regsel (Instr[10:8]),
-               .read2regsel (Instr[7:5]),
-               .writeregsel (WriteReg),
-               .write       (RegFileWrEn),
-               .writedata   (write_data),
-               .read1data   (rs_out),
-               .read2data   (ALUOp2),
-               .err         (RfError)); 
+    rf_bypass regfile(.clk         (clk),
+					  .rst         (rst),
+					  .read1regsel (Instr[10:8]),
+                      .read2regsel (Instr[7:5]),
+                      .writeregsel (WriteReg),
+                      .write       (RegFileWrEn),
+                      .writedata   (write_data),
+                      .read1data   (rs_out),
+                      .read2data   (ALUOp2),
+                      .err         (RfError)); 
 
     always @(If2, If1, Rf, link, Instr) begin
         casex({If2, If1, Rf, link})

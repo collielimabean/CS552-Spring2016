@@ -8,18 +8,18 @@ module execute_stage(
 	ALUOp1, ALUOp2, Immediate, ALUOpcode, 
 	IncPC, Func, Jump, Branch, JumpReg,
 	Set, ALUSrc, InvA, InvB, Cin, Btr,
-	Rs, Rt, Rd,
 	/* forwarding inputs and signals */
     ForwardALUOp1, ForwardALUOp2,
     PipeEM_Result, PipeMW_Result,
 	/* passthrough inputs */
 	MemRead, MemWrite, MemToReg, Halt, RegFileWrEn, WriteReg,
+    Rs, Rt, Rd, RtValid,
 	/* outputs */
 	Address, WriteData, BranchPC, Err, BranchJumpTaken,
 	Rs_Out, Rt_Out, Rd_Out,
 	/* passthrough outputs */
 	MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out,
-	WriteReg_Out
+	WriteReg_Out, RtValid_Out
 );
 	input Stall, Flush, rst, clk;
 	input [15:0] ALUOp1, ALUOp2, Immediate, IncPC,
@@ -28,12 +28,12 @@ module execute_stage(
 	input [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg;
 	input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
 	input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr,
-		  MemRead, MemWrite, MemToReg, Halt, RegFileWrEn;
+		  MemRead, MemWrite, MemToReg, Halt, RegFileWrEn, RtValid;
 		  
 	output [15:0] Address, WriteData, BranchPC;
 	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
 	output MemRead_Out, MemWrite_Out, Halt_Out, MemToReg_Out, Err,
-		   RegFileWrEn_Out, BranchJumpTaken;
+		   RegFileWrEn_Out, BranchJumpTaken, RtValid_Out;
 
 	wire [15:0] execute_result;
 
@@ -88,7 +88,9 @@ module execute_stage(
 		.Rt_Out			(Rt_Out),
 		.Rd_Out			(Rd_Out),
 		.WriteReg		(WriteReg),
-		.WriteReg_Out	(WriteReg_Out)
+		.WriteReg_Out	(WriteReg_Out),
+        .RtValid(RtValid),
+        .RtValid_Out(RtValid_Out)
 	);
 		
 endmodule

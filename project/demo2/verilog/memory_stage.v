@@ -5,9 +5,9 @@ module memory_stage(
 	/* inputs */
 	MemRead, MemWrite, Halt, Address, WriteData,
 	/* passthrough inputs */
-	MemToReg, RegFileWrEn, ExecuteOut, Rs, Rt, Rd, WriteReg,
+	MemToReg, RegFileWrEn, ExecuteOut, Rs, Rt, Rd, WriteReg, RtValid,
 	/* passthrough outputs */
-	MemToReg_Out, ExecuteOut_Out, RegFileWrEn_Out, WriteReg_Out,
+	MemToReg_Out, ExecuteOut_Out, RegFileWrEn_Out, WriteReg_Out, RtValid_Out,
 	/* outputs */
 	ReadData, Rs_Out, Rt_Out, Rd_Out
 );
@@ -16,10 +16,10 @@ module memory_stage(
 	input MemRead, MemWrite, Halt;
 	input [2:0] Rs, Rt, Rd, WriteReg;
 	input [15:0] ExecuteOut, Address, WriteData;
-	input MemToReg, RegFileWrEn;
+	input MemToReg, RegFileWrEn, RtValid;
 	output [15:0] ReadData, ExecuteOut_Out;
 	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
-	output MemToReg_Out, RegFileWrEn_Out;
+	output MemToReg_Out, RegFileWrEn_Out, RtValid_Out;
 
 	wire [15:0] mem_read_data;
 	
@@ -51,6 +51,8 @@ module memory_stage(
 		.Rt_Out			(Rt_Out),
 		.Rd_Out			(Rd_Out),
 		.WriteReg		(WriteReg),
-		.WriteReg_Out	(WriteReg_Out)
+		.WriteReg_Out	(WriteReg_Out),
+        .RtValid(RtValid),
+        .RtValid_Out(RtValid_Out)
 	);
 endmodule

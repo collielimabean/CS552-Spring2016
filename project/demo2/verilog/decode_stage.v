@@ -13,23 +13,29 @@ module decode_stage(
 	Set, Btr, MemWrite, MemRead, MemToReg,
 	Halt, Exception, Err, InvA, InvB, Cin, Rti,
 	RegFileWrEn_Out, Rs, Rt, Rd, WriteReg_Out,
+    RtValid, Rs_Imm, Rt_Imm, Rd_Imm, RtValid_Imm,
 	/* passthrough outputs */
 	IncPC_Out
 );
 	input [15:0] Instr, WriteData, IncPC;
-	input Stall, Flush, rst, clk, RegFileWrEn;
+	input Stall, Flush, rst, clk, RegFileWrEn, RtValid;
 	input [2:0] WriteReg;
 	output[15:0] ALUOp1, ALUOp2, Immediate, IncPC_Out;
-	output [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg_Out;
+	output [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg_Out, Rs_Imm, Rt_Imm, Rd_Imm;
 	output [1:0] Func;
 	output ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead,
 		   MemToReg, Halt, Exception, InvA, InvB, Cin, Rti, 
-		   RegFileWrEn_Out, Err;
+		   RegFileWrEn_Out, Err, RtValid_Imm;
 	wire [15:0] aluop1, aluop2, immediate;
 	wire [2:0] aluopcode, rs, rt, rd, write_reg;
 	wire [1:0] func;
 	wire alusrc, branch, jump, jumpreg, set, btr, memwrite, memtoreg,
-		 memread, halt, inva, invb, cin, rf_wr_en, halt_out;
+		 memread, halt, inva, invb, cin, rf_wr_en, halt_out, rtvalid;
+
+    assign Rs_Imm = rs;
+    assign Rt_Imm = rt;
+    assign Rd_Imm = rd;
+    assign RtValid_Imm = rtvalid;
 
     decode d(.clk       (clk),
              .rst       (rst),
@@ -63,7 +69,8 @@ module decode_stage(
 			 .RegFileWrEn (RegFileWrEn),
 			 .RegFileWrEn_Out	(rf_wr_en),
 			 .WriteReg		(WriteReg),
-			 .WriteReg_Out	(write_reg)
+			 .WriteReg_Out	(write_reg),
+             .RtValid       (rtvalid)
 		 );
 
     pipe_de pde(
@@ -109,6 +116,8 @@ module decode_stage(
             .InvA_Out(InvA),
             .InvB_Out(InvB),
             .Cin_Out(Cin),
+            .RtValid(rtvalid),
+            .RtValid_Out(RtValid),
             .Rs(rs),
             .Rt(rt),
             .Rd(rd),

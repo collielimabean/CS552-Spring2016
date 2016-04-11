@@ -28,12 +28,14 @@ module proc (/*AUTOARG*/
 			   D_Rs, D_Rt, D_Rd, 
 			   E_Rs, E_Rt, E_Rd,
 			   M_Rs, M_Rt, M_Rd,
-			   D_WriteReg, E_WriteReg, M_WriteReg;
+			   D_WriteReg, E_WriteReg, M_WriteReg,
+               D_Rs_Imm, D_Rt_Imm, D_Rd_Imm;
 	wire [1:0] Func, ForwardALUOp1, ForwardALUOp2;
 	wire Stall, Flush, Exception, Rti, ALUSrc, Branch, Jump,
 		 JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, InvA, InvB,
 		 Cin, E_MemRead, E_MemWrite, E_MemToReg, E_Halt, M_MemToReg,
-		 d_err, e_err, D_RegWrite, E_RegWrite, M_RegWrite, BranchJumpTaken;
+		 d_err, e_err, D_RegWrite, E_RegWrite, M_RegWrite, BranchJumpTaken,
+         D_RtValid_Imm;
 
 	assign err = d_err | e_err;
 
@@ -91,6 +93,11 @@ module proc (/*AUTOARG*/
 		.Cin				(Cin),
 		.Rti				(Rti),
 		// forwarding passthrough
+        .Rs_Imm             (D_Rs_Imm), // does not go through pipeline register
+        .Rt_Imm             (D_Rt_Imm), // does not go through pipeline register
+        .Rd_Imm             (D_Rd_Imm), // does not go through pipeline register
+        .RtValid_Imm        (D_RtValid_Imm), // does not go through pipeline register
+        .RtValid            (D_RtValid),
 		.Rs					(D_Rs),
 		.Rt					(D_Rt),
 		.Rd					(D_Rd),
@@ -130,6 +137,8 @@ module proc (/*AUTOARG*/
 		.MemToReg_Out		(E_MemToReg),
 		.Halt_Out			(E_Halt),
 		// forwarding signals //
+        .RtValid            (D_RtValid),
+        .RtValid_Out        (E_RtValid),
 		.Rs					(D_Rs),
 		.Rd					(D_Rd),
 		.Rt					(D_Rt),
@@ -138,7 +147,7 @@ module proc (/*AUTOARG*/
 		.Rt_Out				(E_Rt),
 		.ForwardALUOp1      (ForwardALUOp1),
 		.ForwardALUOp2		(ForwardALUOp2),
-		.PipeEM_Result		(MemoryWriteData), 
+		.PipeEM_Result		(Address), 
 		.PipeMW_Result		(RegWriteData), 
 		.RegFileWrEn		(D_RegWrite),
 		.RegFileWrEn_Out	(E_RegWrite),
@@ -152,184 +161,13 @@ module proc (/*AUTOARG*/
 		.WriteReg_Out		(E_WriteReg)
 	);
 	
-	// forwarding //
-	/*
-		// execute hazard
-		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) 
-			ForwardALUOp1 <= 2'b10
-		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) 
-			ForwardALUOp2 <= 2'b10
-			
-		// memory hazard
-		if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) 
-			ForwardALUOp1 <= 2'b01
-		if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) 
-			ForwardALUOp2 <= 2'b01
-						
-		------------------------
-		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) 
-			ForwardALUOp1 <= 2'b10
-		else if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) 
-			ForwardALUOp1 <= 2'b01
-		else
-			ForwardALUOp1 <= 2'b00
-			
-		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) 
-			ForwardALUOp2 <= 2'b10
-		else if (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) 
-			ForwardALUOp2 <= 2'b01
-		else 
-			ForwardALUOp2 <= 2'b00
-		------------------------
-			
-		ForwardALUOp1 = (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) ? 2'b10 :
-					    (P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRs)) ? 2'b01 :
-					    2'b00;
-					    
-		ForwardALUOp2 = (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) ? 2'b10 : 
-						(P_MW.RegWrite && ~(P_EM.RegWrite) && (P_MW.RegisterRd == P_DE.RegisterRt)) ? 2'b01 :
-						2'b00;
-		
-		-------------------------
-		ForwardALUOp1 = (M_RegWrite && (M_Rd == E_Rs)) ? 2'b10 :
-				(M_RegWrite && ~(E_RegWrite) && (M_Rd == E_Rs)) ? 2'b01 :
-				2'b00;			
-		ForwardALUOp2 = (M_RegWrite && (M_Rd == E_Rt)) ? 2'b10 : 
-				(M_RegWrite && ~(E_RegWrite) && (M_Rd == E_Rt)) ? 2'b01 :
-				2'b00;
-		-------------------------
-		ForwardALUOp1 = (M_RegWrite && ~(|(M_Rd ^ E_Rs))) ? 2'b10 :
-				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rs)) ? 2'b01 :
-				2'b00;			
-		ForwardALUOp2 = (M_RegWrite && ~(|(M_Rd ^ E_Rt))) ? 2'b10 : 
-				(M_RegWrite && ~(E_RegWrite) && ~(|(M_Rd ^ E_Rt)) ? 2'b01 :
-				2'b00;
-	 */
-	 
-	assign ForwardALUOp1 = (M_RegWrite & ~(|(M_Rd ^ E_Rs))) ? 2'b10 :
-				(M_RegWrite & ~(E_RegWrite) & ~(|(M_Rd ^ E_Rs))) ? 2'b01 :
-				2'b00;
-				
-	assign ForwardALUOp2 = (M_RegWrite & ~(|(M_Rd ^ E_Rt))) ? 2'b10 : 
-				(M_RegWrite & ~(E_RegWrite) & ~(|(M_Rd ^ E_Rt))) ? 2'b01 :
-				2'b00;
-	
-	// forwarding attempt 2 //
-	/*
-	
-	// execute hazard
-		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRs)) 
-			ForwardALUOp1 <= 2'b10
-		if (P_EM.RegWrite && (P_EM.RegisterRd == P_DE.RegisterRt)) 
-			ForwardALUOp2 <= 2'b10
-	
-	// memory hazard
-	if (MEM/WB.RegWrite && (MEM/WB.RegisterRd ≠ 0) && 
-			    ~(EX/MEM.RegWrite && (EX/MEM.RegisterRd ≠ 0) && (EX/MEM.RegisterRd == ID/EX.RegisterRs)) &&
-			     (MEM/WB.RegisterRd == ID/EX.RegisterRs))
-		ForwardALUOp1 <= 2'b01
-	
-	if (MEM/WB.RegWrite && (MEM/WB.RegisterRd ≠ 0) && 
-			    ~(EX/MEM.RegWrite && (EX/MEM.RegisterRd ≠ 0) && (EX/MEM.RegisterRd == ID/EX.RegisterRt)) &&
-			     (MEM/WB.RegisterRd == ID/EX.RegisterRt))
-		ForwardALUOp2 <= 2'b01
-	
-	----
-	
-	// execute hazards
-	if (E_Regwrite && (E_Rd == D_Rs))
-		ForwardALUOp1 <= 2'b10
-		
-	if (E_Regwrite && (E_Rd == D_Rt))
-		ForwardALUOp2 <= 2'b10
-	
-	// memory hazards
-	if (M_RegWrite && (M_Rd ≠ 0) &&
-		    ~(E_RegWrite && (E_Rd ≠ 0) && (E_Rd == D_Rs)) &&
-			 (M_Rd == D_Rs))
-		ForwardALUOp1 <= 2'b01
-		
-	if (M_RegWrite && (M_Rd ≠ 0) &&
-		    ~(E_RegWrite && (E_Rd ≠ 0) && (E_Rd == D_Rt)) &&
-			 (M_Rd == D_Rt))
-		ForwardALUOp2 <= 2'b01
-	
-	----
-	
-	// ForwardALUOp1
-	if (E_RegWrite && (E_Rd == D_Rs))
-    {
-        ForwardALUOp1 <= 2'b10;
-    }
-    else if (M_RegWrite && (M_Rd ≠ 0) &&
-            ~(E_RegWrite && (E_Rd ≠ 0) && (E_Rd == D_Rs)) &&
-            (M_Rd == D_Rs))
-    {
-        ForwardALUOp1 <= 2'b01;
-    }
-    else
-    {
-        ForwardALUOp2 <= 2'b00;
-    }
-	
-	
-	// ForwardALUOp2
-    if (E_Regwrite && (E_Rd == D_Rt))
-    {
-		ForwardALUOp2 <= 2'b10;
-    }
-	else if (M_RegWrite && (M_Rd ≠ 0) &&
-		    ~(E_RegWrite && (E_Rd ≠ 0) && (E_Rd == D_Rt)) &&
-			 (M_Rd == D_Rt))
-    {
-		ForwardALUOp2 <= 2'b01;
-	}
-    else
-    {
-        ForwardALUOp2 <= 2'b00;
-    }
-    -----------------------------
-    // ForwardALUOp1
-    if (E_RegWrite & ~(|(E_Rd ^ D_Rs)))
-    {
-        ForwardALUOp1 <= 2'b10;
-    }
-    else if (M_RegWrite & (|M_Rd) &
-            ~(E_RegWrite & (|E_Rd) & ~(|(E_Rd ^ D_Rs))) &
-            ~(|(M_Rd ^ D_Rs)))
-	{
-        ForwardALUOp1 <= 2'b01;
-    }
-    else
-    {
-        ForwardALUOp1 <= 2'b00;   
-    }
-	
-    // ForwardALUOp2
-    if (E_RegWrite & ~(|(E_Rd ^ D_Rt)))
-    {
-        ForwardALUOp2 <= 2'b10;
-    }
-    else if (M_RegWrite & (|M_Rd) &
-            ~(E_RegWrite & (|E_Rd) & ~(|(E_Rd ^ D_Rt))) &
-            ~(|(M_Rd ^ D_Rt)))
-	{
-        ForwardALUOp2 <= 2'b01;
-    }
-    else
-    {
-        ForwardALUOp2 <= 2'b00;   
-    }
-    ---------------------------------
-    ForwardALUOp1 = (E_RegWrite & ~(|(E_Rd ^ D_Rs))) ? 2'b10 :
-                    (M_RegWrite & (|M_Rd) & ~(E_RegWrite & (|E_Rd) & ~(|(E_Rd ^ D_Rs))) & ~(|(M_Rd ^ D_Rs))) ? 2'b01 :
+    assign ForwardALUOp1 = (E_RegWrite & ~(|(E_Rd ^ D_Rs_Imm))) ? 2'b10 :
+                    (M_RegWrite & (|M_Rd) & ~(E_RegWrite & (|E_Rd) & ~(|(E_Rd ^ D_Rs_Imm))) & ~(|(M_Rd ^ D_Rs_Imm))) ? 2'b01 :
                     2'b00;
 
-    ForwardALUOp2 = (E_RegWrite & ~(|(E_Rd ^ D_Rt))) ? 2'b10 : 
-                    (M_RegWrite & (|M_Rd) & ~(E_RegWrite & (|E_Rd) & ~(|(E_Rd ^ D_Rt))) & ~(|(M_Rd ^ D_Rt))) ? 2'b10 :
+    assign ForwardALUOp2 = (E_RegWrite & (~(|(E_Rd ^ D_Rt_Imm)) & D_RtValid_Imm)) ? 2'b10 : 
+                    (M_RegWrite & (|M_Rd) & ~(E_RegWrite & (|E_Rd) & (D_RtValid_Imm & ~(|(E_Rd ^ D_Rt_Imm))))) & (~(|(M_Rd ^ D_Rt_Imm) & D_RtValid_Imm)) ? 2'b01 :
                     2'b00;
-	*/
-	
 	
 	// memory 
 	memory_stage ms(
@@ -348,6 +186,8 @@ module proc (/*AUTOARG*/
 		.MemToReg_Out		(M_MemToReg),
 		.ReadData			(MemoryReadData),
 		// forwarding signals
+        .RtValid            (E_RtValid),
+        .RtValid_Out        (M_RtValid),
 		.Rs					(E_Rs),
 		.Rd					(E_Rd),
 		.Rt					(E_Rt),
