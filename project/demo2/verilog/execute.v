@@ -3,6 +3,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                Jump, Branch, JumpReg, Set,
                InvA, InvB, Cin, Btr,
                Func, Imm, ALUSrc, Result, NextPC, Err,
+               BranchJumpTaken,
 			   /* forwarding signals */
 			   ForwardALUOp1, ForwardALUOp2,
 			   PipeMW_Result, PipeEM_Result
@@ -12,7 +13,7 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
     input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
     input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr;
     output [15:0] Result, NextPC;
-    output Err;
+    output Err, BranchJumpTaken;
 
     wire [15:0] aluResult, setResult, offsetAddr;
     wire Ofl, Zero, branch_en, addr_cout, cout, alu_operand_a, alu_operand_b;
@@ -89,4 +90,6 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                       .InD (~ALUOp1[15]),
                       .S (Func),
                       .Out (branch_en));
+                      
+  assign BranchJumpTaken = JumpReg | ((branch_en & Branch) | Jump);
 endmodule

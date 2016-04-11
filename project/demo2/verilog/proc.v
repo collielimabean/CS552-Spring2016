@@ -21,7 +21,7 @@ module proc (/*AUTOARG*/
     // As desribed in the homeworks, use the err signal to trap corner
     // cases that you think are illegal in your statemachines
 
-	wire [15:0] Instr, IncPC, NextPC, D_IncPC, RegWriteData, ALUOP1,
+	wire [15:0] Instr, IncPC, BranchPC, D_IncPC, RegWriteData, ALUOP1,
 				ALUOp2, Immediate, Address, MemoryWriteData, M_ExecuteOut,
 				PipeEM_ALUOp1, PipeEM_ALUOp2, PipeMW_ALUOp1, PipeMW_ALUOp2;
 	wire [2:0] ALUOpcode, 
@@ -33,27 +33,28 @@ module proc (/*AUTOARG*/
 		 JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, InvA, InvB,
 		 Cin, E_MemRead, E_MemWrite, E_MemToReg, E_Halt, M_MemToReg,
 		 D_RegFileWrEn, E_RegFileWrEn, M_RegFileWrEn,
-		 d_err, e_err, E_RegWrite, M_RegWrite;
+		 d_err, e_err, E_RegWrite, M_RegWrite, BranchJumpTaken;
 
 	assign err = d_err | e_err;
 
 	// fetch
 	fetch_stage fs(
-		.NextPC		(NextPC), /////// HAZARD //////
-		.clk 		(clk),
-		.rst 		(rst),
-		.Stall		(Stall),
-		.Flush		(Flush),
-		.Halt 		(Halt), /////// HAZARD //////
-		.Exception 	(Exception), /////// HAZARD //////
-		.Rti		(Rti), /////// HAZARD //////
-		.Instr		(Instr),
-		.IncPC		(IncPC)
+		.NextPC				(NextPC), /////// HAZARD //////
+		.BranchPC			(BranchPC),
+		.BranchJumpTaken	(BranchJumpTaken), /////// HAZARD //////
+		.clk 				(clk),
+		.rst 				(rst),
+		.Stall				(Stall),
+		.Flush				(Flush),
+		.Halt 				(Halt), /////// HAZARD //////
+		.Exception 			(Exception), /////// HAZARD //////
+		.Rti				(Rti), /////// HAZARD //////
+		.Instr				(Instr),
+		.IncPC				(IncPC)
 	);
 	
 	// hazard detection unit
 	// generate Flush & Stall signal(s)
-	// handle NextPC correctly
 	
 	// decode
 	decode_stage ds(
@@ -118,7 +119,7 @@ module proc (/*AUTOARG*/
 		.Halt				(Halt),
 		.Address			(Address),
 		.WriteData			(MemoryWriteData),
-		.NextPC				(NextPC), /////// HAZARD //////
+		.NextPC				(BranchPC), /////// HAZARD //////
 		.MemRead_Out		(E_MemRead),
 		.MemWrite_Out		(E_MemWrite),
 		.MemToReg_Out		(E_MemToReg),
@@ -135,7 +136,8 @@ module proc (/*AUTOARG*/
 		.PipeEM_Result		(MemoryWriteData), 
 		.PipeMW_Result		(RegWriteData), 
 		.RegFileWrEn		(D_RegFileWrEn),
-		.RegFileWrEn_Out	(E_RegFileWrEn)
+		.RegFileWrEn_Out	(E_RegFileWrEn),
+		.BranchJumpTaken	(BranchJumpTaken)
 	);
 	
 	// forwarding //
@@ -203,7 +205,7 @@ module proc (/*AUTOARG*/
 	// memory 
 	memory_stage ms(
 		.Stall				(Stall),
-		.Flush				(1'b0), // we should never have to flush in the memory_stage
+		.Flush				(1'b0), // we should never have to flush pipe_mw
 		.rst				(rst),
 		.clk				(clk),
 		.MemRead			(E_MemRead),

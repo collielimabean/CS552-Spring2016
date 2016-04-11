@@ -1,7 +1,7 @@
 
-module fetch(NextPC, clk, rst, Halt, Rti, Exception, Instr, IncPC);
-    input [15:0] NextPC;
-    input clk, rst, Halt, Rti, Exception;
+module fetch(BranchPC, BranchJumpTaken, clk, rst, Halt, Rti, Exception, Instr, IncPC);
+    input [15:0] BranchPC;
+    input clk, rst, Halt, Rti, Exception, BranchJumpTaken;
     output [15:0] Instr, IncPC;
 
     wire [15:0] pc, actualNextPC, nextEPC, pc_inc_out, epc;
@@ -34,5 +34,6 @@ module fetch(NextPC, clk, rst, Halt, Rti, Exception, Instr, IncPC);
     assign actualNextPC = (Halt) ? pc_inc_out : 
                           (Exception) ? 16'd2 :
                           (Rti & curExcptState) ? epc :
-                                                  NextPC;
+                          (BranchJumpTaken) ? BranchPC :
+											  pc_inc_out;
 endmodule

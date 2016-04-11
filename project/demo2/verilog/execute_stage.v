@@ -14,7 +14,7 @@ module execute_stage(
 	/* passthrough inputs */
 	MemRead, MemWrite, MemToReg, Halt, RegFileWrEn,
 	/* outputs */
-	Address, WriteData, NextPC, Err,
+	Address, WriteData, BranchPC, Err, BranchJumpTaken, 
 	/* passthrough outputs */
 	MemRead_Out, MemWrite_Out, MemToReg_Out, Halt_Out, RegFileWrEn_Out
 );
@@ -27,9 +27,9 @@ module execute_stage(
 	input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr,
 		  MemRead, MemWrite, MemToReg, Halt, RegFileWrEn;
 		  
-	output [15:0] Address, WriteData, NextPC;
+	output [15:0] Address, WriteData, BranchPC;
 	output MemRead_Out, MemWrite_Out, Halt_Out, MemToReg_Out, Err,
-		   RegFileWrEn_Out;
+		   RegFileWrEn_Out, BranchJumpTaken;
 
 	wire [15:0] execute_result;
 
@@ -49,9 +49,10 @@ module execute_stage(
               .Imm      (Immediate),
               .ALUSrc   (ALUSrc),
               .Result   (execute_result),
-              .NextPC   (NextPC),
+              .BranchPC   (BranchPC),
               .PipeEM_Result (PipeEM_Result), 
-              .PipeMW_Result (PipeMW_Result)
+              .PipeMW_Result (PipeMW_Result),
+              .BranchJumpTaken (BranchJumpTaken)
 	);      
               
 	pipe_em pem(
