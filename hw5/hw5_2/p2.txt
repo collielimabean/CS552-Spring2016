@@ -1,1 +1,7 @@
-// Write your answer to Problem 2 (b) and (c) here
+2b)
+This useless program performs a bunch of loads if the branch is taken, otherwise it does nothing. Branch prediction helps here because if the branch predictor predicts correctly, it does not have to execute the loads and stores at all, which saves a bunch of cycles!
+
+2c)
+In general, branch predictors may take several cycles to complete, as the internal state that the branch predictor may keep track of may need many cycles to access. Of course, that's for sophisticated branch predictors.
+
+
