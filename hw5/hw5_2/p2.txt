@@ -2,6 +2,5 @@
 This useless program performs a bunch of loads if the branch is taken, otherwise it does nothing. Branch prediction helps here because if the branch predictor predicts correctly, it does not have to execute the loads and stores at all, which saves a bunch of cycles!
 
 2c)
-In general, branch predictors may take several cycles to complete, as the internal state that the branch predictor may keep track of may need many cycles to access. Of course, that's for sophisticated branch predictors.
-
+No. A situation where it might take more than one cycle is if the branch predictor keeps an internal history of previous branches. Similar to a cache, this schema will take multiple cycles to access.
 
