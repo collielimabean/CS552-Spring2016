@@ -29,7 +29,7 @@ module proc (/*AUTOARG*/
                PDE_Rs, PDE_Rd, PDE_Rt, PDE_WriteReg, PEM_Rs, PEM_Rt, PEM_Rd,
                PEM_WriteReg, PMW_Rs, PMW_Rt, PMW_Rd, PMW_WriteReg;
     wire [1:0] D_Func, PDE_Func, ForwardALUOp1, ForwardALUOp2;
-    wire Flush, Stall, D_ALUSrc, D_Branch, D_Jump, D_JumpReg, D_Set, D_Btr, 
+    wire Flush, S_Stall, D_ALUSrc, D_Branch, D_Jump, D_JumpReg, D_Set, D_Btr, 
          D_MemRead, D_MemWrite, D_MemToReg, D_Halt, D_Exception, D_Err, 
          D_InvA, D_InvB, D_Cin, D_Rti, D_RtValid, D_RegFileWrEn, PDE_ALUSrc,
          PDE_Branch, PDE_Jump, PDE_JumpReg, PDE_Set, PDE_Btr, PDE_MemRead,
@@ -47,7 +47,20 @@ module proc (/*AUTOARG*/
 	// WARNING: WE DO NOT DISTINGUISH BETWEEN PIPELINE REGISTERS - WE FLUSH EVERYTHING WHEN BRANCH DETECTED.
 	// WE MAY HAVE TO RESTRUCTURE OUR PIPELINE REGISTERS SINCE IT'S NOT SPLIT BY F/D/E/M. 
 	assign Flush = rst | E_BranchJumpTaken;
-	assign Stall = 1'b0;
+	
+    stall stall_module(
+        .rst                    (rst),
+        .clk                    (clk),
+        .RtValid                (D_RtValid), 
+        .MemWrite               (D_MemWrite),
+        .MemToReg               (D_MemToReg),
+        .RegFileWrEn            (D_RegFileWrEn),
+        .PMW_WriteReg           (PMW_WriteReg),
+        .Rd                     (D_Rd),
+        .Rs                     (D_Rs),
+        .Rt                     (D_Rt),
+        .Stall                  (S_Stall)
+    );
 	
     /*
     ------------------
@@ -78,7 +91,7 @@ else
     ForwardALUOp2 <= 2'b00
 --------------
 assign ForwardALUOp1 = (PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs))) ? 2'b10 :
-                       (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs))) ? 2'b01 :
+                       (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs))) ? 2'b01s
                        2'b00;
 
 assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) ? 2'b10 :
@@ -86,12 +99,12 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
                        2'b00;
     */
 
-    assign ForwardALUOp1 = (PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs))) ? 2'b10 :
-                           (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs)))) ? 2'b01 :
+    assign ForwardALUOp1 = (PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs))) ? 2'b00 :
+                           (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs)))) ? 2'b00 :
                            2'b00;
 
-    assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid)) ? 2'b10 :
-                           (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid))) ? 2'b01 :
+    assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid)) ? 2'b00 :
+                           (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid))) ? 2'b00 :
                            2'b00;
 
 
@@ -103,12 +116,13 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .Halt     	            (PEM_Halt),
         .Exception              (D_Exception),
         .Rti                    (D_Rti),
+        .Stall                  (S_Stall),
         .Instr                  (F_Instr),
         .IncPC                  (F_IncPC)
     );
 
     pipe_fd fd(
-        .Stall                  (Stall),
+        .Stall                  (S_Stall),
         .Flush                  (Flush),
         .rst                    (rst | Flush),
         .clk                    (clk),
@@ -121,6 +135,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
     decode d(
         .clk                    (clk),
         .rst                    (rst),
+        .Stall                  (S_Stall),
         .Instr                  (PFD_Instr),
         .IncPC                  (PFD_IncPC),
         .WriteData              (W_WriteData),
@@ -160,7 +175,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .clk                (clk),
         .rst                (rst | Flush),
         .Flush              (Flush),
-        .Stall              (Stall),
+        .Stall              (S_Stall),
         .ALUOp1             (D_ALUOp1),
         .ALUOp2             (D_ALUOp2),
         .Immediate          (D_Immediate),
@@ -240,7 +255,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
 	);      
               
 	pipe_em pem(
-		.Stall			(Stall),
+		.Stall			(1'b0),
 		.rst			(rst | Flush),
 		.clk			(clk),
 		.Result			(E_ExecuteResult),
@@ -278,7 +293,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
     );
              
     pipe_mw pmw(	
-		.Stall			(Stall),
+		.Stall			(1'b0),
 		.rst			(rst | Flush),
 		.clk			(clk),
 		.ExecuteOut		(PEM_Address),

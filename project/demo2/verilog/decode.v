@@ -1,5 +1,5 @@
 
-module decode(clk, rst, Instr, WriteData, IncPC,
+module decode(clk, rst, Stall, Instr, WriteData, IncPC,
               ALUOp1, ALUOp2, ALUSrc, Immediate, Branch, Jump,
               JumpReg, Set, Btr, InvA, InvB, Cin, 
               ALUOpcode, Func, MemWrite, MemRead,
@@ -9,7 +9,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
 
     input [15:0] Instr, WriteData, IncPC;
     input [2:0] WriteReg;
-    input clk, rst, RegFileWrEn;
+    input clk, rst, Stall, RegFileWrEn;
     output [15:0] ALUOp1, ALUOp2, Immediate;
     output [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg_Out;
     output [1:0] Func;
@@ -77,6 +77,7 @@ module decode(clk, rst, Instr, WriteData, IncPC,
     ///// Control unit //////
     control_unit cu(.opcode     (Instr[15:11]),
                     .func       (Instr[1:0]),
+                    .Stall      (Stall),
                     .aluop      (ALUOpcode),
                     .alusrc     (ALUSrc),
                     .branch     (Branch),
