@@ -127,7 +127,7 @@ module mem_system(/*AUTOARG*/
     assign Stall = MemStall | (~curr_state[0] & ~Done) | (curr_state[0] & next_state[1]);
 
     // cache
-    assign CacheDataIn = ReqDataIn;
+    assign CacheDataIn = (|(curr_state[7:4])) ? MemDataOut  : ReqDataIn; 
     assign CacheTagIn = ReqAddr[15:11];
     assign CacheIndex = ReqAddr[10:3];
     assign CacheOffset = {3{~rst}} & cache_offset; 
@@ -144,7 +144,7 @@ module mem_system(/*AUTOARG*/
     assign cache_offset = (curr_state[7] | curr_state[11]) ? 3'd6 :
                           (curr_state[6] | curr_state[10]) ? 3'd4 :
                           (curr_state[5] | curr_state[9])  ? 3'd2 :
-                                                             3'd0;
+                          (curr_state[1]) ? ReqAddr[2:0] : 3'd0;
     
     assign mem_offset = (curr_state[5] | curr_state[11]) ? 3'd6 :
                         (curr_state[4] | curr_state[10]) ? 3'd4 :
