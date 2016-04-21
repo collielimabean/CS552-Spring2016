@@ -139,7 +139,7 @@ module mem_system(/*AUTOARG*/
     assign MemRead = |(curr_state[5:2]);
     assign MemWrite = |(curr_state[11:8]);
     assign MemDataIn = CacheDataOut;
-    assign MemAddr = {(|(curr_state[7:4])) ? CacheTagIn : CacheTagOut, CacheIndex, {3{~rst}} & mem_offset};
+    assign MemAddr = {(|(curr_state[7:2])) ? CacheTagIn : CacheTagOut, CacheIndex, {3{~rst}} & mem_offset};
     
     assign cache_offset = (curr_state[7] | curr_state[11]) ? 3'd6 :
                           (curr_state[6] | curr_state[10]) ? 3'd4 :
