@@ -117,7 +117,7 @@ module mem_system(/*AUTOARG*/
                                 : CacheUnitSel;
     
     // cache hit combination
-    assign LocalCacheHit = CacheHit0 | CacheHit1;
+    assign LocalCacheHit = (CacheHit0 & CacheValid0) | (CacheHit1 & CacheValid1);
     
     // miss logic
     assign NextMiss = ~((curr_state[1]) & (LocalCacheHit & CacheLineValid));    
@@ -159,6 +159,7 @@ module mem_system(/*AUTOARG*/
     assign next_state[12] = (~MemStall & curr_state[11]) | (curr_state[12] & (|(MemBusy)));
 
     // memory_system outputs
+    //TODO -
     assign CacheHit = ~Miss & (curr_state[1]) & (LocalCacheHit & CacheLineValid);
     assign DataOut = CacheDataOut;
     assign Done = (curr_state[1]) & (LocalCacheHit & CacheLineValid);
