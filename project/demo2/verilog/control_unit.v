@@ -1,6 +1,7 @@
-module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi, stu, rti);
+module control_unit(opcode, func, Stall, aluop, alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi, stu, rti);
     input [4:0] opcode;
     input [1:0] func;
+    input Stall;
     output alusrc, branch, jump, i1, i2, r, jumpreg, set, btr, regwrite, memwrite, memread, memtoreg, invA, invB, cin, excp, zeroext, halt, slbi, link, lbi, stu, rti;
     output [2:0] aluop;
 
@@ -24,77 +25,77 @@ module control_unit(opcode, func, aluop, alusrc, branch, jump, i1, i2, r, jumpre
     assign nF = ~F;
     assign nG = ~G;
 
-    assign alusrc = (nA & C) |
+    assign alusrc = ~Stall & ((nA & C) |
                     (A ^ B) |
-                    (B & nC & nD & nE);
+                    (B & nC & nD & nE));
 
-    assign branch = nA & B & C;
+    assign branch = ~Stall & (nA & B & C);
     
-    assign jump = nA & nB & C;
+    assign jump = ~Stall & (nA & nB & C);
 
-    assign i1 = (nA & B & nC) | 
+    assign i1 = ~Stall & ((nA & B & nC) | 
                 (A & nB & nD & nE) |
                 (A & nB & C & D & nE) |
-                (A & nB & E);
+                (A & nB & E));
 
-    assign i2 = (nA & C & E) |
+    assign i2 = ~Stall & ((nA & C & E) |
                 (nA & B & C) |
                 (A & nB & nC & D & nE) |
-                (A & B & nC & nD & nE);
+                (A & B & nC & nD & nE));
 
-    assign r = A & B & (C | D | E); 
+    assign r = ~Stall & (A & B & (C | D | E)); 
 
-    assign jumpreg = nA & nB & C & E;
+    assign jumpreg = ~Stall & (nA & nB & C & E);
 
-    assign set = A & B & C;
+    assign set = ~Stall & (A & B & C);
 
-    assign btr = A & B & nC & nD & E;
+    assign btr = ~Stall & (A & B & nC & nD & E);
 
-    assign regwrite = (nA & B & nC) | 
+    assign regwrite = ~Stall & ((nA & B & nC) | 
                       (nA & nB & C & D) |  
                       (A & nB & C) | 
                       (A & nB & nC & (D | E)) |
                       (A & B & nC) | 
-                      (A & B & C);
+                      (A & B & C));
 
-    assign memwrite = (A & nB & nC) &
-                      (D ~^ E);
+    assign memwrite = ~Stall & ((A & nB & nC) &
+                      (D ~^ E));
 
-    assign memread = A & nB & nC & nD & E;
+    assign memread = ~Stall & (A & nB & nC & nD & E);
 
-    assign memtoreg = A & nB & nC & nD & E;
+    assign memtoreg = ~Stall & (A & nB & nC & nD & E);
     
-    assign regdst = (nA & B & nC) |
+    assign regdst = ~Stall & ((nA & B & nC) |
                     (A & nB & nD & nE) |
                     (A & nB & C & D & nE) |
-                    (A & nB & E);
+                    (A & nB & E));
     
     // subi, sub
-    assign invA = (B & nC & E) &
+    assign invA = ~Stall & ((B & nC & E) &
                    ((nA & nD) |
-                    (A & D & nF & G));
+                    (A & D & nF & G)));
 
     // andni, andn, slt sle
-    assign invB = (A & B & C & (D ^ E)) | (nA & B & nC & D & E) | (A & B & nC & D & E & F & G); 
+    assign invB = ~Stall & ((A & B & C & (D ^ E)) | (nA & B & nC & D & E) | (A & B & nC & D & E & F & G)); 
  
     // slt, sle, subi, sub
-    assign cin = (A & B & C & (D ^ E)) | (nA & B & nC & nD & E) | (A & B & nC & D & E & nF & G);
+    assign cin = ~Stall & ((A & B & C & (D ^ E)) | (nA & B & nC & nD & E) | (A & B & nC & D & E & nF & G));
     
-    assign excp = nA & nB & nC & D & nE;
+    assign excp = ~Stall & (nA & nB & nC & D & nE);
 
-    assign zeroext = (nA & B & nC & D) | slbi;
+    assign zeroext = ~Stall & ((nA & B & nC & D) | slbi);
 
-    assign halt = ~(|opcode);
+    assign halt = ~Stall & (~(|opcode));
 
-    assign slbi = A & nB & nC & D & nE;
+    assign slbi = ~Stall & (A & nB & nC & D & nE);
 
-    assign link = nA & nB & C & D;
+    assign link = ~Stall & (nA & nB & C & D);
 
-    assign lbi = A & B & nC & nD & nE;
+    assign lbi = ~Stall & (A & B & nC & nD & nE);
 
-    assign stu = A & nB & nC & D & E;
+    assign stu = ~Stall & (A & nB & nC & D & E);
 
-    assign rti = nA & nB & nC & D & E;
+    assign rti = ~Stall & (nA & nB & nC & D & E);
 
     always @(*) begin
         casex({opcode, func})

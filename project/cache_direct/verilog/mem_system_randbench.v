@@ -101,7 +101,7 @@ module mem_system_randbench(/*AUTOARG*/);
                      DataOut,
                      DataOut_ref, CacheHit);
             if (DataOut != DataOut_ref) begin
-               $display("ERROR");
+               $display("ERROR - data out: %8d | expected: %8d", DataOut, DataOut_ref);
                test_success = 1'b0;
             end
          end
