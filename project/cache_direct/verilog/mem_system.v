@@ -104,7 +104,7 @@ module mem_system(/*AUTOARG*/
     assign next_state[1] = (curr_state[0] & (NextReqRd | NextReqWr)) | (curr_state[7]);
     
     // move to first allocate state (stalls?)
-    assign next_state[2] = (curr_state[1] & ~(LocalCacheHit & CacheLineValid)) | (curr_state[12] & ~(|MemBusy)); // A0
+    assign next_state[2] = (curr_state[1] & ~(LocalCacheHit & CacheLineValid) & ~(CacheLineValid & CacheDirty)) | (curr_state[12] & ~(|MemBusy)); // A0
     assign next_state[3] = curr_state[2]; // A1
     assign next_state[4] = curr_state[3]; // A2
     assign next_state[5] = curr_state[4]; // A3
@@ -112,7 +112,7 @@ module mem_system(/*AUTOARG*/
     assign next_state[7] = curr_state[6]; // A5
     
     // move to first writeback state
-    assign next_state[8] = (curr_state[1] & (~LocalCacheHit & CacheLineValid & CacheDirty)) | (MemStall & curr_state[8]); // WB0
+    assign next_state[8] = (curr_state[1] & (~LocalCacheHit & CacheLineValid) & (CacheLineValid & CacheDirty)) | (MemStall & curr_state[8]); // WB0
     assign next_state[9] = (~MemStall & curr_state[8]) | (MemStall & curr_state[9]); // WB1
     assign next_state[10] = (~MemStall & curr_state[9]) | (MemStall & curr_state[10]); // WB2
     assign next_state[11] = (~MemStall & curr_state[10]) | (MemStall & curr_state[11]); // WB3
@@ -139,7 +139,7 @@ module mem_system(/*AUTOARG*/
     assign MemRead = |(curr_state[5:2]);
     assign MemWrite = |(curr_state[11:8]);
     assign MemDataIn = CacheDataOut;
-    assign MemAddr = {CacheTagIn, CacheIndex, {3{~rst}} & mem_offset};
+    assign MemAddr = {(|(curr_state[7:4])) ? CacheTagIn : CacheTagOut, CacheIndex, {3{~rst}} & mem_offset};
     
     assign cache_offset = (curr_state[7] | curr_state[11]) ? 3'd6 :
                           (curr_state[6] | curr_state[10]) ? 3'd4 :
