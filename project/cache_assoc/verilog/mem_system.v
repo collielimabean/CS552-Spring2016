@@ -97,11 +97,10 @@ module mem_system(/*AUTOARG*/
    
     dff state[12:0](.d(next_state), .q(curr_state), .clk (clk), .rst({{12{rst}}, 1'b0}));
     dff MissReg(.d (NextMiss), .q (Miss), .clk(clk), .rst(rst | curr_state[0]));
-    dff UnitSelReg(.d(NextCacheUnitSel), .q(CacheUnitSel), .clk(clk), .rst(rst | curr_state[0]));
+    dff UnitSelReg(.d(NextCacheUnitSel), .q(CacheUnitSel), .clk(clk), .rst(rst | (|curr_state[1:0])));
     dff VictimWayReg(.d (NextVictimWay), .q(VictimWay), .clk(clk), .rst(rst));
     dff c0en_reg(.d (NextCache0En), .q (Cache0En), .clk(clk), .rst(1'b0));
     dff c1en_reg(.d (NextCache1En), .q (Cache1En), .clk(clk), .rst(1'b0));
-    
     
     // victimway
     assign NextVictimWay = ((Rd | Wr) & (curr_state[0] & next_state[1])) ? ~VictimWay : VictimWay;
@@ -141,7 +140,7 @@ module mem_system(/*AUTOARG*/
     // move to compare
     assign next_state[1] = (curr_state[0] & (NextReqRd | NextReqWr)) | (curr_state[7]);
     
-    // move to first allocate state (stalls?)
+    // move to first allocate state 
     assign next_state[2] = (curr_state[1] & ~(LocalCacheHit & CacheLineValid) & ~(CacheLineValid & CacheDirty)) | (curr_state[12] & ~(|MemBusy)); // A0
     assign next_state[3] = curr_state[2]; // A1
     assign next_state[4] = curr_state[3]; // A2

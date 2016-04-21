@@ -101,7 +101,7 @@ module mem_system_randbench(/*AUTOARG*/);
                      DataOut,
                      DataOut_ref, CacheHit);
             if (DataOut != DataOut_ref) begin
-               $display("ERROR: Expected: Hit: %1d Data: %8d | DUT: Hit: %1d Data: %8d", CacheHit_ref, DataOut_ref, CacheHit, DataOut);
+               $display("ERROR: Expected: Hit: %1d Data: %8d | DUT: Hit: %1d Data: %8d En0: %1d En1: %1d", CacheHit_ref, DataOut_ref, CacheHit, DataOut, DUT.m0.Cache0En, DUT.m0.Cache1En);
                test_success = 1'b0;
             end
          end
