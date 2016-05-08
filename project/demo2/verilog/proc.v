@@ -36,9 +36,12 @@ module proc (/*AUTOARG*/
          PDE_MemWrite, PDE_MemToReg, PDE_Halt, PDE_InvA, PDE_InvB, PDE_Cin,
          PDE_RegFileWrEn, PDE_RtValid, E_Err, PDE_CPUActive, 
          E_BranchJumpTaken, PEM_MemRead, PEM_MemWrite, PEM_MemToReg, PEM_Halt,
-         PEM_RegFileWrEn, PMW_MemToReg, PMW_RegFileWrEn ;
+         PEM_RegFileWrEn, PMW_MemToReg, PMW_RegFileWrEn, Saturated;
 
     dff stall_state(.d(StallState), .q(Stall), .rst(rst), .clk(clk));
+    
+    sat_count counter(.clk(clk), .rst(rst), .Saturated(Saturated));
+
 
     // set error
     assign err = D_Err | E_Err;
@@ -46,7 +49,7 @@ module proc (/*AUTOARG*/
     // set stall
     assign StallState = Stall ? !(PMW_WriteReg == D_Rs)
                               : ((PDE_MemWrite || PDE_MemToReg || PMW_RegFileWrEn) ||
-                                (((D_Rs == PDE_Rd) || (D_Rt == PDE_Rd)) && (PFD_CPUActive && PDE_CPUActive)));
+                                ((((D_Rs == PDE_Rd) || (D_Rt == PDE_Rd)) && Saturated) && (PFD_CPUActive && PDE_CPUActive)));
 
 
 	// hazard detection unit
