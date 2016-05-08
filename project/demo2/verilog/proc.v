@@ -36,20 +36,37 @@ module proc (/*AUTOARG*/
          PDE_MemWrite, PDE_MemToReg, PDE_Halt, PDE_InvA, PDE_InvB, PDE_Cin,
          PDE_RegFileWrEn, PDE_RtValid, E_Err, PDE_CPUActive, 
          E_BranchJumpTaken, PEM_MemRead, PEM_MemWrite, PEM_MemToReg, PEM_Halt,
-         PEM_RegFileWrEn, PMW_MemToReg, PMW_RegFileWrEn, Saturated;
-
-    dff stall_state(.d(StallState), .q(Stall), .rst(rst), .clk(clk));
-    
-    sat_count counter(.clk(clk), .rst(rst), .Saturated(Saturated));
+         PEM_RegFileWrEn, PMW_MemToReg, PMW_RegFileWrEn, Saturated,
+         D_RsValid, PDE_RsValid, D_RdValid, PDE_RdValid;
 
 
+    ////// stall logic and state
+    /*
+    wire [2:0] NextStallRsReg, NextStallRdReg, NextStallRtReg, StallRsReg, StallRdReg, StallRtReg;
+
+    dff StallRsValidReg(.d(NextStallRsValid), .q(StallRsValid), .rst(rst), .clk(clk));
+    dff StallRdValidReg(.d(NextStallRdValid), .q(StallRdValid), .rst(rst), .clk(clk));
+    dff StallRtValidReg(.d(NextStallRtValid), .q(StallRtValid), .rst(rst), .clk(clk));
+
+    dff StallRsRegReg[2:0](.d(NextStallRsReg), .q(StallRsReg), .rst(rst), .clk(clk));
+    dff StallRdRegReg[2:0](.d(NextStallRdReg), .q(StallRdReg), .rst(rst), .clk(clk));
+    dff StallRtRegReg[2:0](.d(NextStallRtReg), .q(StallRtReg), .rst(rst), .clk(clk));
+
+    assign NextStallRsReg = (Stall) ? StallRsReg : D_Rs;
+    assign NextStallRdReg = (Stall) ? StallRdReg : D_Rs;
+    assign NextStallRtReg = (Stall) ? StallRtReg : D_Rs;
+    assign NextStallRsValid = (Stall) ? StallRsValid : D_RsValid;
+    assign NextStallRdValid = (Stall) ? StallRdValid : D_RdValid;
+    assign NextStallRtValid = (Stall) ? StallRtValid : D_RtValid;
+ */
     // set error
     assign err = D_Err | E_Err;
 
+    dff stall_state(.d(StallState), .q(Stall), .rst(rst), .clk(clk));
     // set stall
-    assign StallState = Stall ? !(PMW_WriteReg == D_Rs)
-                              : ((PDE_MemWrite || PDE_MemToReg || PMW_RegFileWrEn) ||
-                                ((((D_Rs == PDE_Rd) || (D_Rt == PDE_Rd)) && Saturated) && (PFD_CPUActive && PDE_CPUActive)));
+    assign StallState = Stall ? ((PMW_WriteReg == D_Rs) & D_RsValid)
+                              : ((PDE_MemWrite || PDE_MemToReg || PDE_RegFileWrEn) ||
+                                (((D_Rs == PDE_Rd) & D_RsValid & PDE_RdValid) || ((D_Rt  == PDE_Rd) & D_RtValid & PDE_RdValid)));
 
 
 	// hazard detection unit
@@ -108,7 +125,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
                        (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid))) ? 2'b01 :
                        2'b00;
     */
-
+/*
     assign ForwardALUOp1 = (PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs))) ? 2'b00 :
                            (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & ~(|(PEM_Rd ^ PDE_Rs)))) ? 2'b00 :
                            2'b00;
@@ -116,7 +133,10 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
     assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid)) ? 2'b00 :
                            (PMW_RegFileWrEn & ~(PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid))) ? 2'b00 :
                            2'b00;
+*/
 
+    assign ForwardALUOp1 = 2'b00;
+    assign ForwardALUOp2 = 2'b00;
 
     fetch f(
         .BranchPC               (E_BranchPC),
@@ -178,7 +198,9 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .RegFileWrEn_Out	    (D_RegFileWrEn),
         .WriteReg		        (PMW_WriteReg),
         .WriteReg_Out	        (D_WriteReg),
-        .RtValid                (D_RtValid)
+        .RtValid                (D_RtValid),
+        .RdValid                (D_RdValid),
+        .RsValid                (D_RsValid)
      );
 
     pipe_de pde(
@@ -186,7 +208,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .clk                (clk),
         .rst                (rst | Flush),
         .Flush              (Flush),
-        .Stall              (Stall),
+        .Stall              (1'b0),
         .ALUOp1             (D_ALUOp1 & ~Stall),
         .ALUOp2             (D_ALUOp2 & ~Stall),
         .Immediate          (D_Immediate & ~Stall),
@@ -201,7 +223,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .MemWrite           (D_MemWrite & ~Stall),
         .MemRead            (D_MemRead & ~Stall),
         .MemToReg           (D_MemToReg & ~Stall),
-        .Halt               (D_Halt & ~rst & ~Stall),
+        .Halt               (D_Halt & ~rst && ~Stall),
         .InvA               (D_InvA & ~Stall),
         .InvB               (D_InvB & ~Stall),
         .Cin                (D_Cin & ~Stall),
@@ -237,7 +259,11 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .RegFileWrEn_Out    (PDE_RegFileWrEn),
         .WriteReg		    (D_WriteReg & ~Stall),
         .WriteReg_Out	    (PDE_WriteReg),
-        .CPUActive_Out      (PDE_CPUActive)
+        .CPUActive_Out      (PDE_CPUActive),
+        .RsValid            (D_RsValid),
+        .RsValid_Out        (PDE_RsValid),
+        .RdValid            (D_RdValid),
+        .RdValid_Out        (PDE_RdValid)
     );  
  
     execute e(

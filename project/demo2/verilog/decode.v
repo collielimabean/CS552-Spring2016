@@ -5,7 +5,7 @@ module decode(clk, rst, Stall, Instr, WriteData, IncPC,
               ALUOpcode, Func, MemWrite, MemRead,
               MemToReg, Halt, Exception, Err, Rti,
               Rs, Rt, Rd, RegFileWrEn, RegFileWrEn_Out, WriteReg, WriteReg_Out,
-              RtValid);
+              RtValid, RsValid, RdValid);
 
     input [15:0] Instr, WriteData, IncPC;
     input [2:0] WriteReg;
@@ -16,7 +16,7 @@ module decode(clk, rst, Stall, Instr, WriteData, IncPC,
     output ALUSrc, Branch, Jump,
            JumpReg, Set, Btr, MemWrite, MemRead, RegFileWrEn_Out,
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti,
-           RtValid;
+           RtValid, RsValid, RdValid;
 
     wire [15:0] rs_out, write_data;
     wire If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi, stu;
@@ -24,7 +24,12 @@ module decode(clk, rst, Stall, Instr, WriteData, IncPC,
     reg [2:0] write_reg;
     reg OpError, RegError;
 
-    assign RtValid = Rf;
+    assign SpecialInstr = ~(|Instr[15:12]);   
+
+    assign RtValid = Rf & ~SpecialInstr;
+    assign RsValid = If1 | If2 | (Rf & ~SpecialInstr);
+    assign RdValid = (Rf & ~SpecialInstr) | If1;
+
 	assign Rs = Instr[10:8];
 	assign Rd = (Rf) ? Instr[4:2] : Instr[7:5];
 	assign Rt = Instr[7:5];

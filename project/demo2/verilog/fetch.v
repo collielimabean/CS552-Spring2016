@@ -29,10 +29,10 @@ module fetch(BranchPC, BranchJumpTaken, clk, rst, Halt, Rti, Exception, Stall, I
 
     assign nextExcptState = ~Rti & (Exception ^ curExcptState);
     assign nextEPC = (~Rti & curExcptState) ? epc : IncPC;
-    assign Instr = Stall ? 16'h0800 : InstrMem;
+    assign Instr = InstrMem;//Stall ? 16'h0800 : InstrMem;
 
     assign IncPC = pc_inc_out;
-    reg nextPCReg;
+    reg [15:0] nextPCReg;
     
     assign actualNextPC = nextPCReg;
     
