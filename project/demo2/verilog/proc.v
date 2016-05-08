@@ -45,7 +45,7 @@ module proc (/*AUTOARG*/
 
     // set stall
     assign StallState = Stall ? !(PMW_WriteReg == D_Rs)
-                              : ((MemWrite || MemToReg || RegFileWrEn) ||
+                              : ((PDE_MemWrite || PDE_MemToReg || PDE_RegFileWrEn) ||
                                 (((D_Rs == PDE_Rd) || (D_Rt == PDE_Rd)) && (PFD_CPUActive && PDE_CPUActive)));
 
 

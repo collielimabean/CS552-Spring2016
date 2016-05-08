@@ -3,7 +3,7 @@ module pipe_fd(Stall, Flush, rst, clk, Instr, IncPC, Instr_Out, IncPC_Out, CPUAc
     input [15:0] Instr, IncPC;
     input Stall, rst, clk, Flush;
     output [15:0] Instr_Out, IncPC_Out;
-    output CPUActive
+    output CPUActive;
 
     wire [15:0] Instr_Muxed, IncPC_Muxed;
 
