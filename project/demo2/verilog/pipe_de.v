@@ -1,20 +1,20 @@
 // The pipeline stage betwe~Stall the decode and execute stages
 module pipe_de(clk, rst, Stall, Flush, ALUOp1, ALUOp2, Immediate, ALUOpcode, Func, 
                ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead,
-               MemToReg, Halt, InvA, InvB, Cin, IncPC,
+               MemToReg, Halt, InvA, InvB, Cin, IncPC, CPUActive,
                ALUOp1_Out, ALUOp2_Out, Immediate_Out, ALUOpcode_Out, Func_Out,
                ALUSrc_Out, Branch_Out, Jump_Out, JumpReg_Out, Set_Out, Btr_Out,
                MemWrite_Out, MemRead_Out, MemToReg_Out, Halt_Out, 
                InvA_Out, InvB_Out, Cin_Out, Rs, Rt, Rd, Rs_Out, Rt_Out, Rd_Out,
                RegFileWrEn, RegFileWrEn_Out, IncPC_Out, WriteReg, WriteReg_Out,
-               RtValid, RtValid_Out);
+               RtValid, RtValid_Out, CPUActive_Out);
     
 
     input [15:0] ALUOp1, ALUOp2, Immediate, IncPC;
     input [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg;
     input [1:0] Func;
     input ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, 
-          Halt, InvA, InvB, Cin, RegFileWrEn, Flush, RtValid, RtValid_Out;
+          Halt, InvA, InvB, Cin, RegFileWrEn, Flush, RtValid, RtValid_Out, CPUActive;
           
 	input clk, rst, Stall;
 
@@ -23,7 +23,7 @@ module pipe_de(clk, rst, Stall, Flush, ALUOp1, ALUOp2, Immediate, ALUOpcode, Fun
     output [1:0] Func_Out;
     output ALUSrc_Out, Branch_Out, Jump_Out, JumpReg_Out, Set_Out, Btr_Out,
            MemWrite_Out, MemRead_Out, MemToReg_Out, Halt_Out, InvA_Out, 
-           InvB_Out, Cin_Out, RegFileWrEn_Out;
+           InvB_Out, Cin_Out, RegFileWrEn_Out, CPUActive_Out;
 
 	wire [15:0] ActualALUOpcode, ALUOpcodeOutReg;
 	wire [15:0] ALUOp1_Muxed, ALUOp2_Muxed, Immediate_Muxed;
@@ -64,6 +64,8 @@ module pipe_de(clk, rst, Stall, Flush, ALUOp1, ALUOp2, Immediate, ALUOpcode, Fun
     dff InvA_reg(.d(InvA_Muxed), .q(InvA_Out), .rst(rst), .clk(clk));
     dff InvB_reg(.d(InvB_Muxed), .q(InvB_Out), .rst(rst), .clk(clk));
     dff Cin_reg(.d(Cin_Muxed), .q(Cin_Out), .rst(rst), .clk(clk));
+
+    dff CPUActive_reg(.d(CPUActive), .q(CPUActive_Out), .rst(rst), .clk(clk));
 
     assign RtValidMuxed = (Stall) ? RtValid_Out : RtValid;
 
