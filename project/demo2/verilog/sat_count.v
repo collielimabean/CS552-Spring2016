@@ -1,6 +1,6 @@
 module sat_count(clk, rst, Saturated);
 
-    input clk, rst,
+    input clk, rst;
     output Saturated;
 
     wire [2:0] nextState, currentState;
