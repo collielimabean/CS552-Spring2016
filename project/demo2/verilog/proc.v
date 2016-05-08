@@ -202,7 +202,7 @@ assign ForwardALUOp2 = (PEM_RegFileWrEn & (~(|(PEM_Rd ^ PDE_Rt)) & PDE_RtValid) 
         .InvA               (D_InvA & ~Stall),
         .InvB               (D_InvB & ~Stall),
         .Cin                (D_Cin & ~Stall),
-        .CPUActive          (PFD_CPUActive & ~Stall),
+        .CPUActive          (PFD_CPUActive),
         .IncPC_Out          (PDE_IncPC),
         .ALUOp1_Out         (PDE_ALUOp1),
         .ALUOp2_Out         (PDE_ALUOp2),
