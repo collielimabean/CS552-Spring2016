@@ -42,9 +42,9 @@ module pipe_em(
 	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
 	output [15:0] Address, WriteData;
 
-	wire [15:0] AddressMuxed;
+	wire [15:0] AddressMuxed, ALUOp2Muxed;
 	wire [2:0] RsMuxed, RtMuxed, RdMuxed, WriteRegMuxed;
-	wire MemReadMuxed, MemWriteMuxed, MemToRegMuxed, ALUOp2Muxed, RegFileWrEnMuxed, HaltMuxed;
+	wire MemReadMuxed, MemWriteMuxed, MemToRegMuxed, RegFileWrEnMuxed, HaltMuxed;
 	
 	dff WriteReg_reg[2:0](.d(WriteRegMuxed), .q(WriteReg_Out), .rst(rst), .clk(clk));
 	

@@ -37,7 +37,7 @@ module pipe_mw(
 	output [2:0] Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
 	output [15:0] ExecuteOut_Out, MemOut_Out;
 	
-	wire [15:0] MemOut_Out, ExecuteOutMuxed;
+	wire [15:0] MemOut_Out, ExecuteOutMuxed, MemOutMuxed;
 	wire [2:0] WriteRegMuxed, RsMuxed, RtMuxed, RdMuxed;
 	wire MemToReg_Out, RegFileWrEnMuxed;
 	

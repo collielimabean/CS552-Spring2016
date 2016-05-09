@@ -8,34 +8,39 @@ module pipe_de(clk, rst, Stall, Flush, ALUOp1, ALUOp2, Immediate, ALUOpcode, Fun
                InvA_Out, InvB_Out, Cin_Out, Rs, Rt, Rd, Rs_Out, Rt_Out, Rd_Out,
                RegFileWrEn, RegFileWrEn_Out, IncPC_Out, WriteReg, WriteReg_Out,
                RtValid, RtValid_Out, CPUActive_Out, RsValid, RdValid, RsValid_Out,
-               RdValid_Out);
+               RdValid_Out, DecodeIncPC, DecodeIncPC_Out, Link, Link_Out);
     
 
-    input [15:0] ALUOp1, ALUOp2, Immediate, IncPC;
+    input [15:0] ALUOp1, ALUOp2, Immediate, IncPC, DecodeIncPC;
     input [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg;
     input [1:0] Func;
     input ALUSrc, Branch, Jump, JumpReg, Set, Btr, MemWrite, MemRead, MemToReg, 
           Halt, InvA, InvB, Cin, RegFileWrEn, Flush, RtValid, CPUActive,
-          RsValid, RdValid;
+          RsValid, RdValid, Link;
           
 	input clk, rst, Stall;
 
-    output [15:0] ALUOp1_Out, ALUOp2_Out, Immediate_Out, IncPC_Out;
+    output [15:0] ALUOp1_Out, ALUOp2_Out, Immediate_Out, IncPC_Out, DecodeIncPC_Out;
     output [2:0] ALUOpcode_Out, Rs_Out, Rt_Out, Rd_Out, WriteReg_Out;
     output [1:0] Func_Out;
     output ALUSrc_Out, Branch_Out, Jump_Out, JumpReg_Out, Set_Out, Btr_Out,
            MemWrite_Out, MemRead_Out, MemToReg_Out, Halt_Out, InvA_Out, 
-           InvB_Out, Cin_Out, RegFileWrEn_Out, CPUActive_Out, RsValid_Out, RdValid_Out, RtValid_Out;
+           InvB_Out, Cin_Out, RegFileWrEn_Out, CPUActive_Out, RsValid_Out, RdValid_Out, RtValid_Out,
+           Link_Out;
 
-	wire [15:0] ActualALUOpcode, ALUOpcodeOutReg;
+	wire [15:0] ActualALUOpcode, ALUOpcodeOutReg, IncPCMuxed, DecodeIncPCMuxed;
 	wire [15:0] ALUOp1_Muxed, ALUOp2_Muxed, Immediate_Muxed;
 	wire [2:0] ALUOpcode_Muxed, Rs_Muxed, Rt_Muxed, Rd_Muxed, WriteRegMuxed;
 	wire [1:0] Func_Muxed;
 	wire ALUSrc_Muxed, Branch_Muxed, Jump_Muxed, JumpReg_Muxed,
          Set_Muxed, Btr_Muxed, MemWrite_Muxed, MemRead_Muxed, MemToReg_Muxed,
          Halt_Muxed, InvA_Muxed, InvB_Muxed, RtValidMuxed, 
-         Cin_Muxed, RegFileWrEnMuxed, IncPCMuxed, RsValidMuxed, RdValidMuxed;
+         Cin_Muxed, RegFileWrEnMuxed, RsValidMuxed, RdValidMuxed, LinkMuxed;
          
+    dff LinkReg(.d(LinkMuxed), .q(Link_Out), .clk(clk), .rst(rst));
+
+    dff DecodeIncPC_Reg[15:0](.d(DecodeIncPCMuxed), .q(DecodeIncPC_Out), .rst(rst), .clk(clk));
+
     dff RtValid_reg(.d(RtValidMuxed), .q(RtValid_Out), .rst(rst), .clk(clk));
     dff RsValid_reg(.d(RsValidMuxed), .q(RsValid_Out), .rst(rst), .clk(clk));
     dff RdValid_reg(.d(RdValidMuxed), .q(RdValid_Out), .rst(rst), .clk(clk));
@@ -70,6 +75,10 @@ module pipe_de(clk, rst, Stall, Flush, ALUOp1, ALUOp2, Immediate, ALUOpcode, Fun
     dff Cin_reg(.d(Cin_Muxed), .q(Cin_Out), .rst(rst), .clk(clk));
 
     dff CPUActive_reg(.d(CPUActive), .q(CPUActive_Out), .rst(rst), .clk(clk));
+
+    assign LinkMuxed = (Stall) ? Link_Out : Link;
+
+    assign DecodeIncPCMuxed = (Stall) ? DecodeIncPC_Out : DecodeIncPC;
 
     assign RtValidMuxed = (Stall) ? RtValid_Out : RtValid;
     assign RdValidMuxed = (Stall) ? RdValid_Out : RdValid;

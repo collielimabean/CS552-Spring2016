@@ -3,15 +3,15 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                Jump, Branch, JumpReg, Set,
                InvA, InvB, Cin, Btr,
                Func, Imm, ALUSrc, Result, NextPC, Err,
-               BranchJumpTaken, rst,
+               BranchJumpTaken, rst, DecodeIncPC, Link,
 			   /* forwarding signals */
 			   ForwardALUOp1, ForwardALUOp2,
 			   PipeMW_Result, PipeEM_Result
 );
-    input [15:0] ALUOp1, ALUOp2, IncPC, Imm, PipeEM_Result, PipeMW_Result;
+    input [15:0] ALUOp1, ALUOp2, IncPC, Imm, PipeEM_Result, PipeMW_Result, DecodeIncPC;
     input [2:0] Opcode;
     input [1:0] Func, ForwardALUOp1, ForwardALUOp2;
-    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr, rst;
+    input Jump, Branch, JumpReg, Set, ALUSrc, InvA, InvB, Cin, Btr, rst, Link;
     output [15:0] Result, NextPC;
     output Err, BranchJumpTaken;
 
@@ -35,8 +35,8 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
 	////////////// ALU Operand Forwarding Logic //////////////
 	reg ErrReg;
 	assign Err = ~rst & ErrReg;
-	assign alu_operand_a = OpAReg;
-	assign alu_operand_b = OpBReg;
+	assign alu_operand_a = OpAReg & ~{16{Link & ~JumpReg}}; // TODO
+	assign alu_operand_b = (Link) ? ((JumpReg) ? Imm : DecodeIncPC) : OpBReg; //TODO
 	
 	always @(*) begin
 		case (ForwardALUOp1)
@@ -74,11 +74,12 @@ module execute(ALUOp1, ALUOp2, Opcode, IncPC,
                               ALUOp1[8], ALUOp1[9], ALUOp1[10], ALUOp1[11],
                               ALUOp1[12], ALUOp1[13], ALUOp1[14], ALUOp1[15] } :
                     (Set) ? setResult :
-                            aluResult;
+                    (JumpReg) ? DecodeIncPC :
+                                 aluResult;
 
 
     //////////// Branch Logic //////////////////
-    cla16 addr_adder(.A (IncPC), .B (Imm), .Cin(1'b0), .S (offsetAddr), .Cout (addr_cout));
+    cla16 addr_adder(.A (DecodeIncPC), .B (Imm), .Cin(1'b0), .S (offsetAddr), .Cout (addr_cout));
     assign NextPC = (JumpReg)                     ? aluResult  :
                     ((branch_en & Branch) | Jump) ? offsetAddr :
                                                     IncPC;
