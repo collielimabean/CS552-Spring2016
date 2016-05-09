@@ -5,18 +5,18 @@ module decode(clk, rst, Stall, Instr, WriteData, IncPC,
               ALUOpcode, Func, MemWrite, MemRead,
               MemToReg, Halt, Exception, Err, Rti,
               Rs, Rt, Rd, RegFileWrEn, RegFileWrEn_Out, WriteReg, WriteReg_Out,
-              RtValid, RsValid, RdValid);
+              RtValid, RsValid, RdValid, Link, Store);
 
     input [15:0] Instr, WriteData, IncPC;
     input [2:0] WriteReg;
-    input clk, rst, Stall, RegFileWrEn;
+    input clk, rst,  RegFileWrEn, Stall;
     output [15:0] ALUOp1, ALUOp2, Immediate;
     output [2:0] ALUOpcode, Rs, Rt, Rd, WriteReg_Out;
     output [1:0] Func;
     output ALUSrc, Branch, Jump,
            JumpReg, Set, Btr, MemWrite, MemRead, RegFileWrEn_Out,
            MemToReg, Halt, Exception, Err, InvA, InvB, Cin, Rti,
-           RtValid, RsValid, RdValid;
+           RtValid, RsValid, RdValid, Link, Store;
 
     wire [15:0] rs_out, write_data;
     wire If1, If2, Rf, ZeroExt, RfError, slbi, link, lbi, stu;
@@ -33,8 +33,13 @@ module decode(clk, rst, Stall, Instr, WriteData, IncPC,
 	assign Rs = Instr[10:8];
 	assign Rd = (Rf) ? Instr[4:2] : Instr[7:5];
 	assign Rt = Instr[7:5];
-	assign write_data = (link) ? IncPC : WriteData;
-	
+	assign write_data =  WriteData;
+    assign Link = link;	
+
+    assign Store = Instr[15] & ~Instr[14] & ~Instr[13] & ~(Instr[12] ^ Instr[11]);
+
+    //assign Stall = (RsValid & (WriteReg == Rs)) || (RtValid & (WriteReg == Rt));
+
     ///// register file /////
     rf_bypass regfile(.clk         (clk),
 					  .rst         (rst),
@@ -82,7 +87,6 @@ module decode(clk, rst, Stall, Instr, WriteData, IncPC,
     ///// Control unit //////
     control_unit cu(.opcode     (Instr[15:11]),
                     .func       (Instr[1:0]),
-                    .Stall      (Stall),
                     .aluop      (ALUOpcode),
                     .alusrc     (ALUSrc),
                     .branch     (Branch),
