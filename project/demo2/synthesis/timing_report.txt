@@ -1,0 +1,2071 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 20
+Design : proc
+Version: B-2008.09-SP3
+Date   : Sun May  8 23:09:54 2016
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: typical   Library: gscl45nm
+Wire Load Model Mode: top
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[0]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U10/Y (AND2X2)             0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/U11/Y (INVX1)              0.00       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/U23/Y (AND2X2)             0.03       0.84 r
+  e/primary_alu/coxa0/cla0/ca3/U1/Y (INVX1)               0.02       0.86 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/Cin (fulladder1_1)
+                                                          0.00       0.86 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/U3/Y (XNOR2X1)       0.03       0.89 r
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/S (fulladder1_1)     0.00       0.89 r
+  e/primary_alu/coxa0/cla0/ca3/S<2> (cla4_0)              0.00       0.89 r
+  e/primary_alu/coxa0/cla0/S<14> (cla16_0)                0.00       0.89 r
+  e/primary_alu/coxa0/mux0/InA<14> (mux4to1_16_4)         0.00       0.89 r
+  e/primary_alu/coxa0/mux0/U10/Y (INVX1)                  0.02       0.92 f
+  e/primary_alu/coxa0/mux0/U150/Y (AOI22X1)               0.03       0.94 r
+  e/primary_alu/coxa0/mux0/Out<14> (mux4to1_16_4)         0.00       0.94 r
+  e/primary_alu/coxa0/Out<14> (cla_or_xor_and)            0.00       0.94 r
+  e/primary_alu/U124/Y (BUFX2)                            0.04       0.98 r
+  e/primary_alu/U56/Y (OR2X2)                             0.04       1.02 r
+  e/primary_alu/U51/Y (OR2X2)                             0.04       1.06 r
+  e/primary_alu/U104/Y (OAI21X1)                          0.02       1.07 f
+  e/primary_alu/Z (alu)                                   0.00       1.07 f
+  e/U460/Y (INVX1)                                        0.00       1.07 r
+  e/U147/Y (AND2X2)                                       0.03       1.10 r
+  e/U148/Y (INVX1)                                        0.02       1.12 f
+  e/set_mux/InC<0> (mux4to1_16_5)                         0.00       1.12 f
+  e/set_mux/U103/Y (AOI22X1)                              0.03       1.14 r
+  e/set_mux/U49/Y (BUFX2)                                 0.03       1.18 r
+  e/set_mux/U105/Y (OAI21X1)                              0.01       1.19 f
+  e/set_mux/Out<0> (mux4to1_16_5)                         0.00       1.19 f
+  e/U461/Y (INVX1)                                        0.00       1.19 r
+  e/U441/Y (OAI21X1)                                      0.01       1.20 f
+  e/Result<0> (execute)                                   0.00       1.20 f
+  pem/Result<0> (pipe_em)                                 0.00       1.20 f
+  pem/U105/Y (INVX1)                                      0.00       1.20 r
+  pem/U104/Y (OAI21X1)                                    0.01       1.21 f
+  pem/address_reg[0]/d (dff_190)                          0.00       1.21 f
+  pem/address_reg[0]/U4/Y (INVX1)                         0.00       1.21 r
+  pem/address_reg[0]/U3/Y (NOR2X1)                        0.01       1.22 f
+  pem/address_reg[0]/state_reg/D (DFFPOSX1)               0.00       1.22 f
+  data arrival time                                                  1.22
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[0]/state_reg/CLK (DFFPOSX1)             0.00       1.00 r
+  library setup time                                     -0.05       0.95
+  data required time                                                 0.95
+  --------------------------------------------------------------------------
+  data required time                                                 0.95
+  data arrival time                                                 -1.22
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.27
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[14]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U10/Y (AND2X2)             0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/U11/Y (INVX1)              0.00       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/U23/Y (AND2X2)             0.03       0.84 r
+  e/primary_alu/coxa0/cla0/ca3/U1/Y (INVX1)               0.02       0.86 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/Cin (fulladder1_1)
+                                                          0.00       0.86 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/U3/Y (XNOR2X1)       0.03       0.89 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/S (fulladder1_1)     0.00       0.89 f
+  e/primary_alu/coxa0/cla0/ca3/S<2> (cla4_0)              0.00       0.89 f
+  e/primary_alu/coxa0/cla0/S<14> (cla16_0)                0.00       0.89 f
+  e/primary_alu/coxa0/mux0/InA<14> (mux4to1_16_4)         0.00       0.89 f
+  e/primary_alu/coxa0/mux0/U10/Y (INVX1)                  0.01       0.89 r
+  e/primary_alu/coxa0/mux0/U150/Y (AOI22X1)               0.01       0.90 f
+  e/primary_alu/coxa0/mux0/Out<14> (mux4to1_16_4)         0.00       0.90 f
+  e/primary_alu/coxa0/Out<14> (cla_or_xor_and)            0.00       0.90 f
+  e/primary_alu/U124/Y (BUFX2)                            0.04       0.94 f
+  e/primary_alu/U1/Y (BUFX2)                              0.03       0.97 f
+  e/primary_alu/U126/Y (INVX1)                            0.00       0.97 r
+  e/primary_alu/U161/Y (MUX2X1)                           0.02       1.00 f
+  e/primary_alu/Out<14> (alu)                             0.00       1.00 f
+  e/U303/Y (AND2X2)                                       0.03       1.03 f
+  e/U304/Y (INVX1)                                        0.00       1.03 r
+  e/U176/Y (AND2X2)                                       0.03       1.06 r
+  e/U177/Y (INVX1)                                        0.01       1.07 f
+  e/NextPC<14> (execute)                                  0.00       1.07 f
+  f/BranchPC<14> (fetch)                                  0.00       1.07 f
+  f/U106/Y (AND2X2)                                       0.03       1.11 f
+  f/U108/Y (INVX1)                                        0.00       1.10 r
+  f/U65/Y (AND2X2)                                        0.03       1.13 r
+  f/U66/Y (INVX1)                                         0.02       1.15 f
+  f/pc_reg[14]/d (dff_402)                                0.00       1.15 f
+  f/pc_reg[14]/U3/Y (AND2X1)                              0.03       1.18 f
+  f/pc_reg[14]/state_reg/D (DFFPOSX1)                     0.00       1.18 f
+  data arrival time                                                  1.18
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[14]/state_reg/CLK (DFFPOSX1)                   0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.18
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.24
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[13]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U50/Y (INVX1)              0.01       0.79 r
+  e/primary_alu/coxa0/cla0/ca3/U2/Y (INVX1)               0.01       0.80 f
+  e/primary_alu/coxa0/cla0/ca3/U16/Y (OR2X2)              0.04       0.84 f
+  e/primary_alu/coxa0/cla0/ca3/U17/Y (INVX1)              0.00       0.84 r
+  e/primary_alu/coxa0/cla0/ca3/U64/Y (AOI21X1)            0.01       0.85 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/Cin (fulladder1_2)
+                                                          0.00       0.85 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/U1/Y (BUFX2)         0.04       0.88 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/U2/Y (XNOR2X1)       0.03       0.91 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/S (fulladder1_2)     0.00       0.91 f
+  e/primary_alu/coxa0/cla0/ca3/S<1> (cla4_0)              0.00       0.91 f
+  e/primary_alu/coxa0/cla0/S<13> (cla16_0)                0.00       0.91 f
+  e/primary_alu/coxa0/mux0/InA<13> (mux4to1_16_4)         0.00       0.91 f
+  e/primary_alu/coxa0/mux0/U120/Y (AOI21X1)               0.03       0.94 r
+  e/primary_alu/coxa0/mux0/U122/Y (INVX1)                 0.02       0.97 f
+  e/primary_alu/coxa0/mux0/Out<13> (mux4to1_16_4)         0.00       0.97 f
+  e/primary_alu/coxa0/Out<13> (cla_or_xor_and)            0.00       0.97 f
+  e/primary_alu/U37/Y (INVX1)                             0.01       0.97 r
+  e/primary_alu/U28/Y (MUX2X1)                            0.02       0.99 f
+  e/primary_alu/Out<13> (alu)                             0.00       0.99 f
+  e/U301/Y (AND2X2)                                       0.03       1.02 f
+  e/U302/Y (INVX1)                                        0.00       1.02 r
+  e/U174/Y (AND2X2)                                       0.03       1.05 r
+  e/U175/Y (INVX1)                                        0.01       1.07 f
+  e/NextPC<13> (execute)                                  0.00       1.07 f
+  f/BranchPC<13> (fetch)                                  0.00       1.07 f
+  f/U141/Y (AND2X2)                                       0.03       1.10 f
+  f/U142/Y (INVX1)                                        0.00       1.09 r
+  f/U67/Y (AND2X2)                                        0.03       1.13 r
+  f/U68/Y (INVX1)                                         0.02       1.14 f
+  f/pc_reg[13]/d (dff_401)                                0.00       1.14 f
+  f/pc_reg[13]/U4/Y (AND2X1)                              0.03       1.17 f
+  f/pc_reg[13]/state_reg/D (DFFPOSX1)                     0.00       1.17 f
+  data arrival time                                                  1.17
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[13]/state_reg/CLK (DFFPOSX1)                   0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.17
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.23
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[7]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U19/Y (INVX1)                  0.00       0.62 r
+  e/primary_alu/coxa0/cla0/U4/Y (AND2X2)                  0.03       0.65 r
+  e/primary_alu/coxa0/cla0/U2/Y (INVX2)                   0.03       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/Cin (cla4_2)               0.00       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/U42/Y (NAND3X1)            0.03       0.70 r
+  e/primary_alu/coxa0/cla0/ca1/U34/Y (INVX1)              0.02       0.73 f
+  e/primary_alu/coxa0/cla0/ca1/U35/Y (INVX1)              0.01       0.74 r
+  e/primary_alu/coxa0/cla0/ca1/U14/Y (AND2X2)             0.03       0.77 r
+  e/primary_alu/coxa0/cla0/ca1/U15/Y (INVX1)              0.01       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/U53/Y (AND2X2)             0.04       0.82 f
+  e/primary_alu/coxa0/cla0/ca1/fa[3]/Cin (fulladder1_8)
+                                                          0.00       0.82 f
+  e/primary_alu/coxa0/cla0/ca1/fa[3]/U2/Y (XNOR2X1)       0.03       0.84 f
+  e/primary_alu/coxa0/cla0/ca1/fa[3]/S (fulladder1_8)     0.00       0.84 f
+  e/primary_alu/coxa0/cla0/ca1/S<3> (cla4_2)              0.00       0.84 f
+  e/primary_alu/coxa0/cla0/S<7> (cla16_0)                 0.00       0.84 f
+  e/primary_alu/coxa0/mux0/InA<7> (mux4to1_16_4)          0.00       0.84 f
+  e/primary_alu/coxa0/mux0/U7/Y (AND2X1)                  0.03       0.88 f
+  e/primary_alu/coxa0/mux0/U29/Y (INVX1)                  0.00       0.88 r
+  e/primary_alu/coxa0/mux0/U15/Y (AND2X2)                 0.03       0.91 r
+  e/primary_alu/coxa0/mux0/U16/Y (INVX1)                  0.02       0.93 f
+  e/primary_alu/coxa0/mux0/Out<7> (mux4to1_16_4)          0.00       0.93 f
+  e/primary_alu/coxa0/Out<7> (cla_or_xor_and)             0.00       0.93 f
+  e/primary_alu/U27/Y (INVX1)                             0.01       0.93 r
+  e/primary_alu/U38/Y (MUX2X1)                            0.02       0.95 f
+  e/primary_alu/Out<7> (alu)                              0.00       0.95 f
+  e/U243/Y (AND2X2)                                       0.03       0.98 f
+  e/U246/Y (INVX1)                                        0.00       0.98 r
+  e/U162/Y (AND2X2)                                       0.03       1.01 r
+  e/U163/Y (INVX1)                                        0.01       1.03 f
+  e/NextPC<7> (execute)                                   0.00       1.03 f
+  f/BranchPC<7> (fetch)                                   0.00       1.03 f
+  f/U121/Y (AND2X2)                                       0.03       1.06 f
+  f/U122/Y (INVX1)                                        0.00       1.06 r
+  f/U77/Y (AND2X2)                                        0.03       1.09 r
+  f/U78/Y (INVX1)                                         0.02       1.10 f
+  f/pc_reg[7]/d (dff_395)                                 0.00       1.10 f
+  f/pc_reg[7]/U3/Y (AND2X1)                               0.03       1.13 f
+  f/pc_reg[7]/state_reg/D (DFFPOSX1)                      0.00       1.13 f
+  data arrival time                                                  1.13
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[7]/state_reg/CLK (DFFPOSX1)                    0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.13
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.19
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[5]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U19/Y (INVX1)                  0.00       0.62 r
+  e/primary_alu/coxa0/cla0/U4/Y (AND2X2)                  0.03       0.65 r
+  e/primary_alu/coxa0/cla0/U2/Y (INVX2)                   0.03       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/Cin (cla4_2)               0.00       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/U42/Y (NAND3X1)            0.03       0.70 r
+  e/primary_alu/coxa0/cla0/ca1/U34/Y (INVX1)              0.02       0.73 f
+  e/primary_alu/coxa0/cla0/ca1/U9/Y (INVX1)               0.00       0.73 r
+  e/primary_alu/coxa0/cla0/ca1/U12/Y (AND2X2)             0.03       0.76 r
+  e/primary_alu/coxa0/cla0/ca1/U13/Y (INVX1)              0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/fa[1]/Cin (fulladder1_10)
+                                                          0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/fa[1]/U4/Y (XOR2X1)        0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca1/fa[1]/S (fulladder1_10)
+                                                          0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca1/S<1> (cla4_2)              0.00       0.81 f
+  e/primary_alu/coxa0/cla0/S<5> (cla16_0)                 0.00       0.81 f
+  e/primary_alu/coxa0/mux0/InA<5> (mux4to1_16_4)          0.00       0.81 f
+  e/primary_alu/coxa0/mux0/U8/Y (AND2X1)                  0.03       0.84 f
+  e/primary_alu/coxa0/mux0/U30/Y (INVX1)                  0.00       0.84 r
+  e/primary_alu/coxa0/mux0/U20/Y (AND2X2)                 0.03       0.87 r
+  e/primary_alu/coxa0/mux0/U21/Y (INVX1)                  0.02       0.89 f
+  e/primary_alu/coxa0/mux0/Out<5> (mux4to1_16_4)          0.00       0.89 f
+  e/primary_alu/coxa0/Out<5> (cla_or_xor_and)             0.00       0.89 f
+  e/primary_alu/U2/Y (BUFX2)                              0.03       0.92 f
+  e/primary_alu/U45/Y (INVX1)                             0.00       0.92 r
+  e/primary_alu/U155/Y (MUX2X1)                           0.02       0.95 f
+  e/primary_alu/Out<5> (alu)                              0.00       0.95 f
+  e/U66/Y (AND2X1)                                        0.03       0.98 f
+  e/U234/Y (INVX1)                                        0.00       0.98 r
+  e/U157/Y (AND2X2)                                       0.03       1.01 r
+  e/U159/Y (INVX1)                                        0.01       1.02 f
+  e/NextPC<5> (execute)                                   0.00       1.02 f
+  f/BranchPC<5> (fetch)                                   0.00       1.02 f
+  f/U125/Y (AND2X2)                                       0.03       1.06 f
+  f/U126/Y (INVX1)                                        0.00       1.06 r
+  f/U81/Y (AND2X2)                                        0.03       1.09 r
+  f/U82/Y (INVX1)                                         0.02       1.10 f
+  f/pc_reg[5]/d (dff_393)                                 0.00       1.10 f
+  f/pc_reg[5]/U3/Y (AND2X1)                               0.03       1.13 f
+  f/pc_reg[5]/state_reg/D (DFFPOSX1)                      0.00       1.13 f
+  data arrival time                                                  1.13
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[5]/state_reg/CLK (DFFPOSX1)                    0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.13
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.19
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[15]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U12/Y (INVX1)                                         0.01       0.12 r
+  e/U454/Y (INVX1)                                        0.02       0.14 f
+  e/U113/Y (AND2X2)                                       0.04       0.18 f
+  e/U211/Y (OR2X2)                                        0.04       0.21 f
+  e/U413/Y (INVX1)                                        0.01       0.22 r
+  e/primary_alu/A<10> (alu)                               0.00       0.22 r
+  e/primary_alu/U116/Y (XNOR2X1)                          0.03       0.25 f
+  e/primary_alu/demux0/In<10> (demux1to2_16_1)            0.00       0.25 f
+  e/primary_alu/demux0/d[10]/In (demux1to2_27)            0.00       0.25 f
+  e/primary_alu/demux0/d[10]/U2/Y (AND2X2)                0.04       0.28 f
+  e/primary_alu/demux0/d[10]/Out1 (demux1to2_27)          0.00       0.28 f
+  e/primary_alu/demux0/Out1<10> (demux1to2_16_1)          0.00       0.28 f
+  e/primary_alu/coxa0/A<10> (cla_or_xor_and)              0.00       0.28 f
+  e/primary_alu/coxa0/demux0/In<10> (demux1to4_16_1)      0.00       0.28 f
+  e/primary_alu/coxa0/demux0/demux[10]/In (demux1to4_27)
+                                                          0.00       0.28 f
+  e/primary_alu/coxa0/demux0/demux[10]/U5/Y (AND2X2)      0.03       0.32 f
+  e/primary_alu/coxa0/demux0/demux[10]/U6/Y (INVX1)       0.00       0.32 r
+  e/primary_alu/coxa0/demux0/demux[10]/U3/Y (OR2X2)       0.03       0.35 r
+  e/primary_alu/coxa0/demux0/demux[10]/U4/Y (INVX1)       0.02       0.37 f
+  e/primary_alu/coxa0/demux0/demux[10]/Out0 (demux1to4_27)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/demux0/U2/Y (BUFX4)                 0.05       0.42 f
+  e/primary_alu/coxa0/demux0/Out0<10> (demux1to4_16_1)
+                                                          0.00       0.42 f
+  e/primary_alu/coxa0/cla0/A<10> (cla16_0)                0.00       0.42 f
+  e/primary_alu/coxa0/cla0/ca2/A<2> (cla4_1)              0.00       0.42 f
+  e/primary_alu/coxa0/cla0/ca2/U15/Y (XOR2X1)             0.05       0.47 r
+  e/primary_alu/coxa0/cla0/ca2/U1/Y (INVX1)               0.03       0.50 f
+  e/primary_alu/coxa0/cla0/ca2/U2/Y (INVX1)               0.00       0.50 r
+  e/primary_alu/coxa0/cla0/ca2/U68/Y (AND2X2)             0.03       0.53 r
+  e/primary_alu/coxa0/cla0/ca2/U69/Y (INVX1)              0.03       0.56 f
+  e/primary_alu/coxa0/cla0/ca2/U6/Y (NOR3X1)              0.03       0.58 r
+  e/primary_alu/coxa0/cla0/ca2/U7/Y (INVX1)               0.03       0.61 f
+  e/primary_alu/coxa0/cla0/ca2/U29/Y (OR2X2)              0.05       0.65 f
+  e/primary_alu/coxa0/cla0/ca2/U30/Y (INVX1)              0.01       0.66 r
+  e/primary_alu/coxa0/cla0/ca2/PG (cla4_1)                0.00       0.66 r
+  e/primary_alu/coxa0/cla0/U20/Y (AOI21X1)                0.02       0.68 f
+  e/primary_alu/coxa0/cla0/U7/Y (BUFX2)                   0.03       0.72 f
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.75 f
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.00       0.75 r
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.75 r
+  e/primary_alu/coxa0/cla0/ca3/U50/Y (INVX1)              0.02       0.77 f
+  e/primary_alu/coxa0/cla0/ca3/U61/Y (AOI21X1)            0.04       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/Cin (fulladder1_0)
+                                                          0.00       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/U1/Y (BUFX2)         0.04       0.85 r
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/U2/Y (XNOR2X1)       0.03       0.87 f
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/S (fulladder1_0)     0.00       0.87 f
+  e/primary_alu/coxa0/cla0/ca3/S<3> (cla4_0)              0.00       0.87 f
+  e/primary_alu/coxa0/cla0/S<15> (cla16_0)                0.00       0.87 f
+  e/primary_alu/coxa0/mux0/InA<15> (mux4to1_16_4)         0.00       0.87 f
+  e/primary_alu/coxa0/mux0/U125/Y (INVX1)                 0.00       0.88 r
+  e/primary_alu/coxa0/mux0/U152/Y (AOI22X1)               0.01       0.89 f
+  e/primary_alu/coxa0/mux0/Out<15> (mux4to1_16_4)         0.00       0.89 f
+  e/primary_alu/coxa0/Out<15> (cla_or_xor_and)            0.00       0.89 f
+  e/primary_alu/U94/Y (BUFX2)                             0.04       0.93 f
+  e/primary_alu/U103/Y (INVX1)                            0.00       0.93 r
+  e/primary_alu/U102/Y (OAI21X1)                          0.02       0.95 f
+  e/primary_alu/Out<15> (alu)                             0.00       0.95 f
+  e/U513/Y (NAND2X1)                                      0.01       0.96 r
+  e/U178/Y (AND2X2)                                       0.03       1.00 r
+  e/U179/Y (INVX1)                                        0.01       1.01 f
+  e/NextPC<15> (execute)                                  0.00       1.01 f
+  f/BranchPC<15> (fetch)                                  0.00       1.01 f
+  f/U104/Y (AND2X2)                                       0.03       1.04 f
+  f/U105/Y (INVX1)                                        0.00       1.04 r
+  f/U63/Y (AND2X2)                                        0.03       1.07 r
+  f/U64/Y (INVX1)                                         0.02       1.09 f
+  f/pc_reg[15]/d (dff_403)                                0.00       1.09 f
+  f/pc_reg[15]/U4/Y (AND2X1)                              0.03       1.12 f
+  f/pc_reg[15]/state_reg/D (DFFPOSX1)                     0.00       1.12 f
+  data arrival time                                                  1.12
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[15]/state_reg/CLK (DFFPOSX1)                   0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.12
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.18
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[7]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U19/Y (INVX1)                  0.00       0.62 r
+  e/primary_alu/coxa0/cla0/U4/Y (AND2X2)                  0.03       0.65 r
+  e/primary_alu/coxa0/cla0/U2/Y (INVX2)                   0.03       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/Cin (cla4_2)               0.00       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/U42/Y (NAND3X1)            0.03       0.70 r
+  e/primary_alu/coxa0/cla0/ca1/U34/Y (INVX1)              0.02       0.73 f
+  e/primary_alu/coxa0/cla0/ca1/U35/Y (INVX1)              0.01       0.74 r
+  e/primary_alu/coxa0/cla0/ca1/U14/Y (AND2X2)             0.03       0.77 r
+  e/primary_alu/coxa0/cla0/ca1/U15/Y (INVX1)              0.01       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/U53/Y (AND2X2)             0.04       0.82 f
+  e/primary_alu/coxa0/cla0/ca1/fa[3]/Cin (fulladder1_8)
+                                                          0.00       0.82 f
+  e/primary_alu/coxa0/cla0/ca1/fa[3]/U2/Y (XNOR2X1)       0.03       0.84 f
+  e/primary_alu/coxa0/cla0/ca1/fa[3]/S (fulladder1_8)     0.00       0.84 f
+  e/primary_alu/coxa0/cla0/ca1/S<3> (cla4_2)              0.00       0.84 f
+  e/primary_alu/coxa0/cla0/S<7> (cla16_0)                 0.00       0.84 f
+  e/primary_alu/coxa0/mux0/InA<7> (mux4to1_16_4)          0.00       0.84 f
+  e/primary_alu/coxa0/mux0/U7/Y (AND2X1)                  0.03       0.88 f
+  e/primary_alu/coxa0/mux0/U29/Y (INVX1)                  0.00       0.88 r
+  e/primary_alu/coxa0/mux0/U15/Y (AND2X2)                 0.03       0.91 r
+  e/primary_alu/coxa0/mux0/U16/Y (INVX1)                  0.02       0.93 f
+  e/primary_alu/coxa0/mux0/Out<7> (mux4to1_16_4)          0.00       0.93 f
+  e/primary_alu/coxa0/Out<7> (cla_or_xor_and)             0.00       0.93 f
+  e/primary_alu/U27/Y (INVX1)                             0.01       0.93 r
+  e/primary_alu/U38/Y (MUX2X1)                            0.02       0.95 f
+  e/primary_alu/Out<7> (alu)                              0.00       0.95 f
+  e/U72/Y (AND2X2)                                        0.03       0.98 f
+  e/U332/Y (INVX1)                                        0.01       0.99 r
+  e/U58/Y (AND2X1)                                        0.03       1.02 r
+  e/U204/Y (AND2X2)                                       0.03       1.05 r
+  e/U205/Y (INVX1)                                        0.01       1.07 f
+  e/Result<7> (execute)                                   0.00       1.07 f
+  pem/Result<7> (pipe_em)                                 0.00       1.07 f
+  pem/U79/Y (INVX1)                                       0.00       1.07 r
+  pem/U114/Y (MUX2X1)                                     0.02       1.09 f
+  pem/address_reg[7]/d (dff_197)                          0.00       1.09 f
+  pem/address_reg[7]/U4/Y (AND2X2)                        0.03       1.12 f
+  pem/address_reg[7]/state_reg/D (DFFPOSX1)               0.00       1.12 f
+  data arrival time                                                  1.12
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[7]/state_reg/CLK (DFFPOSX1)             0.00       1.00 r
+  library setup time                                     -0.05       0.95
+  data required time                                                 0.95
+  --------------------------------------------------------------------------
+  data required time                                                 0.95
+  data arrival time                                                 -1.12
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.17
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[15]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U12/Y (INVX1)                                         0.01       0.12 r
+  e/U454/Y (INVX1)                                        0.02       0.14 f
+  e/U113/Y (AND2X2)                                       0.04       0.18 f
+  e/U211/Y (OR2X2)                                        0.04       0.21 f
+  e/U413/Y (INVX1)                                        0.01       0.22 r
+  e/primary_alu/A<10> (alu)                               0.00       0.22 r
+  e/primary_alu/U116/Y (XNOR2X1)                          0.03       0.25 f
+  e/primary_alu/demux0/In<10> (demux1to2_16_1)            0.00       0.25 f
+  e/primary_alu/demux0/d[10]/In (demux1to2_27)            0.00       0.25 f
+  e/primary_alu/demux0/d[10]/U2/Y (AND2X2)                0.04       0.28 f
+  e/primary_alu/demux0/d[10]/Out1 (demux1to2_27)          0.00       0.28 f
+  e/primary_alu/demux0/Out1<10> (demux1to2_16_1)          0.00       0.28 f
+  e/primary_alu/coxa0/A<10> (cla_or_xor_and)              0.00       0.28 f
+  e/primary_alu/coxa0/demux0/In<10> (demux1to4_16_1)      0.00       0.28 f
+  e/primary_alu/coxa0/demux0/demux[10]/In (demux1to4_27)
+                                                          0.00       0.28 f
+  e/primary_alu/coxa0/demux0/demux[10]/U5/Y (AND2X2)      0.03       0.32 f
+  e/primary_alu/coxa0/demux0/demux[10]/U6/Y (INVX1)       0.00       0.32 r
+  e/primary_alu/coxa0/demux0/demux[10]/U3/Y (OR2X2)       0.03       0.35 r
+  e/primary_alu/coxa0/demux0/demux[10]/U4/Y (INVX1)       0.02       0.37 f
+  e/primary_alu/coxa0/demux0/demux[10]/Out0 (demux1to4_27)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/demux0/U2/Y (BUFX4)                 0.05       0.42 f
+  e/primary_alu/coxa0/demux0/Out0<10> (demux1to4_16_1)
+                                                          0.00       0.42 f
+  e/primary_alu/coxa0/cla0/A<10> (cla16_0)                0.00       0.42 f
+  e/primary_alu/coxa0/cla0/ca2/A<2> (cla4_1)              0.00       0.42 f
+  e/primary_alu/coxa0/cla0/ca2/U15/Y (XOR2X1)             0.05       0.47 r
+  e/primary_alu/coxa0/cla0/ca2/U1/Y (INVX1)               0.03       0.50 f
+  e/primary_alu/coxa0/cla0/ca2/U2/Y (INVX1)               0.00       0.50 r
+  e/primary_alu/coxa0/cla0/ca2/U68/Y (AND2X2)             0.03       0.53 r
+  e/primary_alu/coxa0/cla0/ca2/U69/Y (INVX1)              0.03       0.56 f
+  e/primary_alu/coxa0/cla0/ca2/U6/Y (NOR3X1)              0.03       0.58 r
+  e/primary_alu/coxa0/cla0/ca2/U7/Y (INVX1)               0.03       0.61 f
+  e/primary_alu/coxa0/cla0/ca2/U29/Y (OR2X2)              0.05       0.65 f
+  e/primary_alu/coxa0/cla0/ca2/U30/Y (INVX1)              0.01       0.66 r
+  e/primary_alu/coxa0/cla0/ca2/PG (cla4_1)                0.00       0.66 r
+  e/primary_alu/coxa0/cla0/U20/Y (AOI21X1)                0.02       0.68 f
+  e/primary_alu/coxa0/cla0/U7/Y (BUFX2)                   0.03       0.72 f
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.75 f
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.00       0.75 r
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.75 r
+  e/primary_alu/coxa0/cla0/ca3/U50/Y (INVX1)              0.02       0.77 f
+  e/primary_alu/coxa0/cla0/ca3/U61/Y (AOI21X1)            0.04       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/Cin (fulladder1_0)
+                                                          0.00       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/U1/Y (BUFX2)         0.04       0.85 r
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/U2/Y (XNOR2X1)       0.03       0.87 f
+  e/primary_alu/coxa0/cla0/ca3/fa[3]/S (fulladder1_0)     0.00       0.87 f
+  e/primary_alu/coxa0/cla0/ca3/S<3> (cla4_0)              0.00       0.87 f
+  e/primary_alu/coxa0/cla0/S<15> (cla16_0)                0.00       0.87 f
+  e/primary_alu/coxa0/mux0/InA<15> (mux4to1_16_4)         0.00       0.87 f
+  e/primary_alu/coxa0/mux0/U125/Y (INVX1)                 0.00       0.88 r
+  e/primary_alu/coxa0/mux0/U152/Y (AOI22X1)               0.01       0.89 f
+  e/primary_alu/coxa0/mux0/Out<15> (mux4to1_16_4)         0.00       0.89 f
+  e/primary_alu/coxa0/Out<15> (cla_or_xor_and)            0.00       0.89 f
+  e/primary_alu/U94/Y (BUFX2)                             0.04       0.93 f
+  e/primary_alu/U103/Y (INVX1)                            0.00       0.93 r
+  e/primary_alu/U102/Y (OAI21X1)                          0.02       0.95 f
+  e/primary_alu/Out<15> (alu)                             0.00       0.95 f
+  e/U67/Y (AND2X1)                                        0.03       0.98 f
+  e/U143/Y (OR2X2)                                        0.04       1.02 f
+  e/U142/Y (OR2X2)                                        0.04       1.07 f
+  e/Result<15> (execute)                                  0.00       1.07 f
+  pem/Result<15> (pipe_em)                                0.00       1.07 f
+  pem/U103/Y (INVX1)                                      0.00       1.07 r
+  pem/U106/Y (MUX2X1)                                     0.02       1.08 f
+  pem/address_reg[15]/d (dff_205)                         0.00       1.08 f
+  pem/address_reg[15]/U4/Y (AND2X2)                       0.03       1.12 f
+  pem/address_reg[15]/state_reg/D (DFFPOSX1)              0.00       1.12 f
+  data arrival time                                                  1.12
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[15]/state_reg/CLK (DFFPOSX1)            0.00       1.00 r
+  library setup time                                     -0.05       0.95
+  data required time                                                 0.95
+  --------------------------------------------------------------------------
+  data required time                                                 0.95
+  data arrival time                                                 -1.12
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.17
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[12]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U50/Y (INVX1)              0.01       0.79 r
+  e/primary_alu/coxa0/cla0/ca3/U49/Y (INVX1)              0.02       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/fa[0]/Cin (fulladder1_3)
+                                                          0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/fa[0]/U1/Y (XNOR2X1)       0.03       0.84 f
+  e/primary_alu/coxa0/cla0/ca3/fa[0]/S (fulladder1_3)     0.00       0.84 f
+  e/primary_alu/coxa0/cla0/ca3/S<0> (cla4_0)              0.00       0.84 f
+  e/primary_alu/coxa0/cla0/S<12> (cla16_0)                0.00       0.84 f
+  e/primary_alu/coxa0/mux0/InA<12> (mux4to1_16_4)         0.00       0.84 f
+  e/primary_alu/coxa0/mux0/U9/Y (OAI21X1)                 0.04       0.88 r
+  e/primary_alu/coxa0/mux0/U6/Y (INVX1)                   0.03       0.91 f
+  e/primary_alu/coxa0/mux0/Out<12> (mux4to1_16_4)         0.00       0.91 f
+  e/primary_alu/coxa0/Out<12> (cla_or_xor_and)            0.00       0.91 f
+  e/primary_alu/U125/Y (INVX1)                            0.00       0.91 r
+  e/primary_alu/U36/Y (MUX2X1)                            0.02       0.93 f
+  e/primary_alu/Out<12> (alu)                             0.00       0.93 f
+  e/U83/Y (AND2X2)                                        0.03       0.96 f
+  e/U270/Y (INVX1)                                        0.00       0.96 r
+  e/U172/Y (AND2X2)                                       0.03       0.99 r
+  e/U173/Y (INVX1)                                        0.01       1.00 f
+  e/NextPC<12> (execute)                                  0.00       1.00 f
+  f/BranchPC<12> (fetch)                                  0.00       1.00 f
+  f/U109/Y (AND2X2)                                       0.03       1.04 f
+  f/U111/Y (INVX1)                                        0.00       1.03 r
+  f/U69/Y (AND2X2)                                        0.03       1.06 r
+  f/U70/Y (INVX1)                                         0.02       1.08 f
+  f/pc_reg[12]/d (dff_400)                                0.00       1.08 f
+  f/pc_reg[12]/U4/Y (AND2X1)                              0.03       1.11 f
+  f/pc_reg[12]/state_reg/D (DFFPOSX1)                     0.00       1.11 f
+  data arrival time                                                  1.11
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[12]/state_reg/CLK (DFFPOSX1)                   0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.11
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.17
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[11]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U450/Y (INVX1)                                        0.02       0.13 r
+  e/U101/Y (INVX1)                                        0.01       0.14 f
+  e/U463/Y (NAND3X1)                                      0.03       0.17 r
+  e/U129/Y (INVX1)                                        0.02       0.19 f
+  e/U118/Y (OR2X2)                                        0.05       0.24 f
+  e/U117/Y (OR2X2)                                        0.05       0.29 f
+  e/primary_alu/B<1> (alu)                                0.00       0.29 f
+  e/primary_alu/U31/Y (XOR2X1)                            0.04       0.32 r
+  e/primary_alu/demux1/In<1> (demux1to2_16_0)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/In (demux1to2_14)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/U3/Y (AND2X2)                 0.04       0.36 r
+  e/primary_alu/demux1/d[1]/Out1 (demux1to2_14)           0.00       0.36 r
+  e/primary_alu/demux1/Out1<1> (demux1to2_16_0)           0.00       0.36 r
+  e/primary_alu/coxa0/B<1> (cla_or_xor_and)               0.00       0.36 r
+  e/primary_alu/coxa0/demux1/In<1> (demux1to4_16_0)       0.00       0.36 r
+  e/primary_alu/coxa0/demux1/demux[1]/In (demux1to4_14)
+                                                          0.00       0.36 r
+  e/primary_alu/coxa0/demux1/demux[1]/U15/Y (AND2X2)      0.05       0.41 r
+  e/primary_alu/coxa0/demux1/demux[1]/Out0 (demux1to4_14)
+                                                          0.00       0.41 r
+  e/primary_alu/coxa0/demux1/Out0<1> (demux1to4_16_0)     0.00       0.41 r
+  e/primary_alu/coxa0/cla0/B<1> (cla16_0)                 0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/B<1> (cla4_3)              0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/U6/Y (XNOR2X1)             0.04       0.45 r
+  e/primary_alu/coxa0/cla0/ca0/U16/Y (INVX1)              0.02       0.48 f
+  e/primary_alu/coxa0/cla0/ca0/U8/Y (INVX1)               0.00       0.47 r
+  e/primary_alu/coxa0/cla0/ca0/U29/Y (AND2X2)             0.03       0.50 r
+  e/primary_alu/coxa0/cla0/ca0/U28/Y (INVX1)              0.02       0.53 f
+  e/primary_alu/coxa0/cla0/ca0/U25/Y (OR2X2)              0.05       0.57 f
+  e/primary_alu/coxa0/cla0/ca0/U21/Y (OR2X2)              0.04       0.61 f
+  e/primary_alu/coxa0/cla0/ca0/U22/Y (INVX1)              0.01       0.62 r
+  e/primary_alu/coxa0/cla0/ca0/PG (cla4_3)                0.00       0.62 r
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.64 f
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.01       0.65 r
+  e/primary_alu/coxa0/cla0/U16/Y (AOI21X1)                0.02       0.67 f
+  e/primary_alu/coxa0/cla0/U17/Y (INVX1)                  0.01       0.68 r
+  e/primary_alu/coxa0/cla0/ca2/Cin (cla4_1)               0.00       0.68 r
+  e/primary_alu/coxa0/cla0/ca2/U19/Y (INVX1)              0.02       0.70 f
+  e/primary_alu/coxa0/cla0/ca2/U81/Y (AOI21X1)            0.04       0.74 r
+  e/primary_alu/coxa0/cla0/ca2/fa[3]/Cin (fulladder1_4)
+                                                          0.00       0.74 r
+  e/primary_alu/coxa0/cla0/ca2/fa[3]/U2/Y (BUFX2)         0.04       0.78 r
+  e/primary_alu/coxa0/cla0/ca2/fa[3]/U1/Y (XNOR2X1)       0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca2/fa[3]/S (fulladder1_4)     0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca2/S<3> (cla4_1)              0.00       0.81 f
+  e/primary_alu/coxa0/cla0/S<11> (cla16_0)                0.00       0.81 f
+  e/primary_alu/coxa0/mux0/InA<11> (mux4to1_16_4)         0.00       0.81 f
+  e/primary_alu/coxa0/mux0/U4/Y (OR2X1)                   0.04       0.84 f
+  e/primary_alu/coxa0/mux0/U31/Y (INVX1)                  0.00       0.85 r
+  e/primary_alu/coxa0/mux0/U23/Y (OR2X2)                  0.03       0.88 r
+  e/primary_alu/coxa0/mux0/U24/Y (INVX1)                  0.02       0.90 f
+  e/primary_alu/coxa0/mux0/Out<11> (mux4to1_16_4)         0.00       0.90 f
+  e/primary_alu/coxa0/Out<11> (cla_or_xor_and)            0.00       0.90 f
+  e/primary_alu/U101/Y (INVX1)                            0.01       0.90 r
+  e/primary_alu/U160/Y (MUX2X1)                           0.02       0.93 f
+  e/primary_alu/Out<11> (alu)                             0.00       0.93 f
+  e/U266/Y (AND2X2)                                       0.03       0.96 f
+  e/U267/Y (INVX1)                                        0.00       0.96 r
+  e/U170/Y (AND2X2)                                       0.03       0.99 r
+  e/U171/Y (INVX1)                                        0.01       1.00 f
+  e/NextPC<11> (execute)                                  0.00       1.00 f
+  f/BranchPC<11> (fetch)                                  0.00       1.00 f
+  f/U113/Y (AND2X2)                                       0.03       1.04 f
+  f/U114/Y (INVX1)                                        0.00       1.03 r
+  f/U71/Y (AND2X2)                                        0.03       1.06 r
+  f/U72/Y (INVX1)                                         0.02       1.08 f
+  f/pc_reg[11]/d (dff_399)                                0.00       1.08 f
+  f/pc_reg[11]/U3/Y (AND2X1)                              0.03       1.11 f
+  f/pc_reg[11]/state_reg/D (DFFPOSX1)                     0.00       1.11 f
+  data arrival time                                                  1.11
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[11]/state_reg/CLK (DFFPOSX1)                   0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.11
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.17
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[9]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U16/Y (AOI21X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U17/Y (INVX1)                  0.02       0.71 f
+  e/primary_alu/coxa0/cla0/ca2/Cin (cla4_1)               0.00       0.71 f
+  e/primary_alu/coxa0/cla0/ca2/U71/Y (INVX1)              0.00       0.71 r
+  e/primary_alu/coxa0/cla0/ca2/U5/Y (INVX1)               0.02       0.74 f
+  e/primary_alu/coxa0/cla0/ca2/U40/Y (OR2X2)              0.05       0.78 f
+  e/primary_alu/coxa0/cla0/ca2/U41/Y (INVX1)              0.00       0.79 r
+  e/primary_alu/coxa0/cla0/ca2/U84/Y (AOI21X1)            0.01       0.79 f
+  e/primary_alu/coxa0/cla0/ca2/U53/Y (INVX1)              0.00       0.79 r
+  e/primary_alu/coxa0/cla0/ca2/U54/Y (INVX1)              0.02       0.81 f
+  e/primary_alu/coxa0/cla0/ca2/fa[1]/Cin (fulladder1_6)
+                                                          0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca2/fa[1]/U4/Y (XOR2X1)        0.03       0.84 f
+  e/primary_alu/coxa0/cla0/ca2/fa[1]/S (fulladder1_6)     0.00       0.84 f
+  e/primary_alu/coxa0/cla0/ca2/S<1> (cla4_1)              0.00       0.84 f
+  e/primary_alu/coxa0/cla0/S<9> (cla16_0)                 0.00       0.84 f
+  e/primary_alu/coxa0/mux0/InA<9> (mux4to1_16_4)          0.00       0.84 f
+  e/primary_alu/coxa0/mux0/U124/Y (INVX1)                 0.01       0.85 r
+  e/primary_alu/coxa0/mux0/U139/Y (AOI22X1)               0.01       0.86 f
+  e/primary_alu/coxa0/mux0/U100/Y (INVX1)                 0.01       0.87 r
+  e/primary_alu/coxa0/mux0/U101/Y (INVX1)                 0.02       0.88 f
+  e/primary_alu/coxa0/mux0/Out<9> (mux4to1_16_4)          0.00       0.88 f
+  e/primary_alu/coxa0/Out<9> (cla_or_xor_and)             0.00       0.88 f
+  e/primary_alu/U119/Y (INVX1)                            0.01       0.89 r
+  e/primary_alu/U158/Y (MUX2X1)                           0.02       0.91 f
+  e/primary_alu/Out<9> (alu)                              0.00       0.91 f
+  e/U255/Y (AND2X2)                                       0.03       0.95 f
+  e/U258/Y (INVX1)                                        0.00       0.95 r
+  e/U166/Y (AND2X2)                                       0.03       0.98 r
+  e/U167/Y (INVX1)                                        0.01       0.99 f
+  e/NextPC<9> (execute)                                   0.00       0.99 f
+  f/BranchPC<9> (fetch)                                   0.00       0.99 f
+  f/U117/Y (AND2X2)                                       0.03       1.02 f
+  f/U118/Y (INVX1)                                        0.00       1.02 r
+  f/U90/Y (AND2X2)                                        0.03       1.05 r
+  f/U91/Y (INVX1)                                         0.02       1.07 f
+  f/pc_reg[9]/d (dff_397)                                 0.00       1.07 f
+  f/pc_reg[9]/U3/Y (AND2X1)                               0.03       1.10 f
+  f/pc_reg[9]/state_reg/D (DFFPOSX1)                      0.00       1.10 f
+  data arrival time                                                  1.10
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[9]/state_reg/CLK (DFFPOSX1)                    0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[6]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U450/Y (INVX1)                                        0.02       0.13 r
+  e/U101/Y (INVX1)                                        0.01       0.14 f
+  e/U463/Y (NAND3X1)                                      0.03       0.17 r
+  e/U129/Y (INVX1)                                        0.02       0.19 f
+  e/U118/Y (OR2X2)                                        0.05       0.24 f
+  e/U117/Y (OR2X2)                                        0.05       0.29 f
+  e/primary_alu/B<1> (alu)                                0.00       0.29 f
+  e/primary_alu/U31/Y (XOR2X1)                            0.04       0.32 r
+  e/primary_alu/demux1/In<1> (demux1to2_16_0)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/In (demux1to2_14)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/U3/Y (AND2X2)                 0.04       0.36 r
+  e/primary_alu/demux1/d[1]/Out1 (demux1to2_14)           0.00       0.36 r
+  e/primary_alu/demux1/Out1<1> (demux1to2_16_0)           0.00       0.36 r
+  e/primary_alu/coxa0/B<1> (cla_or_xor_and)               0.00       0.36 r
+  e/primary_alu/coxa0/demux1/In<1> (demux1to4_16_0)       0.00       0.36 r
+  e/primary_alu/coxa0/demux1/demux[1]/In (demux1to4_14)
+                                                          0.00       0.36 r
+  e/primary_alu/coxa0/demux1/demux[1]/U15/Y (AND2X2)      0.05       0.41 r
+  e/primary_alu/coxa0/demux1/demux[1]/Out0 (demux1to4_14)
+                                                          0.00       0.41 r
+  e/primary_alu/coxa0/demux1/Out0<1> (demux1to4_16_0)     0.00       0.41 r
+  e/primary_alu/coxa0/cla0/B<1> (cla16_0)                 0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/B<1> (cla4_3)              0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/fa[1]/B (fulladder1_14)
+                                                          0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/fa[1]/U2/Y (XNOR2X1)       0.06       0.47 r
+  e/primary_alu/coxa0/cla0/ca0/fa[1]/P (fulladder1_14)
+                                                          0.00       0.47 r
+  e/primary_alu/coxa0/cla0/ca0/U51/Y (INVX1)              0.03       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U49/Y (INVX1)              0.00       0.50 r
+  e/primary_alu/coxa0/cla0/ca0/U67/Y (AOI21X1)            0.02       0.52 f
+  e/primary_alu/coxa0/cla0/ca0/U32/Y (BUFX2)              0.03       0.55 f
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.03       0.58 r
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 r
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.61 r
+  e/primary_alu/coxa0/cla0/U19/Y (INVX1)                  0.02       0.63 f
+  e/primary_alu/coxa0/cla0/U4/Y (AND2X2)                  0.04       0.67 f
+  e/primary_alu/coxa0/cla0/U2/Y (INVX2)                   0.02       0.69 r
+  e/primary_alu/coxa0/cla0/ca1/Cin (cla4_2)               0.00       0.69 r
+  e/primary_alu/coxa0/cla0/ca1/U42/Y (NAND3X1)            0.01       0.69 f
+  e/primary_alu/coxa0/cla0/ca1/U34/Y (INVX1)              0.01       0.70 r
+  e/primary_alu/coxa0/cla0/ca1/U35/Y (INVX1)              0.02       0.72 f
+  e/primary_alu/coxa0/cla0/ca1/U64/Y (AOI22X1)            0.03       0.75 r
+  e/primary_alu/coxa0/cla0/ca1/U27/Y (INVX1)              0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/U28/Y (INVX1)              0.01       0.79 r
+  e/primary_alu/coxa0/cla0/ca1/fa[2]/Cin (fulladder1_9)
+                                                          0.00       0.79 r
+  e/primary_alu/coxa0/cla0/ca1/fa[2]/U4/Y (XOR2X1)        0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca1/fa[2]/S (fulladder1_9)     0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca1/S<2> (cla4_2)              0.00       0.81 f
+  e/primary_alu/coxa0/cla0/S<6> (cla16_0)                 0.00       0.81 f
+  e/primary_alu/coxa0/mux0/InA<6> (mux4to1_16_4)          0.00       0.81 f
+  e/primary_alu/coxa0/mux0/U34/Y (AND2X1)                 0.03       0.85 f
+  e/primary_alu/coxa0/mux0/U35/Y (INVX1)                  0.00       0.85 r
+  e/primary_alu/coxa0/mux0/U135/Y (NAND3X1)               0.02       0.86 f
+  e/primary_alu/coxa0/mux0/U107/Y (INVX1)                 0.00       0.86 r
+  e/primary_alu/coxa0/mux0/U108/Y (INVX1)                 0.02       0.88 f
+  e/primary_alu/coxa0/mux0/Out<6> (mux4to1_16_4)          0.00       0.88 f
+  e/primary_alu/coxa0/Out<6> (cla_or_xor_and)             0.00       0.88 f
+  e/primary_alu/U18/Y (INVX1)                             0.01       0.89 r
+  e/primary_alu/U156/Y (MUX2X1)                           0.02       0.91 f
+  e/primary_alu/Out<6> (alu)                              0.00       0.91 f
+  e/U237/Y (AND2X2)                                       0.03       0.94 f
+  e/U240/Y (INVX1)                                        0.00       0.94 r
+  e/U160/Y (AND2X2)                                       0.03       0.97 r
+  e/U161/Y (INVX1)                                        0.01       0.99 f
+  e/NextPC<6> (execute)                                   0.00       0.99 f
+  f/BranchPC<6> (fetch)                                   0.00       0.99 f
+  f/U123/Y (AND2X2)                                       0.03       1.02 f
+  f/U124/Y (INVX1)                                        0.00       1.02 r
+  f/U79/Y (AND2X2)                                        0.03       1.05 r
+  f/U80/Y (INVX1)                                         0.02       1.06 f
+  f/pc_reg[6]/d (dff_394)                                 0.00       1.06 f
+  f/pc_reg[6]/U3/Y (AND2X1)                               0.03       1.09 f
+  f/pc_reg[6]/state_reg/D (DFFPOSX1)                      0.00       1.09 f
+  data arrival time                                                  1.09
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[6]/state_reg/CLK (DFFPOSX1)                    0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.09
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.15
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[13]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U50/Y (INVX1)              0.01       0.79 r
+  e/primary_alu/coxa0/cla0/ca3/U2/Y (INVX1)               0.01       0.80 f
+  e/primary_alu/coxa0/cla0/ca3/U16/Y (OR2X2)              0.04       0.84 f
+  e/primary_alu/coxa0/cla0/ca3/U17/Y (INVX1)              0.00       0.84 r
+  e/primary_alu/coxa0/cla0/ca3/U64/Y (AOI21X1)            0.01       0.85 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/Cin (fulladder1_2)
+                                                          0.00       0.85 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/U1/Y (BUFX2)         0.04       0.88 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/U2/Y (XNOR2X1)       0.03       0.91 f
+  e/primary_alu/coxa0/cla0/ca3/fa[1]/S (fulladder1_2)     0.00       0.91 f
+  e/primary_alu/coxa0/cla0/ca3/S<1> (cla4_0)              0.00       0.91 f
+  e/primary_alu/coxa0/cla0/S<13> (cla16_0)                0.00       0.91 f
+  e/primary_alu/coxa0/mux0/InA<13> (mux4to1_16_4)         0.00       0.91 f
+  e/primary_alu/coxa0/mux0/U120/Y (AOI21X1)               0.03       0.94 r
+  e/primary_alu/coxa0/mux0/U122/Y (INVX1)                 0.02       0.97 f
+  e/primary_alu/coxa0/mux0/Out<13> (mux4to1_16_4)         0.00       0.97 f
+  e/primary_alu/coxa0/Out<13> (cla_or_xor_and)            0.00       0.97 f
+  e/primary_alu/U37/Y (INVX1)                             0.01       0.97 r
+  e/primary_alu/U28/Y (MUX2X1)                            0.02       0.99 f
+  e/primary_alu/Out<13> (alu)                             0.00       0.99 f
+  e/U73/Y (AND2X2)                                        0.03       1.02 f
+  e/U399/Y (INVX1)                                        0.01       1.03 r
+  e/U541/Y (NAND3X1)                                      0.01       1.04 f
+  e/Result<13> (execute)                                  0.00       1.04 f
+  pem/Result<13> (pipe_em)                                0.00       1.04 f
+  pem/U101/Y (INVX1)                                      0.00       1.04 r
+  pem/U108/Y (MUX2X1)                                     0.02       1.06 f
+  pem/address_reg[13]/d (dff_203)                         0.00       1.06 f
+  pem/address_reg[13]/U4/Y (AND2X2)                       0.03       1.09 f
+  pem/address_reg[13]/state_reg/D (DFFPOSX1)              0.00       1.09 f
+  data arrival time                                                  1.09
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[13]/state_reg/CLK (DFFPOSX1)            0.00       1.00 r
+  library setup time                                     -0.05       0.95
+  data required time                                                 0.95
+  --------------------------------------------------------------------------
+  data required time                                                 0.95
+  data arrival time                                                 -1.09
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.15
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[14]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U10/Y (AND2X2)             0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/U11/Y (INVX1)              0.00       0.81 r
+  e/primary_alu/coxa0/cla0/ca3/U23/Y (AND2X2)             0.03       0.84 r
+  e/primary_alu/coxa0/cla0/ca3/U1/Y (INVX1)               0.02       0.86 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/Cin (fulladder1_1)
+                                                          0.00       0.86 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/U3/Y (XNOR2X1)       0.03       0.89 f
+  e/primary_alu/coxa0/cla0/ca3/fa[2]/S (fulladder1_1)     0.00       0.89 f
+  e/primary_alu/coxa0/cla0/ca3/S<2> (cla4_0)              0.00       0.89 f
+  e/primary_alu/coxa0/cla0/S<14> (cla16_0)                0.00       0.89 f
+  e/primary_alu/coxa0/mux0/InA<14> (mux4to1_16_4)         0.00       0.89 f
+  e/primary_alu/coxa0/mux0/U10/Y (INVX1)                  0.01       0.89 r
+  e/primary_alu/coxa0/mux0/U150/Y (AOI22X1)               0.01       0.90 f
+  e/primary_alu/coxa0/mux0/Out<14> (mux4to1_16_4)         0.00       0.90 f
+  e/primary_alu/coxa0/Out<14> (cla_or_xor_and)            0.00       0.90 f
+  e/primary_alu/U124/Y (BUFX2)                            0.04       0.94 f
+  e/primary_alu/U1/Y (BUFX2)                              0.03       0.97 f
+  e/primary_alu/U126/Y (INVX1)                            0.00       0.97 r
+  e/primary_alu/U161/Y (MUX2X1)                           0.02       1.00 f
+  e/primary_alu/Out<14> (alu)                             0.00       1.00 f
+  e/U400/Y (AND2X1)                                       0.03       1.03 f
+  e/U401/Y (INVX1)                                        0.00       1.03 r
+  e/U543/Y (NAND3X1)                                      0.01       1.04 f
+  e/Result<14> (execute)                                  0.00       1.04 f
+  pem/Result<14> (pipe_em)                                0.00       1.04 f
+  pem/U102/Y (INVX1)                                      0.00       1.04 r
+  pem/U107/Y (MUX2X1)                                     0.02       1.06 f
+  pem/address_reg[14]/d (dff_204)                         0.00       1.06 f
+  pem/address_reg[14]/U3/Y (AND2X1)                       0.03       1.09 f
+  pem/address_reg[14]/state_reg/D (DFFPOSX1)              0.00       1.09 f
+  data arrival time                                                  1.09
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[14]/state_reg/CLK (DFFPOSX1)            0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.09
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.15
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[10]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U450/Y (INVX1)                                        0.02       0.13 r
+  e/U101/Y (INVX1)                                        0.01       0.14 f
+  e/U463/Y (NAND3X1)                                      0.03       0.17 r
+  e/U129/Y (INVX1)                                        0.02       0.19 f
+  e/U118/Y (OR2X2)                                        0.05       0.24 f
+  e/U117/Y (OR2X2)                                        0.05       0.29 f
+  e/primary_alu/B<1> (alu)                                0.00       0.29 f
+  e/primary_alu/U31/Y (XOR2X1)                            0.04       0.32 r
+  e/primary_alu/demux1/In<1> (demux1to2_16_0)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/In (demux1to2_14)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/U3/Y (AND2X2)                 0.04       0.36 r
+  e/primary_alu/demux1/d[1]/Out1 (demux1to2_14)           0.00       0.36 r
+  e/primary_alu/demux1/Out1<1> (demux1to2_16_0)           0.00       0.36 r
+  e/primary_alu/coxa0/B<1> (cla_or_xor_and)               0.00       0.36 r
+  e/primary_alu/coxa0/demux1/In<1> (demux1to4_16_0)       0.00       0.36 r
+  e/primary_alu/coxa0/demux1/demux[1]/In (demux1to4_14)
+                                                          0.00       0.36 r
+  e/primary_alu/coxa0/demux1/demux[1]/U15/Y (AND2X2)      0.05       0.41 r
+  e/primary_alu/coxa0/demux1/demux[1]/Out0 (demux1to4_14)
+                                                          0.00       0.41 r
+  e/primary_alu/coxa0/demux1/Out0<1> (demux1to4_16_0)     0.00       0.41 r
+  e/primary_alu/coxa0/cla0/B<1> (cla16_0)                 0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/B<1> (cla4_3)              0.00       0.41 r
+  e/primary_alu/coxa0/cla0/ca0/U6/Y (XNOR2X1)             0.04       0.45 r
+  e/primary_alu/coxa0/cla0/ca0/U16/Y (INVX1)              0.02       0.48 f
+  e/primary_alu/coxa0/cla0/ca0/U8/Y (INVX1)               0.00       0.47 r
+  e/primary_alu/coxa0/cla0/ca0/U29/Y (AND2X2)             0.03       0.50 r
+  e/primary_alu/coxa0/cla0/ca0/U28/Y (INVX1)              0.02       0.53 f
+  e/primary_alu/coxa0/cla0/ca0/U25/Y (OR2X2)              0.05       0.57 f
+  e/primary_alu/coxa0/cla0/ca0/U21/Y (OR2X2)              0.04       0.61 f
+  e/primary_alu/coxa0/cla0/ca0/U22/Y (INVX1)              0.01       0.62 r
+  e/primary_alu/coxa0/cla0/ca0/PG (cla4_3)                0.00       0.62 r
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.64 f
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.01       0.65 r
+  e/primary_alu/coxa0/cla0/U16/Y (AOI21X1)                0.02       0.67 f
+  e/primary_alu/coxa0/cla0/U17/Y (INVX1)                  0.01       0.68 r
+  e/primary_alu/coxa0/cla0/ca2/Cin (cla4_1)               0.00       0.68 r
+  e/primary_alu/coxa0/cla0/ca2/U19/Y (INVX1)              0.02       0.70 f
+  e/primary_alu/coxa0/cla0/ca2/U83/Y (AOI21X1)            0.04       0.74 r
+  e/primary_alu/coxa0/cla0/ca2/fa[2]/Cin (fulladder1_5)
+                                                          0.00       0.74 r
+  e/primary_alu/coxa0/cla0/ca2/fa[2]/U6/Y (BUFX2)         0.04       0.78 r
+  e/primary_alu/coxa0/cla0/ca2/fa[2]/U9/Y (XOR2X1)        0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca2/fa[2]/S (fulladder1_5)     0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca2/S<2> (cla4_1)              0.00       0.81 f
+  e/primary_alu/coxa0/cla0/S<10> (cla16_0)                0.00       0.81 f
+  e/primary_alu/coxa0/mux0/InA<10> (mux4to1_16_4)         0.00       0.81 f
+  e/primary_alu/coxa0/mux0/U117/Y (AOI21X1)               0.04       0.84 r
+  e/primary_alu/coxa0/mux0/U119/Y (INVX1)                 0.02       0.87 f
+  e/primary_alu/coxa0/mux0/Out<10> (mux4to1_16_4)         0.00       0.87 f
+  e/primary_alu/coxa0/Out<10> (cla_or_xor_and)            0.00       0.87 f
+  e/primary_alu/U122/Y (INVX1)                            0.01       0.87 r
+  e/primary_alu/U159/Y (MUX2X1)                           0.02       0.90 f
+  e/primary_alu/Out<10> (alu)                             0.00       0.90 f
+  e/U261/Y (AND2X2)                                       0.03       0.93 f
+  e/U264/Y (INVX1)                                        0.00       0.93 r
+  e/U168/Y (AND2X2)                                       0.03       0.96 r
+  e/U169/Y (INVX1)                                        0.01       0.97 f
+  e/NextPC<10> (execute)                                  0.00       0.97 f
+  f/BranchPC<10> (fetch)                                  0.00       0.97 f
+  f/U115/Y (AND2X2)                                       0.03       1.01 f
+  f/U116/Y (INVX1)                                        0.00       1.01 r
+  f/U73/Y (AND2X2)                                        0.03       1.04 r
+  f/U74/Y (INVX1)                                         0.02       1.05 f
+  f/pc_reg[10]/d (dff_398)                                0.00       1.05 f
+  f/pc_reg[10]/U3/Y (AND2X1)                              0.03       1.08 f
+  f/pc_reg[10]/state_reg/D (DFFPOSX1)                     0.00       1.08 f
+  data arrival time                                                  1.08
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[10]/state_reg/CLK (DFFPOSX1)                   0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.08
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.14
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[5]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U19/Y (INVX1)                  0.00       0.62 r
+  e/primary_alu/coxa0/cla0/U4/Y (AND2X2)                  0.03       0.65 r
+  e/primary_alu/coxa0/cla0/U2/Y (INVX2)                   0.03       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/Cin (cla4_2)               0.00       0.67 f
+  e/primary_alu/coxa0/cla0/ca1/U42/Y (NAND3X1)            0.03       0.70 r
+  e/primary_alu/coxa0/cla0/ca1/U34/Y (INVX1)              0.02       0.73 f
+  e/primary_alu/coxa0/cla0/ca1/U9/Y (INVX1)               0.00       0.73 r
+  e/primary_alu/coxa0/cla0/ca1/U12/Y (AND2X2)             0.03       0.76 r
+  e/primary_alu/coxa0/cla0/ca1/U13/Y (INVX1)              0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/fa[1]/Cin (fulladder1_10)
+                                                          0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca1/fa[1]/U4/Y (XOR2X1)        0.03       0.81 f
+  e/primary_alu/coxa0/cla0/ca1/fa[1]/S (fulladder1_10)
+                                                          0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca1/S<1> (cla4_2)              0.00       0.81 f
+  e/primary_alu/coxa0/cla0/S<5> (cla16_0)                 0.00       0.81 f
+  e/primary_alu/coxa0/mux0/InA<5> (mux4to1_16_4)          0.00       0.81 f
+  e/primary_alu/coxa0/mux0/U8/Y (AND2X1)                  0.03       0.84 f
+  e/primary_alu/coxa0/mux0/U30/Y (INVX1)                  0.00       0.84 r
+  e/primary_alu/coxa0/mux0/U20/Y (AND2X2)                 0.03       0.87 r
+  e/primary_alu/coxa0/mux0/U21/Y (INVX1)                  0.02       0.89 f
+  e/primary_alu/coxa0/mux0/Out<5> (mux4to1_16_4)          0.00       0.89 f
+  e/primary_alu/coxa0/Out<5> (cla_or_xor_and)             0.00       0.89 f
+  e/primary_alu/U2/Y (BUFX2)                              0.03       0.92 f
+  e/primary_alu/U45/Y (INVX1)                             0.00       0.92 r
+  e/primary_alu/U155/Y (MUX2X1)                           0.02       0.95 f
+  e/primary_alu/Out<5> (alu)                              0.00       0.95 f
+  e/U386/Y (AND2X1)                                       0.03       0.98 f
+  e/U387/Y (INVX1)                                        0.00       0.98 r
+  e/U526/Y (NAND3X1)                                      0.01       0.99 f
+  e/U378/Y (BUFX2)                                        0.03       1.02 f
+  e/Result<5> (execute)                                   0.00       1.02 f
+  pem/Result<5> (pipe_em)                                 0.00       1.02 f
+  pem/U77/Y (INVX1)                                       0.00       1.02 r
+  pem/U116/Y (MUX2X1)                                     0.02       1.04 f
+  pem/address_reg[5]/d (dff_195)                          0.00       1.04 f
+  pem/address_reg[5]/U4/Y (AND2X2)                        0.03       1.07 f
+  pem/address_reg[5]/state_reg/D (DFFPOSX1)               0.00       1.07 f
+  data arrival time                                                  1.07
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[5]/state_reg/CLK (DFFPOSX1)             0.00       1.00 r
+  library setup time                                     -0.05       0.95
+  data required time                                                 0.95
+  --------------------------------------------------------------------------
+  data required time                                                 0.95
+  data arrival time                                                 -1.07
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.12
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[8]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U16/Y (AOI21X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U17/Y (INVX1)                  0.02       0.71 f
+  e/primary_alu/coxa0/cla0/ca2/Cin (cla4_1)               0.00       0.71 f
+  e/primary_alu/coxa0/cla0/ca2/U71/Y (INVX1)              0.00       0.71 r
+  e/primary_alu/coxa0/cla0/ca2/U5/Y (INVX1)               0.02       0.74 f
+  e/primary_alu/coxa0/cla0/ca2/fa[0]/Cin (fulladder1_7)
+                                                          0.00       0.74 f
+  e/primary_alu/coxa0/cla0/ca2/fa[0]/U1/Y (XOR2X1)        0.03       0.77 f
+  e/primary_alu/coxa0/cla0/ca2/fa[0]/S (fulladder1_7)     0.00       0.77 f
+  e/primary_alu/coxa0/cla0/ca2/S<0> (cla4_1)              0.00       0.77 f
+  e/primary_alu/coxa0/cla0/S<8> (cla16_0)                 0.00       0.77 f
+  e/primary_alu/coxa0/mux0/InA<8> (mux4to1_16_4)          0.00       0.77 f
+  e/primary_alu/coxa0/mux0/U12/Y (AND2X1)                 0.03       0.80 f
+  e/primary_alu/coxa0/mux0/U25/Y (INVX1)                  0.00       0.80 r
+  e/primary_alu/coxa0/mux0/U102/Y (AND2X2)                0.03       0.83 r
+  e/primary_alu/coxa0/mux0/U103/Y (INVX1)                 0.01       0.84 f
+  e/primary_alu/coxa0/mux0/Out<8> (mux4to1_16_4)          0.00       0.84 f
+  e/primary_alu/coxa0/Out<8> (cla_or_xor_and)             0.00       0.84 f
+  e/primary_alu/U127/Y (INVX1)                            0.01       0.85 r
+  e/primary_alu/U157/Y (MUX2X1)                           0.02       0.88 f
+  e/primary_alu/Out<8> (alu)                              0.00       0.88 f
+  e/U249/Y (AND2X2)                                       0.03       0.91 f
+  e/U252/Y (INVX1)                                        0.00       0.91 r
+  e/U164/Y (AND2X2)                                       0.03       0.94 r
+  e/U165/Y (INVX1)                                        0.01       0.95 f
+  e/NextPC<8> (execute)                                   0.00       0.95 f
+  f/BranchPC<8> (fetch)                                   0.00       0.95 f
+  f/U119/Y (AND2X2)                                       0.03       0.99 f
+  f/U120/Y (INVX1)                                        0.00       0.98 r
+  f/U75/Y (AND2X2)                                        0.03       1.01 r
+  f/U76/Y (INVX1)                                         0.02       1.03 f
+  f/pc_reg[8]/d (dff_396)                                 0.00       1.03 f
+  f/pc_reg[8]/U3/Y (AND2X1)                               0.03       1.06 f
+  f/pc_reg[8]/state_reg/D (DFFPOSX1)                      0.00       1.06 f
+  data arrival time                                                  1.06
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[8]/state_reg/CLK (DFFPOSX1)                    0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.06
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.12
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[12]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U96/Y (INVX1)                                         0.01       0.12 r
+  e/U76/Y (INVX1)                                         0.03       0.15 f
+  e/U100/Y (OR2X2)                                        0.04       0.19 f
+  e/U206/Y (AND2X2)                                       0.04       0.23 f
+  e/U207/Y (INVX1)                                        0.01       0.23 r
+  e/primary_alu/A<2> (alu)                                0.00       0.23 r
+  e/primary_alu/U121/Y (XNOR2X1)                          0.03       0.26 f
+  e/primary_alu/demux0/In<2> (demux1to2_16_1)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/In (demux1to2_19)             0.00       0.26 f
+  e/primary_alu/demux0/d[2]/U3/Y (AND2X2)                 0.04       0.30 f
+  e/primary_alu/demux0/d[2]/Out1 (demux1to2_19)           0.00       0.30 f
+  e/primary_alu/demux0/Out1<2> (demux1to2_16_1)           0.00       0.30 f
+  e/primary_alu/coxa0/A<2> (cla_or_xor_and)               0.00       0.30 f
+  e/primary_alu/coxa0/demux0/In<2> (demux1to4_16_1)       0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/In (demux1to4_19)
+                                                          0.00       0.30 f
+  e/primary_alu/coxa0/demux0/demux[2]/U4/Y (INVX1)        0.00       0.30 r
+  e/primary_alu/coxa0/demux0/demux[2]/U8/Y (NOR3X1)       0.02       0.32 f
+  e/primary_alu/coxa0/demux0/demux[2]/Out0 (demux1to4_19)
+                                                          0.00       0.32 f
+  e/primary_alu/coxa0/demux0/Out0<2> (demux1to4_16_1)     0.00       0.32 f
+  e/primary_alu/coxa0/cla0/A<2> (cla16_0)                 0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/A<2> (cla4_3)              0.00       0.32 f
+  e/primary_alu/coxa0/cla0/ca0/U60/Y (BUFX4)              0.05       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/A (fulladder1_13)
+                                                          0.00       0.37 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/U8/Y (AND2X2)        0.04       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/fa[2]/G (fulladder1_13)
+                                                          0.00       0.41 f
+  e/primary_alu/coxa0/cla0/ca0/U65/Y (NAND3X1)            0.03       0.43 r
+  e/primary_alu/coxa0/cla0/ca0/U44/Y (INVX1)              0.02       0.46 f
+  e/primary_alu/coxa0/cla0/ca0/U10/Y (INVX1)              0.00       0.46 r
+  e/primary_alu/coxa0/cla0/ca0/U33/Y (AND2X2)             0.03       0.49 r
+  e/primary_alu/coxa0/cla0/ca0/U34/Y (INVX1)              0.02       0.50 f
+  e/primary_alu/coxa0/cla0/ca0/U69/Y (AOI21X1)            0.03       0.54 r
+  e/primary_alu/coxa0/cla0/ca0/U31/Y (BUFX2)              0.03       0.57 r
+  e/primary_alu/coxa0/cla0/ca0/U70/Y (AOI21X1)            0.01       0.58 f
+  e/primary_alu/coxa0/cla0/ca0/GG (cla4_3)                0.00       0.58 f
+  e/primary_alu/coxa0/cla0/U11/Y (BUFX2)                  0.04       0.62 f
+  e/primary_alu/coxa0/cla0/U14/Y (AOI21X1)                0.02       0.63 r
+  e/primary_alu/coxa0/cla0/U15/Y (INVX1)                  0.03       0.66 f
+  e/primary_alu/coxa0/cla0/U22/Y (NAND3X1)                0.03       0.69 r
+  e/primary_alu/coxa0/cla0/U8/Y (BUFX2)                   0.03       0.72 r
+  e/primary_alu/coxa0/cla0/U9/Y (AND2X2)                  0.03       0.76 r
+  e/primary_alu/coxa0/cla0/U1/Y (INVX1)                   0.02       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/Cin (cla4_0)               0.00       0.78 f
+  e/primary_alu/coxa0/cla0/ca3/U50/Y (INVX1)              0.01       0.79 r
+  e/primary_alu/coxa0/cla0/ca3/U49/Y (INVX1)              0.02       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/fa[0]/Cin (fulladder1_3)
+                                                          0.00       0.81 f
+  e/primary_alu/coxa0/cla0/ca3/fa[0]/U1/Y (XNOR2X1)       0.03       0.84 f
+  e/primary_alu/coxa0/cla0/ca3/fa[0]/S (fulladder1_3)     0.00       0.84 f
+  e/primary_alu/coxa0/cla0/ca3/S<0> (cla4_0)              0.00       0.84 f
+  e/primary_alu/coxa0/cla0/S<12> (cla16_0)                0.00       0.84 f
+  e/primary_alu/coxa0/mux0/InA<12> (mux4to1_16_4)         0.00       0.84 f
+  e/primary_alu/coxa0/mux0/U9/Y (OAI21X1)                 0.04       0.88 r
+  e/primary_alu/coxa0/mux0/U6/Y (INVX1)                   0.03       0.91 f
+  e/primary_alu/coxa0/mux0/Out<12> (mux4to1_16_4)         0.00       0.91 f
+  e/primary_alu/coxa0/Out<12> (cla_or_xor_and)            0.00       0.91 f
+  e/primary_alu/U125/Y (INVX1)                            0.00       0.91 r
+  e/primary_alu/U36/Y (MUX2X1)                            0.02       0.93 f
+  e/primary_alu/Out<12> (alu)                             0.00       0.93 f
+  e/U84/Y (BUFX2)                                         0.03       0.96 f
+  e/U85/Y (AND2X2)                                        0.03       0.99 f
+  e/U398/Y (INVX1)                                        0.01       1.00 r
+  e/U539/Y (NAND3X1)                                      0.01       1.01 f
+  e/Result<12> (execute)                                  0.00       1.01 f
+  pem/Result<12> (pipe_em)                                0.00       1.01 f
+  pem/U100/Y (INVX1)                                      0.00       1.01 r
+  pem/U109/Y (MUX2X1)                                     0.02       1.03 f
+  pem/address_reg[12]/d (dff_202)                         0.00       1.03 f
+  pem/address_reg[12]/U4/Y (AND2X2)                       0.03       1.06 f
+  pem/address_reg[12]/state_reg/D (DFFPOSX1)              0.00       1.06 f
+  data arrival time                                                  1.06
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[12]/state_reg/CLK (DFFPOSX1)            0.00       1.00 r
+  library setup time                                     -0.05       0.95
+  data required time                                                 0.95
+  --------------------------------------------------------------------------
+  data required time                                                 0.95
+  data arrival time                                                 -1.06
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.11
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: pem/address_reg[1]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U450/Y (INVX1)                                        0.02       0.13 r
+  e/U101/Y (INVX1)                                        0.01       0.14 f
+  e/U463/Y (NAND3X1)                                      0.03       0.17 r
+  e/U129/Y (INVX1)                                        0.02       0.19 f
+  e/U118/Y (OR2X2)                                        0.05       0.24 f
+  e/U117/Y (OR2X2)                                        0.05       0.29 f
+  e/primary_alu/B<1> (alu)                                0.00       0.29 f
+  e/primary_alu/U31/Y (XOR2X1)                            0.04       0.32 r
+  e/primary_alu/demux1/In<1> (demux1to2_16_0)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/In (demux1to2_14)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/U1/Y (BUFX2)                  0.04       0.36 r
+  e/primary_alu/demux1/d[1]/U4/Y (AND2X2)                 0.06       0.42 r
+  e/primary_alu/demux1/d[1]/Out0 (demux1to2_14)           0.00       0.42 r
+  e/primary_alu/demux1/Out0<1> (demux1to2_16_0)           0.00       0.42 r
+  e/primary_alu/shift/Cnt<1> (shifter)                    0.00       0.42 r
+  e/primary_alu/shift/ls/Cnt<1> (lshifter)                0.00       0.42 r
+  e/primary_alu/shift/ls/U213/Y (INVX1)                   0.03       0.45 f
+  e/primary_alu/shift/ls/U23/Y (AND2X2)                   0.08       0.53 f
+  e/primary_alu/shift/ls/U233/Y (AOI22X1)                 0.04       0.57 r
+  e/primary_alu/shift/ls/U87/Y (INVX1)                    0.02       0.60 f
+  e/primary_alu/shift/ls/U88/Y (INVX1)                    0.00       0.59 r
+  e/primary_alu/shift/ls/U192/Y (AND2X2)                  0.03       0.63 r
+  e/primary_alu/shift/ls/U193/Y (INVX1)                   0.03       0.66 f
+  e/primary_alu/shift/ls/U237/Y (AOI22X1)                 0.04       0.70 r
+  e/primary_alu/shift/ls/U105/Y (BUFX2)                   0.03       0.74 r
+  e/primary_alu/shift/ls/U142/Y (AND2X2)                  0.03       0.77 r
+  e/primary_alu/shift/ls/U143/Y (INVX1)                   0.01       0.78 f
+  e/primary_alu/shift/ls/Out<1> (lshifter)                0.00       0.78 f
+  e/primary_alu/shift/U22/Y (INVX1)                       0.00       0.78 r
+  e/primary_alu/shift/U35/Y (MUX2X1)                      0.02       0.80 f
+  e/primary_alu/shift/Out<1> (shifter)                    0.00       0.80 f
+  e/primary_alu/U82/Y (AND2X2)                            0.04       0.84 f
+  e/primary_alu/U83/Y (INVX1)                             0.00       0.83 r
+  e/primary_alu/U59/Y (AND2X2)                            0.03       0.86 r
+  e/primary_alu/U60/Y (INVX1)                             0.02       0.88 f
+  e/primary_alu/Out<1> (alu)                              0.00       0.88 f
+  e/U545/Y (AOI22X1)                                      0.04       0.92 r
+  e/U180/Y (AND2X2)                                       0.03       0.95 r
+  e/U181/Y (INVX1)                                        0.02       0.97 f
+  e/Result<1> (execute)                                   0.00       0.97 f
+  pem/Result<1> (pipe_em)                                 0.00       0.97 f
+  pem/U76/Y (AOI22X1)                                     0.03       1.00 r
+  pem/U36/Y (INVX1)                                       0.02       1.02 f
+  pem/address_reg[1]/d (dff_191)                          0.00       1.02 f
+  pem/address_reg[1]/U3/Y (INVX1)                         0.00       1.02 r
+  pem/address_reg[1]/U4/Y (NOR2X1)                        0.01       1.03 f
+  pem/address_reg[1]/state_reg/D (DFFPOSX1)               0.00       1.03 f
+  data arrival time                                                  1.03
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  pem/address_reg[1]/state_reg/CLK (DFFPOSX1)             0.00       1.00 r
+  library setup time                                     -0.07       0.93
+  data required time                                                 0.93
+  --------------------------------------------------------------------------
+  data required time                                                 0.93
+  data arrival time                                                 -1.03
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.11
+
+
+  Startpoint: pde/LinkReg/state_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: f/pc_reg[3]/state_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  pde/LinkReg/state_reg/CLK (DFFPOSX1)                    0.00 #     0.00 r
+  pde/LinkReg/state_reg/Q (DFFPOSX1)                      0.11       0.11 f
+  pde/LinkReg/q (dff_338)                                 0.00       0.11 f
+  pde/Link_Out (pipe_de)                                  0.00       0.11 f
+  e/Link (execute)                                        0.00       0.11 f
+  e/U450/Y (INVX1)                                        0.02       0.13 r
+  e/U101/Y (INVX1)                                        0.01       0.14 f
+  e/U463/Y (NAND3X1)                                      0.03       0.17 r
+  e/U129/Y (INVX1)                                        0.02       0.19 f
+  e/U118/Y (OR2X2)                                        0.05       0.24 f
+  e/U117/Y (OR2X2)                                        0.05       0.29 f
+  e/primary_alu/B<1> (alu)                                0.00       0.29 f
+  e/primary_alu/U31/Y (XOR2X1)                            0.04       0.32 r
+  e/primary_alu/demux1/In<1> (demux1to2_16_0)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/In (demux1to2_14)             0.00       0.32 r
+  e/primary_alu/demux1/d[1]/U1/Y (BUFX2)                  0.04       0.36 r
+  e/primary_alu/demux1/d[1]/U4/Y (AND2X2)                 0.06       0.42 r
+  e/primary_alu/demux1/d[1]/Out0 (demux1to2_14)           0.00       0.42 r
+  e/primary_alu/demux1/Out0<1> (demux1to2_16_0)           0.00       0.42 r
+  e/primary_alu/shift/Cnt<1> (shifter)                    0.00       0.42 r
+  e/primary_alu/shift/rs/Cnt<1> (rshifter)                0.00       0.42 r
+  e/primary_alu/shift/rs/U217/Y (INVX1)                   0.03       0.45 f
+  e/primary_alu/shift/rs/U189/Y (AND2X2)                  0.08       0.53 f
+  e/primary_alu/shift/rs/U265/Y (AOI22X1)                 0.04       0.57 r
+  e/primary_alu/shift/rs/U106/Y (BUFX2)                   0.03       0.60 r
+  e/primary_alu/shift/rs/U215/Y (AND2X2)                  0.03       0.63 r
+  e/primary_alu/shift/rs/U216/Y (INVX1)                   0.03       0.67 f
+  e/primary_alu/shift/rs/U267/Y (AOI22X1)                 0.03       0.70 r
+  e/primary_alu/shift/rs/U157/Y (INVX1)                   0.02       0.72 f
+  e/primary_alu/shift/rs/U34/Y (OR2X2)                    0.04       0.76 f
+  e/primary_alu/shift/rs/U33/Y (OR2X2)                    0.04       0.81 f
+  e/primary_alu/shift/rs/Out<3> (rshifter)                0.00       0.81 f
+  e/primary_alu/shift/U2/Y (INVX1)                        0.00       0.81 r
+  e/primary_alu/shift/U37/Y (MUX2X1)                      0.02       0.83 f
+  e/primary_alu/shift/Out<3> (shifter)                    0.00       0.83 f
+  e/primary_alu/U40/Y (INVX1)                             0.01       0.84 r
+  e/primary_alu/U153/Y (MUX2X1)                           0.02       0.86 f
+  e/primary_alu/Out<3> (alu)                              0.00       0.86 f
+  e/U222/Y (AND2X2)                                       0.03       0.89 f
+  e/U225/Y (INVX1)                                        0.00       0.89 r
+  e/U153/Y (AND2X2)                                       0.03       0.92 r
+  e/U154/Y (INVX1)                                        0.01       0.93 f
+  e/NextPC<3> (execute)                                   0.00       0.93 f
+  f/BranchPC<3> (fetch)                                   0.00       0.93 f
+  f/U129/Y (AND2X2)                                       0.03       0.97 f
+  f/U130/Y (INVX1)                                        0.00       0.96 r
+  f/U85/Y (AND2X2)                                        0.03       0.99 r
+  f/U87/Y (INVX1)                                         0.02       1.01 f
+  f/pc_reg[3]/d (dff_391)                                 0.00       1.01 f
+  f/pc_reg[3]/U3/Y (AND2X1)                               0.03       1.04 f
+  f/pc_reg[3]/state_reg/D (DFFPOSX1)                      0.00       1.04 f
+  data arrival time                                                  1.04
+
+  clock clk (rise edge)                                   1.00       1.00
+  clock network delay (ideal)                             0.00       1.00
+  f/pc_reg[3]/state_reg/CLK (DFFPOSX1)                    0.00       1.00 r
+  library setup time                                     -0.06       0.94
+  data required time                                                 0.94
+  --------------------------------------------------------------------------
+  data required time                                                 0.94
+  data arrival time                                                 -1.04
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.10
+
+
+1
