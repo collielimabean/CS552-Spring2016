@@ -1,0 +1,46 @@
+ 
+****************************************
+Report : reference
+Design : proc
+Version: B-2008.09-SP3
+Date   : Mon May  9 15:40:39 2016
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+AND2X1             gscl45nm       2.346500      14     32.850999  
+AND2X2             gscl45nm       2.815800       1      2.815800  
+AOI22X1            gscl45nm       3.285100       1      3.285100  
+BUFX2              gscl45nm       2.346500       7     16.425499  
+INVX1              gscl45nm       1.407900      18     25.342200  
+INVX2              gscl45nm       1.877200       1      1.877200  
+NAND3X1            gscl45nm       2.346500       8     18.771999  
+NOR3X1             gscl45nm       2.815800       3      8.447400  
+OAI21X1            gscl45nm       2.815800       1      2.815800  
+OR2X1              gscl45nm       2.346500       7     16.425499  
+OR2X2              gscl45nm       2.815800       1      2.815800  
+XNOR2X1            gscl45nm       4.693000      12     56.315998  
+XOR2X1             gscl45nm       4.693000       6     28.157999  
+decode                         4649.355016       1   4649.355016  h, n
+execute                        6906.218670       1   6906.218670  h, n
+fetch                         15142.902843       1  15142.902843  h, n
+memory                        11111.615949       1  11111.615949  h, n
+pipe_de                        1955.103762       1   1955.103762  h, n
+pipe_em                         856.003184       1    856.003184  h, n
+pipe_fd                         568.322289       1    568.322289  h, n
+pipe_mw                         762.612485       1    762.612485  h, n
+writeback                        76.495899       1     76.495899  h
+-----------------------------------------------------------------------------
+Total 22 references                                 42244.977390
+1
