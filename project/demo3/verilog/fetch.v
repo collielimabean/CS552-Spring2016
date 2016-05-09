@@ -12,7 +12,7 @@ module fetch(BranchPC, BranchJumpTaken, clk, rst, Halt, Rti, Exception, Stall, I
     dff epc_reg[15:0](.d (nextEPC), .q (epc), .rst (rst), .clk (clk));
     dff excpt_reg (.d (nextExcptState), .q(curExcptState), .rst (rst), .clk (clk));
 
-/*
+
     memory2c instr_mem(.data_in      (16'd0),
                        .data_out     (InstrMem),
                        .addr         (pc),
@@ -21,8 +21,12 @@ module fetch(BranchPC, BranchJumpTaken, clk, rst, Halt, Rti, Exception, Stall, I
                        .createdump   (1'b0),
                        .clk          (clk),
                        .rst          (rst));
-*/
 
+assign InstrMemStall = 1'b0;
+assign CacheHit = 1'b0;
+assign Err = 1'b0;
+
+/*
     stallmem instr_mem(.DataOut         (InstrMem),
                        .Done            (InstrMemDone),
                        .Stall           (InstrMemStall),
@@ -35,7 +39,7 @@ module fetch(BranchPC, BranchJumpTaken, clk, rst, Halt, Rti, Exception, Stall, I
                        .createdump      (createdump),
                        .clk             (clk),
                        .rst             (rst));
-
+*/
     // pc = pc + 2 adder
     cla16 pc_inc(.A     (pc),
                  .B     (16'd2),
