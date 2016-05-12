@@ -1,5 +1,5 @@
 echo "********** CS552 Reading files begin ********************"
-set my_verilog_files [list alu.v cla16.v cla4.v cla_or_xor_and.v control_unit.v decoder2to4.v decoder3to8.v decode.v demux1to2_16.v demux1to2.v demux1to4_16.v demux1to4.v demux1to8_16.v demux1to8.v dff.v execute.v fetch.v fulladder1.v lshifter.v memory2c.syn.v memory.v memv.syn.v mux4to1_16.v mux4to1_2.v mux4to1.v mux8to1_16.v pipe_de.v pipe_em.v pipe_fd.v pipe_mw.v proc.v register16.v rf_bypass.v rf.v rshifter.v shifter.v stallmem.syn.v writeback.v  ]
+set my_verilog_files [list alu.v cache.v cla16.v cla4.v cla_or_xor_and.v control_unit.v decoder2to4.v decoder3to8.v decode.v demux1to2_16.v demux1to2.v demux1to4_16.v demux1to4_64.v demux1to4.v demux1to8_16.v demux1to8.v dff.v execute.v fetch.v final_memory.syn.v four_bank_mem.v fulladder1.v lshifter.v memc.syn.v memory2c_align.syn.v memory2c.syn.v memory.v mem_system.v memv.syn.v mux4to1_16.v mux4to1_2.v mux4to1_64.v mux4to1.v mux8to1_16.v pipe_de.v pipe_em.v pipe_fd.v pipe_mw.v proc.v register16.v rf_bypass.v rf.v rshifter.v shifter.v stallmem.syn.v writeback.v  ]
 set my_toplevel proc
 define_design_lib WORK -path ./WORK
 analyze -f verilog $my_verilog_files
