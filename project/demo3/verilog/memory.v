@@ -12,19 +12,7 @@ module memory(MemRead, MemWrite, halt, clk, rst,
     output [15:0] ReadData;
     output Err, DataMemStall, CacheHit;
 
-/*
-    memory2c data_mem(.data_in      (WriteData),
-                      .data_out     (ReadData),
-                      .addr         (Address),
-                      .enable       (~halt),
-                      .wr           (MemWrite),
-                      .createdump   (halt),
-                      .clk          (clk),
-                      .rst          (rst));
-*/
-
-
-    stallmem data_mem(.DataOut         (ReadData),
+    mem_system #(1) data_mem(.DataOut         (ReadData),
                       .Done            (DataMemDone),
                       .Stall           (DataMemStall),
                       .CacheHit        (CacheHit),
